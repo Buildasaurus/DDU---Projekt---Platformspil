@@ -1,0 +1,6 @@
+funktioner:
+- input funktion
+- fysikudregnefunktion (tyngdekraft)
+- banedesign
+- sprite design
+- tegne bane i processing (kollision med mur)
