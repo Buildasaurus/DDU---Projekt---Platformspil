@@ -4,3 +4,4 @@ funktioner:
 - banedesign
 - sprite design
 - tegne bane i processing (kollision med mur)
+- 
