@@ -1,1 +1,1 @@
-Lavet af Jonatan, Cathrine og Jonathan
+Lavet af Jonatan, Johnathan og Jonathan
