@@ -1,7 +1,8 @@
 funktioner:
-- input funktion
-- fysikudregnefunktion (tyngdekraft)
-- banedesign
-- sprite design
-- tegne bane i processing (kollision med mur)
-- 
+- input funktion (Jonatan)
+- fysikudregnefunktion (tyngdekraft) (Jhohnhahthhhahnh)
+- kollision med mur (Jonathan)
+- banedesign - tegne i tegneprogram (Jhohnhahthhhahnh)
+- eksplosion når man putter i den forkerte skraldespand (Jonathan)
+- sprite design (Jonatan)
+- Overveje at tilføje forhindringer man kan dø af i første bane, ellers i de senere baner (alle)
