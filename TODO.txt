@@ -1,8 +1,8 @@
 funktioner:
-- input funktion (Jonatan)
+- input funktion (Jonathan)
 - fysikudregnefunktion (tyngdekraft) (Jhohnhahthhhahnh)
 - kollision med mur (Jonathan)
 - banedesign - tegne i tegneprogram (Jhohnhahthhhahnh)
-- eksplosion når man putter i den forkerte skraldespand (Jonathan)
+- eksplosion når man putter i den forkerte skraldespand (Jonatan)
 - sprite design (Jonatan)
 - Overveje at tilføje forhindringer man kan dø af i første bane, ellers i de senere baner (alle)
