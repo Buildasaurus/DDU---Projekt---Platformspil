@@ -23,6 +23,10 @@ void draw()
 void keyPressed() //input function to control the movements of myren.
 {
   myre.setMove(keyCode, true);
+  if (keyCode == 32)
+  {
+    myre.pickedUp = !myre.pickedUp;
+  }
   rect(20,20,20,20);
   fill(200, 300, 300);
 }
