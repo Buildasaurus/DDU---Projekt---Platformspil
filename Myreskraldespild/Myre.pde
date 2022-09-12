@@ -6,15 +6,20 @@ class Myre
   PVector velocity = new PVector(0,0);
   int height = 20;
   int width = 10;
-  boolean right = false, left = false, up = false, touchingGround = true;
+  boolean right = false, left = false, up = false, touchingGround = false;
+  
 
   
   
   void update()
   {
     move(); //moves myren if the move booleans are true (if a key is pressed)
-    location = PVector.add(location, velocity);
+    location.x = location.x + velocity.x;
+    location.y = location.y + velocity.y;
     velocity.x = 0; // reset the x velocity of myreren.
+    text("velocity y: " + velocity.y, 300, 250);
+    text("velocity x: " + velocity.x, 450, 250);
+
   }
   
   void display()
@@ -26,13 +31,7 @@ class Myre
   
   void move() //moves myren if the arrows are clicked.
   {
-    touchingGround = true;
-    if(location.y < 400)
-    {
-      touchingGround = false;
-    }
-    //touchingGround = isTouchingGround();
-    fill(0,0,200);
+    touchingGround = isTouchingGround();
     if(right == true)
     {
       velocity.x += 2;
@@ -45,19 +44,19 @@ class Myre
     //jump only if myren is on the ground
     if(up == true && touchingGround == true)
     {
-      velocity.y -= 10;
+      velocity.y -= 3;
       touchingGround= false;
     }
     if(touchingGround == false) //if not touching ground, apply gravity.
     {
-      velocity.y += 1;
+      velocity.y += 0.01;
     }
     if(touchingGround == true) // if touching ground, stop accelerating downw
     {
       velocity.y = 0;
     }
   }
-  
+
   void setMove(int keycode, boolean bool) //set the booleans of the directions, to figure which key is pressed
   {
     switch(keycode) //alternative if statement.
@@ -73,10 +72,22 @@ class Myre
         return;
     }
   }
-  
+
   boolean isTouchingGround()
   {
-    //write code to check if myre is touching ground
+    text("location y: " + location.y, 450, 300);
+
+    color c = get(ceil(location.x), ceil(location.y + 20));
+    if(location.y > 400)
+    {
+      //return true;
+    }
+    if(c == -16777216)
+    {
+      text("nice", 400, 300);
+      location.y = location.y - 1;
+      return true;
+    }
     return false;
   }
 }
