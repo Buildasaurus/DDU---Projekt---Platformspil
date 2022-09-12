@@ -6,7 +6,9 @@ class Myre
   PVector velocity = new PVector(0,0);
   int h = 20;
   int w = 10;
-  boolean right = false, left = false, up = false, touchingGround = false, pickedUp = false;
+  boolean right = false, left = false, up = false, touchingGround = false, touchingCeiling = false, pickedUp = false; 
+  double jumpPower = 2.5;
+  double gravity = 0.05;
   
 
    
@@ -32,6 +34,7 @@ class Myre
   void move() //moves myren if the arrows are clicked.
   {
     touchingGround = isTouchingGround();
+    touchingCeiling = isTouchingCeiling();
     if(right == true)
     {
       velocity.x += 2;
@@ -44,12 +47,12 @@ class Myre
     //jump only if myren is on the ground
     if(up == true && touchingGround == true)
     {
-      velocity.y -= 6;
+      velocity.y -= jumpPower;
       touchingGround= false;
     }
     if(touchingGround == false) //if not touching ground, apply gravity.
     {
-      velocity.y += 0.05;
+      velocity.y += gravity;
     }
     if(touchingGround == true) // if touching ground, stop accelerating downw
     {
@@ -58,6 +61,10 @@ class Myre
     if(pickedUp == true)
     {
       pickUp(skrald);
+    }
+    if (touchingCeiling == true)
+    {
+      velocity.y = abs(velocity.y) * 0.5;
     }
   }
 
@@ -82,37 +89,40 @@ class Myre
   boolean isTouchingGround() //returns a bool, whether the myre is touching ground or not
   {
     text("location y: " + location.y, 450, 300);
-    color[] colors = new color[10];
-    for(int i = 0; i < colors.length; i++)
+    color[] colors = new color[100];
+    for(int i = 1; i < colors.length; i++)
     {
-      colors[i] = get(ceil(location.x), ceil(location.y + 20 + i*0.2));
+      colors[i] = get(ceil(location.x), ceil(location.y + 20 + i*0.1));
     }
-    
-    color c = get(ceil(location.x), ceil(location.y + 20)); //gets the color underneath the myre
-    if (location.y > 400)
-    {
-      //return true;
-    }
+
     for(int i = 0; i < colors.length; i++)
     {
       if (colors[i] == -16777216) //if the color beneath the myre is black, then it the myre is touching the floor
       {
-        location.y = location.y + i*0.2;
+        location.y = location.y + i*0.1 - 0.1;
         return true;
       }
     }
     return false;
   }
   
-  boolean isTouchingCeil()//checks whether the myre is touching the cealing
+  boolean isTouchingCeiling()//checks whether the myre is touching the cealing
   {
-    color c = get(ceil(location.x), ceil(location.y  - 1)); //gets the color underneath the myre
-    if (c == -16777216) //if the color beneath the myre is black, then it the myre is touching the floor
+    color[] colors = new color[100];
+    for(int i = 1; i < colors.length; i++)
     {
-      text("nice", 400, 300);
-      location.y = location.y - 1;
-      return true;
+      colors[i] = get(ceil(location.x), ceil(location.y - i*0.1));
     }
+
+    for(int i = 0; i < colors.length; i++)
+    {
+      if (colors[i] == -16777216) //if the color above the myre is black, then it the myre is touching the floor
+      {
+        text("true", 399, 300);
+        return true;
+      }
+    }
+    text("false", 399, 300);
     return false;
   }
   

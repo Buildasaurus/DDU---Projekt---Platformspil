@@ -19,7 +19,7 @@ void draw()
   myre.display(); //goes to the display function in Myre class, and draws whatever is there
   skrald.display();
   skraldespand.display();
-  if (myre.location.x > 430)
+  if (myre.location.x > 830)
   {
    ps.addParticle();
    ps.run();
