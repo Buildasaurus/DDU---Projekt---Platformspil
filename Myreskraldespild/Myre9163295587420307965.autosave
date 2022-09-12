@@ -4,8 +4,8 @@ class Myre
   //direction and velocity of myre.
   PVector location = new PVector(400,400);
   PVector velocity = new PVector(0,0);
-  int h = 20;
-  int w = 10;
+  int height = 20;
+  int width = 10;
   boolean right = false, left = false, up = false, touchingGround = false, pickedUp = false;
   
 
@@ -26,7 +26,7 @@ class Myre
   //method that shows a figure (currently a rectangle), at the
   //coordinats of the myre.
   {
-      rect(location.x, location.y, w, h);
+      rect(location.x, location.y, width,height);
   }
   
   void move() //moves myren if the arrows are clicked.
@@ -82,12 +82,8 @@ class Myre
   boolean isTouchingGround() //returns a bool, whether the myre is touching ground or not
   {
     text("location y: " + location.y, 450, 300);
-    color[] colors = new color[10];
-    for(int i = 0; i < colors.length; i++)
-    {
-      
-    }
-   
+    
+    color[]
     color c = get(ceil(location.x), ceil(location.y + 20)); //gets the color underneath the myre
     if (location.y > 400)
     {
