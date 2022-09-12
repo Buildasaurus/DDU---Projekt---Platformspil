@@ -1,5 +1,6 @@
 Myre myre = new Myre();
 Skrald skrald = new Skrald();
+Skraldespand skraldespand =new Skraldespand();
 PImage scene;
 
 void setup()
@@ -16,6 +17,7 @@ void draw()
   myre.update(); //method that update Myrerens velocity and location.
   myre.display(); //goes to the display function in Myre class, and draws whatever is there
   skrald.display(); 
+  skraldespand.display();
 
   findColor();
 }
@@ -23,7 +25,7 @@ void draw()
 void keyPressed() //input function to control the movements of myren.
 {
   myre.setMove(keyCode, true);
-  if (keyCode == 32)
+  if (keyCode == 32)//if space is pressed it flips the bool value, so you drop or pick up skrald
   {
     myre.pickedUp = !myre.pickedUp;
   }
