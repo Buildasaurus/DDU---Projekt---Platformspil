@@ -6,7 +6,7 @@ class Myre
   PVector velocity = new PVector(0,0);
   int height = 20;
   int width = 10;
-  boolean right = false, left = false, up = false, touchingGround = false;
+  boolean right = false, left = false, up = false, touchingGround = false, pickedUp = false;
   
 
    
@@ -54,6 +54,10 @@ class Myre
     if(touchingGround == true) // if touching ground, stop accelerating downw
     {
       velocity.y = 0;
+    }
+    if(pickedUp == true)
+    {
+      pickUp(skrald);
     }
   }
 
