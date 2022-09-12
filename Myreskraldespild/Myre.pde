@@ -1,11 +1,11 @@
 class Myre
 {
   // variables to control position of myre.
-  //direction and velocity of myre.
+  //direction and ½velocity of myre.
   PVector location = new PVector(400,400);
   PVector velocity = new PVector(0,0);
-  int height = 20;
-  int width = 10;
+  int h = 20;
+  int w = 10;
   boolean right = false, left = false, up = false, touchingGround = true;
   
   
@@ -21,7 +21,7 @@ class Myre
   //method that shows a figure (currently a rectangle), at the
   //coordinats of the myre.
   {
-      rect(location.x, location.y, width,height);
+      rect(location.x, location.y, w, h);
   }
   
   void move()
