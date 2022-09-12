@@ -10,10 +10,10 @@ class Skrald
 
   void display()//Showing skrald (right now a rectangle)
   {
-    rect(location.x,location.y,width, height); 
+    rect(location.x, location.y, width, height); 
   }
   void set(PVector newLocation)//making a set function to change location of skrald in myre class
   {
-    this.location=newLocation;
+    this.location = newLocation;
   }
 }

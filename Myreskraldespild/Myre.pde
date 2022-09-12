@@ -44,12 +44,12 @@ class Myre
     //jump only if myren is on the ground
     if(up == true && touchingGround == true)
     {
-      velocity.y -= 3;
+      velocity.y -= 6;
       touchingGround= false;
     }
     if(touchingGround == false) //if not touching ground, apply gravity.
     {
-      velocity.y += 0.01;
+      velocity.y += 0.05;
     }
     if(touchingGround == true) // if touching ground, stop accelerating downw
     {
@@ -79,16 +79,16 @@ class Myre
     }
   }
 
-  boolean isTouchingGround()
+  boolean isTouchingGround() //returns a bool, whether the myre is touching ground or not
   {
     text("location y: " + location.y, 450, 300);
-
-    color c = get(ceil(location.x), ceil(location.y + 20));
-    if(location.y > 400)
+    
+    color c = get(ceil(location.x), ceil(location.y + 20)); //gets the color underneath the myre
+    if (location.y > 400)
     {
       //return true;
     }
-    if(c == -16777216)
+    if (c == -16777216) //if the color beneath the myre is black, then it the myre is touching the floor
     {
       text("nice", 400, 300);
       location.y = location.y - 1;
@@ -96,9 +96,22 @@ class Myre
     }
     return false;
   }
+  
+  boolean isTouchingCeil()//checks whether the myre is touching the cealing
+  {
+    color c = get(ceil(location.x), ceil(location.y  - 1)); //gets the color underneath the myre
+    if (c == -16777216) //if the color beneath the myre is black, then it the myre is touching the floor
+    {
+      text("nice", 400, 300);
+      location.y = location.y - 1;
+      return true;
+    }
+    return false;
+  }
+  
   void pickUp(Skrald skrald)//Making a method to change the location of skrald.
   {
-  skrald.set(new PVector(this.location.x,this.location.y-skrald.height));
   //calling the set funktion to set the location of skrald above myre and follow.
+  skrald.set(new PVector(this.location.x,this.location.y-skrald.height));
   }
 }
