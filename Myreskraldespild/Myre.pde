@@ -8,7 +8,7 @@ class Myre
   int width = 10;
   boolean right = false, left = false, up = false, touchingGround = true;
 
-  
+   
   
   void update()
   {
@@ -71,6 +71,8 @@ class Myre
       case 37: //if left arrow is clicked
         left = bool;
         return;
+      case 32:
+        
     }
   }
   
@@ -78,5 +80,10 @@ class Myre
   {
     //write code to check if myre is touching ground
     return false;
+  }
+  void pickUp(Skrald skrald)//Making a method to change the location of skrald.
+  {
+  skrald.set(new PVector(this.location.x,this.location.y-skrald.height));
+  //calling the set funktion to set the location of skrald above myre and follow.
   }
 }

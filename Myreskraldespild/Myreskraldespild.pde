@@ -1,5 +1,5 @@
 Myre myre = new Myre();
-
+Skrald skrald = new Skrald();
 void setup()
 {
   size(1280,720); // 16:9 ratio
@@ -11,6 +11,7 @@ void draw()
   background(200, 250, 200);
   myre.update(); //method that update Myrerens velocity and location.
   myre.display(); //goes to the display function in Myre class, and draws whatever is there
+  skrald.display(); 
 }
 
 void keyPressed() //input function to control the movements of myren.
