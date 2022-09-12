@@ -1,13 +1,13 @@
 class Myre
 {
-  // variables to control position of myre.
+  //variables to control position of myre.
   //direction and velocity of myre.
   PVector location = new PVector(400,400);
   PVector velocity = new PVector(0,0);
   int height = 20;
   int width = 10;
   boolean right = false, left = false, up = false, touchingGround = true;
-  
+
   
   
   void update()
@@ -17,14 +17,14 @@ class Myre
     velocity.x = 0; // reset the x velocity of myreren.
   }
   
-  void display() 
+  void display()
   //method that shows a figure (currently a rectangle), at the
   //coordinats of the myre.
   {
       rect(location.x, location.y, width,height);
   }
   
-  void move()
+  void move() //moves myren if the arrows are clicked.
   {
     touchingGround = true;
     if(location.y < 400)
@@ -32,7 +32,6 @@ class Myre
       touchingGround = false;
     }
     //touchingGround = isTouchingGround();
-    text("tg = " + touchingGround, 40, 40);
     fill(0,0,200);
     if(right == true)
     {
@@ -42,37 +41,35 @@ class Myre
     {
       velocity.x -= 2;
     }
+    
+    //jump only if myren is on the ground
     if(up == true && touchingGround == true)
     {
       velocity.y -= 10;
       touchingGround= false;
     }
-    if(touchingGround == false)
+    if(touchingGround == false) //if not touching ground, apply gravity.
     {
       velocity.y += 1;
     }
-    if(touchingGround == true)
+    if(touchingGround == true) // if touching ground, stop accelerating downw
     {
       velocity.y = 0;
     }
   }
   
-  void setMove(int keycode, boolean bool)
+  void setMove(int keycode, boolean bool) //set the booleans of the directions, to figure which key is pressed
   {
-    text("keycode:" + keycode, 40, 140);
-    switch(keycode)
+    switch(keycode) //alternative if statement.
     {
-      case 39:
+      case 39: //if right arrow is clicked
         right = bool;
-        text("case right" + right, 20, 100);
         return;
-      case 38:
+      case 38: //if up arrow is clicked
         up = bool;
-        text("up true true:" + up, 80, 180);
         return;
-      case 37:
+      case 37: //if left arrow is clicked
         left = bool;
-        text("left true:" + left, 60, 160);
         return;
     }
   }

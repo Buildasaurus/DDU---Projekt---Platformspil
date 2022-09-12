@@ -1,5 +1,4 @@
 Myre myre = new Myre();
-boolean TouchingFloor = true;
 
 void setup()
 {
