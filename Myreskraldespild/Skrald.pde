@@ -2,7 +2,7 @@ class Skrald
 {
   //variables to control of skrald
   //direction and velocity of skrald
-  PVector location = new PVector(400,415);
+  PVector location = new PVector(200,415);
   PVector velocity = new PVector(0,0);
   int height = 5;
   int width = 10;

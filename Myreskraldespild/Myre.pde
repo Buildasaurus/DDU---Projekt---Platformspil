@@ -85,19 +85,21 @@ class Myre
     color[] colors = new color[10];
     for(int i = 0; i < colors.length; i++)
     {
-      
+      colors[i] = get(ceil(location.x), ceil(location.y + 20 + i*0.2));
     }
-   
+    
     color c = get(ceil(location.x), ceil(location.y + 20)); //gets the color underneath the myre
     if (location.y > 400)
     {
       //return true;
     }
-    if (c == -16777216) //if the color beneath the myre is black, then it the myre is touching the floor
+    for(int i = 0; i < colors.length; i++)
     {
-      text("nice", 400, 300);
-      location.y = location.y - 1;
-      return true;
+      if (colors[i] == -16777216) //if the color beneath the myre is black, then it the myre is touching the floor
+      {
+        location.y = location.y + i*0.2;
+        return true;
+      }
     }
     return false;
   }

@@ -1,7 +1,7 @@
 Myre myre = new Myre();
 ParticleSystem ps;
 Skrald skrald = new Skrald();
-Skraldespand skraldespand =new Skraldespand();
+Skraldespand skraldespand = new Skraldespand();
 PImage scene;
 void setup()
 {
@@ -17,6 +17,8 @@ void draw()
   background(scene);
   myre.update(); //method that update Myrerens velocity and location.
   myre.display(); //goes to the display function in Myre class, and draws whatever is there
+  skrald.display();
+  skraldespand.display();
   if (myre.location.x > 430)
   {
    ps.addParticle();
