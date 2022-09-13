@@ -1,30 +1,55 @@
 Myre myre = new Myre();
-ParticleSystem ps;
 Skrald skrald = new Skrald();
 Skraldespand skraldespand = new Skraldespand();
-PImage scene;
+PImage platforms;
 PImage front;
+Particle [] p = new Particle [100];
+boolean z = false;
+boolean q = false;
+
 void setup()
 {
   size(1280,720); // 16:9 ratio
-  ps = new ParticleSystem(new PVector(myre.location.x,myre.location.y));
-  scene = loadImage("bane.png");
+  platforms = loadImage("Baggrund til myrespil.png");
+  front = loadImage("Forgrund til myrespil.png");
   frameRate(300);
 }
 
 void draw()
 {
   clear();
-  background(scene);
+  background(platforms);
   myre.update(); //method that update Myrerens velocity and location.
+  background(front);
   myre.display(); //goes to the display function in Myre class, and draws whatever is there
   skrald.display();
   skraldespand.display();
-  if (myre.location.x > 830)
-  {
-   ps.addParticle();
-   ps.run();
-  }
+     if (q == true)
+     {
+       zote();
+     }
+    if (z == true)
+    {
+       for(int i=0; i<p.length; i++) 
+       {
+         p[i].update();
+       }
+    }
+}
+
+
+void mousePressed()
+{
+   q = true;
+}
+void zote()
+{
+   for (int i=0; i<p.length; i++) 
+   {
+     p[i] = new Particle(new PVector(mouseX,mouseY)); 
+   }
+   q = false;
+   z = true;
 }
 
 void keyPressed() //input function to control the movements of myren.
