@@ -46,7 +46,7 @@ class Myre
     //jump only if myren is on the ground
     if(up == true && touchingGround == true)
     {
-      velocity.y = jumpPower; //<>// //<>//
+      velocity.y = jumpPower; //<>// //<>// //<>//
       touchingGround = false;
     }
     if(touchingGround == false) //if not touching ground, apply gravity.
@@ -162,7 +162,8 @@ class Myre
            leftColors[j*(k+1)] = get(ceil(location.x + breadth/2 + k/(depthWidthRatio)+0.1), ceil(location.y + j*(arraySize/depthWidthRatio)*heightToScan));
         }
       }
-  
+      /*
+
       for(int j = 0; j < arraySize; i++)
       {
         if (colors[i][j] == -16777216) //if the color beneath the myre is black, then it the myre is touching the floor
@@ -175,7 +176,7 @@ class Myre
           return true;
         }
       }
-      
+      */
       //checking right side
     
     
