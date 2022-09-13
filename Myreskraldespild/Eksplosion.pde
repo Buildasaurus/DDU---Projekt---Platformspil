@@ -4,13 +4,17 @@ class Particle
   PVector v;
   PVector a;
   float lifespan;
+  float particleSize;
+  float theta;
 
   Particle (PVector l)
   {
-    v = new PVector(random(-2,2),random(-5,0)); 
-    a = new PVector(0,0.05);
+    theta = random(0,2*PI);
+    v = new PVector(cos(theta)*random(0,5),sin(theta)*random(0,5)); 
+    a = new PVector(0,0.01);
     p = l.copy();
     lifespan = 255;
+    particleSize = 1;
   }
 
   void update ()
@@ -18,7 +22,11 @@ class Particle
     v.add(a);
     p.add(v);
     lifespan -= 2;
-    fill (255,255,0, lifespan);
-    rect (p.x, p.y, 10, 10);
+    particleSize +=0.4;
+    fill (255,random(125,255),random(0), lifespan);
+    noStroke();
+    rect (p.x, p.y, particleSize, particleSize);
+    stroke(0);
+    fill(255);
   }
 }

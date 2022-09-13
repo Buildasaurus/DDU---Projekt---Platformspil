@@ -5,7 +5,7 @@ boolean start = true;
 float startKnap = 50;
 PImage platforms;
 PImage front;
-Particle [] p = new Particle [100];
+Particle [] p = new Particle [200];
 boolean z = false;
 boolean q = false;
 
@@ -72,7 +72,7 @@ void zote()
 {
    for (int i=0; i<p.length; i++) 
    {
-     p[i] = new Particle(new PVector(mouseX,mouseY)); 
+     p[i] = new Particle(new PVector(skraldespand.location.x,skraldespand.location.y)); 
    }
    q = false;
    z = true;

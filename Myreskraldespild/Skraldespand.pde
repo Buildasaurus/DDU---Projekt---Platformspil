@@ -1,11 +1,11 @@
 class Skraldespand
 {
   PVector location = new PVector(600, 400);
-  int height = 30;
-  int width = 20;
+  int h = 30;
+  int w = 20;
   void display()
   {
-    rect(location.x, location.y, width, height);
+    rect(location.x, location.y, w, h);
   }
 
 }
