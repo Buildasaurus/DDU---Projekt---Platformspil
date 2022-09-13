@@ -149,28 +149,35 @@ class Myre
  void dontWalkThroughWalls() //returns a bool, whether the myre is touching ground or not
   {
     int depthWidthRatio = 4;
-    color[][] colors = new color[2][200];    
-    for(int i = 0; i < 2; i++) //first ireations left colors, second is right colors.
-    {
-      /*
-      for(int j = 0; i < colors[i].length/depthWidthRatio; j++) //each repeat is a different heigh level. it will currently look 4 pixels to the side of the myre
+    int heightToScan = tallness-2; //how many pixels to the side of the myre should be checked if they are a wall. This is not equal to the height of the myre, since we don't want to scan the pixels at the feet of the myre, enabling it to walk on crooked floors
+    int arraySize = 200;
+    color[] leftColors = new color[arraySize];    
+    color[] rightColors = new color[arraySize];    
+
+    //checking left side
+    for(int j = 0; j < arraySize/depthWidthRatio; j++) //each repeat is a different heigh level. it will currently look 4 pixels to the side of the myre
       {
         for(int k = 0; k < depthWidthRatio; k++)
         {
-           colors[i][j*(k+1)] = get(ceil(location.x + breadth/2 + k/(depthWidthRatio)+0.1), ceil(location.y + k*colors[i].length/depthWidthRatio));
+           leftColors[j*(k+1)] = get(ceil(location.x + breadth/2 + k/(depthWidthRatio)+0.1), ceil(location.y + j*(arraySize/depthWidthRatio)*heightToScan));
         }
       }
   
-      for(int i = 0; i < colors.length; i++)
+      for(int j = 0; j < arraySize; i++)
       {
-        if (colors[i] == -16777216) //if the color beneath the myre is black, then it the myre is touching the floor
+        if (colors[i][j] == -16777216) //if the color beneath the myre is black, then it the myre is touching the floor
         {
-          location.y = location.y + i*0.01 - 0.1;
+          location.x = location.x + ceil(j/50);
+          if (i == 0)
+          {
+            loca
+          }
           return true;
         }
       }
-      return false;
-      */
-    }
+      
+      //checking right side
+    
+    
   } // end dontWalkThroughWalls
 }// end class
