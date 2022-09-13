@@ -1,11 +1,12 @@
 Myre myre = new Myre();
 Skrald skrald = new Skrald();
-Skraldespand skraldespand = new Skraldespand();
+Skraldespand[] skraldespands = {new Skraldespand(new PVector(100,100)),new Skraldespand(new PVector(200,200))};
 boolean start = true;
 float startKnap = 50;
 PImage platforms;
 PImage front;
-Particle [] p = new Particle [200];
+PImage startskaerm;
+Particle[] p = new Particle [200];
 boolean z = false;
 boolean q = false;
 
@@ -14,6 +15,7 @@ void setup()
   size(1280,720); // 16:9 ratio
   platforms = loadImage("Baggrund til myrespil.png");
   front = loadImage("Forgrund til myrespil 2.png");
+  startskaerm = loadImage("Myrestartskaerm.png");
   frameRate(300);
 }
 
@@ -29,7 +31,13 @@ void draw()
 }
 
 void Start(){
-  background(100);
+  background(startskaerm);
+  PFont font;
+  font = loadFont("KRAnts-48.vlw");
+  textFont(font);
+  textAlign(CENTER);
+  fill(0);
+  text("SPIL",width/2,height/2-75);
   rectMode(CENTER);
   rect(width/2,height/2,startKnap,startKnap);
   if (mouseX<(width+startKnap)/2 && mouseX>(width-startKnap)/2 && mouseY<(height+startKnap)/2 && mouseY>(height-startKnap)/2 && mousePressed)
@@ -48,8 +56,10 @@ void game()
   background(front);
   myre.display(); //goes to the display function in Myre class, and draws whatever is there
   skrald.display();
-  skraldespand.display();
-  
+  for (int i = 0; i < skraldespands.length; i++)
+  {
+    skraldespands[i].display();
+  }
   if (q == true)
   {
     zote();
@@ -72,7 +82,7 @@ void zote()
 {
    for (int i=0; i<p.length; i++) 
    {
-     p[i] = new Particle(new PVector(skraldespand.location.x,skraldespand.location.y)); 
+     p[i] = new Particle(new PVector(skraldespands[0].location.x,skraldespands[0].location.y)); 
    }
    q = false;
    z = true;

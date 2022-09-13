@@ -6,7 +6,15 @@ class Skrald
   PVector velocity = new PVector(0,0);
   int tallness = 5;
   int breadth = 10;
+  int banan = 1;
+  int sugeror = 2;
+  int pizza = 3;
   
+  void update()
+  {
+
+    
+  }
 
   void display()//Showing skrald (right now a rectangle)
   {
