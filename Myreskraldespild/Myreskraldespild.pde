@@ -3,6 +3,7 @@ ParticleSystem ps;
 Skrald skrald = new Skrald();
 Skraldespand skraldespand = new Skraldespand();
 PImage scene;
+PImage front;
 void setup()
 {
   size(1280,720); // 16:9 ratio
