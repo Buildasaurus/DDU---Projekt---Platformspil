@@ -24,24 +24,26 @@ void draw()
   myre.display(); //goes to the display function in Myre class, and draws whatever is there
   skrald.display();
   skraldespand.display();
-     if (q == true)
-     {
-       zote();
-     }
-    if (z == true)
+  
+  if (q == true)
+  {
+    zote();
+  }
+  if (z == true)
+  {
+    for(int i=0; i<p.length; i++) 
     {
-       for(int i=0; i<p.length; i++) 
-       {
-         p[i].update();
-       }
+      p[i].update();
     }
+  }
 }
 
 
 void mousePressed()
 {
-   q = true;
+  q = true;
 }
+
 void zote()
 {
    for (int i=0; i<p.length; i++) 

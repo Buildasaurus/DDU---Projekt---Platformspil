@@ -2,7 +2,7 @@ class Myre
 {
   //variables to control position of myre.
   //direction and velocity of myre.
-  PVector location = new PVector(400,400);
+  PVector location = new PVector(200,600);
   PVector velocity = new PVector(0,0);
   int h = 20;
   int w = 10;
@@ -16,13 +16,11 @@ class Myre
   void update()
   {
     move(); //moves myren if the move booleans are true (if a key is pressed)
+    bounce();
     location.x = location.x + velocity.x;
-    text("location y: " + location.y, 550, 250);
     location.y = location.y + velocity.y;
     System.out.println("last" + location.y);
     velocity.x = 0; // reset the x velocity of myreren.
-    text("velocity y: " + velocity.y, 300, 250);
-    text("velocity x: " + velocity.x, 450, 250);
   }
   
   void display()
@@ -57,7 +55,6 @@ class Myre
     }
     if(touchingGround == true && up != true) // if touching ground, stop accelerating downw
     {
-      text("this does happen" + up, 200, 200);
       velocity.y = 0;
     }
     if(pickedUp == true)
@@ -90,7 +87,6 @@ class Myre
 
   boolean isTouchingGround() //returns a bool, whether the myre is touching ground or not
   {
-    text("location y: " + location.y, 450, 300);
     color[] colors = new color[200];
     for(int i = 1; i < colors.length; i++)
     {
@@ -123,11 +119,9 @@ class Myre
     {
       if (colors[i] == -16777216) //if the color above the myre is black, then it the myre is touching the floor
       {
-        text("true", 399, 300);
         return true;
       }
     }
-    text("false", 399, 300);
     return false;
   }
   
@@ -135,5 +129,22 @@ class Myre
   {
   //calling the set funktion to set the location of skrald above myre and follow.
   skrald.set(new PVector(this.location.x,this.location.y-skrald.height));
+  }
+  
+  void bounce()
+  {
+    if(location.x < 3)
+    {
+      location.x = location.x + 3;
+    }
+    if (location.x > width-12)
+    {
+      location.x = location.x -3;
+    }
+    if (location.y < 0)
+    {
+      location.y = location.y +3;
+      velocity.y = 0;
+    }
   }
 }
