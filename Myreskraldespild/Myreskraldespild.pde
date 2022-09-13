@@ -1,11 +1,12 @@
 Myre myre = new Myre();
+ParticleSystem ps;
 Skrald skrald = new Skrald();
-Skraldespand skraldespand =new Skraldespand();
+Skraldespand skraldespand = new Skraldespand();
 PImage scene;
-
 void setup()
 {
   size(1280,720); // 16:9 ratio
+  ps = new ParticleSystem(new PVector(myre.location.x,myre.location.y));
   scene = loadImage("bane.png");
   frameRate(300);
 }
@@ -16,10 +17,13 @@ void draw()
   background(scene);
   myre.update(); //method that update Myrerens velocity and location.
   myre.display(); //goes to the display function in Myre class, and draws whatever is there
-  skrald.display(); 
+  skrald.display();
   skraldespand.display();
-
-  findColor();
+  if (myre.location.x > 830)
+  {
+   ps.addParticle();
+   ps.run();
+  }
 }
 
 void keyPressed() //input function to control the movements of myren.
