@@ -46,7 +46,7 @@ class Myre
     //jump only if myren is on the ground
     if(up == true && touchingGround == true)
     {
-      velocity.y = jumpPower; //<>// //<>//
+      velocity.y = jumpPower;
       touchingGround = false;
     }
     if(touchingGround == false) //if not touching ground, apply gravity.
@@ -126,7 +126,7 @@ class Myre
   void pickUp(Skrald skrald)//Making a method to change the location of skrald.
   {
   //calling the set funktion to set the location of skrald above myre and follow.
-  skrald.set(new PVector(this.location.x,this.location.y-skrald.tallness));
+  skrald.set(new PVector(this.location.x,this.location.y-skrald.height));
   }
   
   void bounce() //bounces the myre off the walls, and the roof.
@@ -146,18 +146,18 @@ class Myre
     }
   }
   
- void dontWalkThroughWalls() //returns a bool, whether the myre is touching ground or not
+  void dontWalkThroughWalls() //returns a bool, whether the myre is touching ground or not
   {
     int depthWidthRatio = 4;
     color[][] colors = new color[2][200];    
     for(int i = 0; i < 2; i++) //first ireations left colors, second is right colors.
     {
-      /*
+      
       for(int j = 0; i < colors[i].length/depthWidthRatio; j++) //each repeat is a different heigh level. it will currently look 4 pixels to the side of the myre
       {
         for(int k = 0; k < depthWidthRatio; k++)
         {
-           colors[i][j*(k+1)] = get(ceil(location.x + breadth/2 + k/(depthWidthRatio)+0.1), ceil(location.y + k*colors[i].length/depthWidthRatio));
+                  colors[i][j] = get(ceil(location.x + breadth/2 +), ceil(location.y + tallness + i*0.01));
         }
       }
   
@@ -170,7 +170,7 @@ class Myre
         }
       }
       return false;
-      */
+      
     }
   } // end dontWalkThroughWalls
 }// end class

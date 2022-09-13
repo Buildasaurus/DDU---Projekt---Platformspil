@@ -42,7 +42,7 @@ void Start(){
 
 void game()
 {
-   clear();
+  clear();
   background(platforms);
   myre.update(); //method that update Myrerens velocity and location.
   background(front);
