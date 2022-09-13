@@ -11,7 +11,7 @@ void setup()
 {
   size(1280,720); // 16:9 ratio
   platforms = loadImage("Baggrund til myrespil.png");
-  front = loadImage("Forgrund til myrespil.png");
+  front = loadImage("Forgrund til myrespil 2.png");
   frameRate(300);
 }
 
