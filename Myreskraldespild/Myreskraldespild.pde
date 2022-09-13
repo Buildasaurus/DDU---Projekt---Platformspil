@@ -1,6 +1,8 @@
 Myre myre = new Myre();
 Skrald skrald = new Skrald();
 Skraldespand skraldespand = new Skraldespand();
+boolean start = true;
+float startKnap = 50;
 PImage platforms;
 PImage front;
 Particle [] p = new Particle [100];
@@ -17,7 +19,30 @@ void setup()
 
 void draw()
 {
-  clear();
+  if (start == true)
+   {
+     Start(); 
+   } else
+   {
+     game(); 
+   }
+}
+
+void Start(){
+  background(100);
+  rectMode(CENTER);
+  rect(width/2,height/2,startKnap,startKnap);
+  if (mouseX<(width+startKnap)/2 && mouseX>(width-startKnap)/2 && mouseY<(height+startKnap)/2 && mouseY>(height-startKnap)/2 && mousePressed)
+  {
+    start = false;
+    rectMode(CORNER);
+  }
+  
+}
+
+void game()
+{
+   clear();
   background(platforms);
   myre.update(); //method that update Myrerens velocity and location.
   background(front);
@@ -37,7 +62,6 @@ void draw()
     }
   }
 }
-
 
 void mousePressed()
 {
