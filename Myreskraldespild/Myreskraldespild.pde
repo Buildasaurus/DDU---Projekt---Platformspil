@@ -13,8 +13,8 @@ boolean q = false;
 void setup()
 {
   size(1280,720); // 16:9 ratio
-  platforms = loadImage("Baggrund til myrespil.png");
-  front = loadImage("Forgrund til myrespil 2.png");
+  platforms = loadImage("Baggrund.png");
+  front = loadImage("Forgrund.png");
   startskaerm = loadImage("Myrestartskaerm.png");
   frameRate(300);
 }

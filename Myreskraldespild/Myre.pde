@@ -7,7 +7,7 @@ class Myre
   int tallness = 20;
   int breadth = 10;
   boolean right = false, left = false, up = false, touchingGround = false, touchingCeiling = false, pickedUp = false; 
-  float jumpPower = -5;
+  float jumpPower = -4;
   float gravity = 0.05;
   
 
@@ -17,9 +17,9 @@ class Myre
   {
     move(); //moves myren if the move booleans are true (if a key is pressed)
     bounce();
+    dontWalkThroughWalls();
     location.x = location.x + velocity.x;
     location.y = location.y + velocity.y;
-    System.out.println("last" + location.y);
     velocity.x = 0; // reset the x velocity of myreren.
   }
   
@@ -97,7 +97,7 @@ class Myre
     {
       if (colors[i] == -16777216) //if the color beneath the myre is black, then it the myre is touching the floor
       {
-        location.y = location.y + i*0.01 - 0.1;
+        location.y = location.y + i*0.01 - 0.2; // the last constant choses the velocity of which myren is pushed up from the floor
 
         return true;
       }
@@ -110,7 +110,7 @@ class Myre
     color[] colors = new color[100];
     for(int i = 1; i < colors.length; i++)
     {
-      colors[i] = get(ceil(location.x), ceil(location.y - i*0.1));
+      colors[i] = get(ceil(location.x), ceil(location.y - i*0.02));
     }
 
     for(int i = 0; i < colors.length; i++)
@@ -148,8 +148,8 @@ class Myre
   
  void dontWalkThroughWalls() //returns a bool, whether the myre is touching ground or not
   {
-    int depthWidthRatio = 4;
-    int heightToScan = tallness-2; //how many pixels to the side of the myre should be checked if they are a wall. This is not equal to the height of the myre, since we don't want to scan the pixels at the feet of the myre, enabling it to walk on crooked floors
+    int depthWidthRatio = 2;
+    int heightToScan = tallness-4; //how many pixels to the side of the myre should be checked if they are a wall. This is not equal to the height of the myre, since we don't want to scan the pixels at the feet of the myre, enabling it to walk on crooked floors
     int arraySize = 200;
     color[] leftColors = new color[arraySize];    
     color[] rightColors = new color[arraySize];    
@@ -159,26 +159,37 @@ class Myre
       {
         for(int k = 0; k < depthWidthRatio; k++)
         {
-           leftColors[j*(k+1)] = get(ceil(location.x + breadth/2 + k/(depthWidthRatio)+0.1), ceil(location.y + j*(arraySize/depthWidthRatio)*heightToScan));
+           leftColors[j*(k+1)] = get(ceil(location.x - breadth/2 - k +0.1), ceil(location.y + heightToScan*j/(arraySize/depthWidthRatio))); //check all the pixels in a rectangle to the left of the myre, above the ground.
         }
       }
-      /*
+      fill(100, 200, 100);
 
-      for(int j = 0; j < arraySize; i++)
+      for(int i = 0; i < arraySize; i++)
       {
-        if (colors[i][j] == -16777216) //if the color beneath the myre is black, then it the myre is touching the floor
+        if (leftColors[i] == -16777216) //if the color beneath the myre is black, then it the myre is touching the floor
         {
-          location.x = location.x + ceil(j/50);
-          if (i == 0)
-          {
-            loca
-          }
-          return true;
+          velocity.x = velocity.x + 0.1; //move the myre backwards to the right the amount of
         }
       }
-      */
+      
+      
       //checking right side
-    
+      for(int j = 0; j < arraySize/depthWidthRatio; j++) //each repeat is a different heigh level. it will currently look 4 pixels to the side of the myre
+      {
+        for(int k = 0; k < depthWidthRatio; k++)
+        {
+           rightColors[j*(k+1)] = get(ceil(location.x + breadth/2 - k +0.1), ceil(location.y + heightToScan*j/(arraySize/depthWidthRatio))); //check all the pixels in a rectangle to the right of the myre, above the ground.
+        }
+      }
+      fill(100, 200, 100);
+
+      for(int i = 0; i < arraySize; i++)
+      {
+        if (rightColors[i] == -16777216) //if the color beneath the myre is black, then it the myre is touching the floor
+        {
+          velocity.x = velocity.x - 0.1; //move the myre backwards to the right the amount of
+        }
+      }
     
   } // end dontWalkThroughWalls
 }// end class
