@@ -2,6 +2,7 @@ Myre myre = new Myre();
 ArrayList<Skrald> skralds = new ArrayList<Skrald>();
 Skraldespand[] skraldespands = {new Skraldespand(new PVector(100,100)),new Skraldespand(new PVector(200,200))};
 boolean start = true;
+boolean Game = false;
 float startKnapx = 140;
 float startKnapy = 100;
 PImage startskaerm, startlogo, startknap;
@@ -36,9 +37,13 @@ void draw()
    {
      startscreen(); 
    } 
-   else
+   else if (Game == true)
    {
      game(); 
+   } 
+   else
+   {
+     liste();
    }
 }
 
@@ -53,6 +58,7 @@ void startscreen(){
   if (mouseX<(width+startKnapx)/2 && mouseX>(width-startKnapx)/2 && mouseY<(height+startKnapy+100)/2 && mouseY>(height-startKnapy+100)/2 && mousePressed)
   {
     start = false;
+    Game = true;
     rectMode(CORNER);
     imageMode(CORNER);
   }
@@ -94,7 +100,10 @@ void game()
   fill(150, 200, 150, 200);
   noStroke();
   image(Genbrugsknap, 10, 10, 65, 65);
-  
+  if (mouseX < 75 && mouseX> 10 && mouseY< 75 && mouseY> 10 && mousePressed)
+  {
+    Game = false; 
+  }
 }
 
 
@@ -102,7 +111,16 @@ void mousePressed()
 {
   q = true;
 }
-
+void liste()
+{
+  imageMode(CENTER);
+  image(banan, width/2, height/2, 500, 500);
+  if (mouseX>1000){
+    imageMode(CORNER);
+    Game = true;
+    
+  }
+}
 
 void zote()
 {
