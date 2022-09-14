@@ -33,7 +33,7 @@ class Myre
   //method that shows a figure (currently a rectangle), at the
   //coordinats of the myre.
   {
-      rect(location.x, location.y, w, h);
+      image(myre, location.x, location.y);
   }
   
   
@@ -84,7 +84,6 @@ class Myre
       case 38: //if up arrow is clicked
         up = bool;
         return;
-
       case 32:
         pickedUp = bool;
         
