@@ -16,6 +16,7 @@ class Myre
     move(); //moves myren if the move booleans are true (if a key is pressed)
     bounce();
     dontWalkThroughWalls();
+    wantToPickUp();
     location.x = location.x + velocity.x;
     location.y = location.y + velocity.y;
     velocity.x = 0; // reset the x velocity of myreren.
@@ -45,7 +46,7 @@ class Myre
     //jump only if myren is on the ground
     if(up == true && touchingGround == true)
     {
-      velocity.y = jumpPower; //<>// //<>// //<>//
+      velocity.y = jumpPower; //<>//
       touchingGround = false;
     }
     if(touchingGround == false) //if not touching ground, apply gravity.
@@ -55,10 +56,6 @@ class Myre
     if(touchingGround == true && up != true) // if touching ground, stop accelerating downw
     {
       velocity.y = 0;
-    }
-    if(pickedUp == true)
-    {
-      //pickUp(skrald);
     }
     if (touchingCeiling == true)
     {
@@ -191,4 +188,22 @@ class Myre
         }
       }
   } // end dontWalkThroughWalls
+  
+  void wantToPickUp()
+  {
+    PVector distanceToSkrald;
+    for(Skrald skrald : skralds)
+    {
+      distanceToSkrald = PVector.sub(skrald.location, location);
+      if((skrald.location.y - location.y) < 20 && distanceToSkrald.mag() < 40)
+      {
+        pickUp(skrald);
+      }
+    }
+    if(pickedUp == true)
+    {
+      //pickUp(skrald);
+    }
+  }
+  
 }// end class

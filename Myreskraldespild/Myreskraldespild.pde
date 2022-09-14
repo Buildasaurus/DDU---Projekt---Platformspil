@@ -1,11 +1,10 @@
 Myre myre = new Myre();
-ArrayList<Skrald> skralds= new ArrayList<Skrald>();
+ArrayList<Skrald> skralds = new ArrayList<Skrald>();
 Skraldespand[] skraldespands = {new Skraldespand(new PVector(100,100)),new Skraldespand(new PVector(200,200))};
 boolean start = true;
 float startKnap = 50;
-PImage platforms;
-PImage front;
-PImage startskaerm;
+PImage front, startskaerm, platforms;
+PImage banan, pizzabakke;
 ArrayList<Particle> p = new ArrayList<Particle>();
 boolean z = false;
 boolean q = false;
@@ -16,21 +15,27 @@ void setup()
   platforms = loadImage("Baggrund.png");
   front = loadImage("Forgrund.png");
   startskaerm = loadImage("Myrestartskaerm.png");
+  banan = loadImage("banan.png");
+  pizzabakke = loadImage("Pizzabakke.png");
   frameRate(300);
+  skralds.add(new Skrald("bioaffald", banan, 20, 20, new PVector(400, 300)));
+  skralds.add(new Skrald("bioaffald", pizzabakke, 40, 40, new PVector(300, 400)));
+
 }
 
 void draw()
 {
   if (start == true)
    {
-     Start(); 
-   } else
+     startscreen(); 
+   } 
+   else
    {
      game(); 
    }
 }
 
-void Start(){
+void startscreen(){
   background(startskaerm);
   PFont font;
   font = loadFont("KRAnts-48.vlw");
@@ -45,8 +50,8 @@ void Start(){
     start = false;
     rectMode(CORNER);
   }
-  
 }
+
 
 void game()
 {
@@ -55,7 +60,10 @@ void game()
   myre.update(); //method that update Myrerens velocity and location.
   background(front);
   myre.display(); //goes to the display function in Myre class, and draws whatever is there
-  //skrald.display();
+  for(Skrald skrald : skralds)
+  {
+    skrald.display();
+  }
   for (int i = 0; i < skraldespands.length; i++)
   {
     skraldespands[i].display();
@@ -78,10 +86,12 @@ void game()
   }
 }
 
+
 void mousePressed()
 {
   q = true;
 }
+
 
 void zote()
 {
@@ -92,6 +102,7 @@ void zote()
    q = false;
    z = true;
 }
+
 
 void keyPressed() //input function to control the movements of myren.
 {
@@ -104,10 +115,12 @@ void keyPressed() //input function to control the movements of myren.
   fill(200, 300, 300);
 }
 
+
 void keyReleased() //input function to control the movements of myren.
 {
   myre.setMove(keyCode, false);
 }
+
 
 void findColor()
 {
@@ -115,5 +128,4 @@ void findColor()
   text("color is " + col, 300, 300);
   fill(300, 300, 300);
   text("mouse x: " + mouseX + " mouse y: " + mouseY, 600, 300);
-
 }
