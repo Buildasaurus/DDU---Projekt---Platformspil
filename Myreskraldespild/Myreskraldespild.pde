@@ -5,7 +5,7 @@ boolean start = true;
 float startKnap = 50;
 PImage front, startskaerm, platforms;
 PImage banan, pizzabakke;
-PImage myre;
+PImage myreimage;
 ArrayList<Particle> p = new ArrayList<Particle>();
 boolean z = false;
 boolean q = false;
@@ -18,7 +18,7 @@ void setup()
   startskaerm = loadImage("Myrestartskaerm.png");
   banan = loadImage("banan.png");
   pizzabakke = loadImage("Pizzabakke.png");
-  myre = loadImage("Myre uden skrald.png");
+  myreimage = loadImage("Myre uden skrald.png");
   frameRate(300);
   skralds.add(new Skrald("bioaffald", banan, 20, 20, new PVector(400, 300)));
   skralds.add(new Skrald("bioaffald", pizzabakke, 40, 40, new PVector(300, 600)));

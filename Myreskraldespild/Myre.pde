@@ -33,7 +33,7 @@ class Myre
   //method that shows a figure (currently a rectangle), at the
   //coordinats of the myre.
   {
-      image(myre, location.x, location.y);
+      image(myreimage, location.x, location.y);
   }
   
   
