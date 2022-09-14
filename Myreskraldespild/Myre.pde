@@ -4,14 +4,12 @@ class Myre
   //direction and velocity of myre.
   PVector location = new PVector(200,600);
   PVector velocity = new PVector(0,0);
-  int tallness = 20;
-  int breadth = 10;
+  int h = 20;
+  int w = 10;
   boolean right = false, left = false, up = false, touchingGround = false, touchingCeiling = false, pickedUp = false; 
-  float jumpPower = -4;
+  float jumpPower = -4.2;
   float gravity = 0.05;
   
-
-   
   
   void update()
   {
@@ -27,8 +25,9 @@ class Myre
   //method that shows a figure (currently a rectangle), at the
   //coordinats of the myre.
   {
-      rect(location.x, location.y, breadth, tallness);
+      rect(location.x, location.y, w, h);
   }
+  
   
   void move() //moves myren if the arrows are clicked.
   {
@@ -59,7 +58,7 @@ class Myre
     }
     if(pickedUp == true)
     {
-      pickUp(skrald);
+      //pickUp(skrald);
     }
     if (touchingCeiling == true)
     {
@@ -126,7 +125,7 @@ class Myre
   void pickUp(Skrald skrald)//Making a method to change the location of skrald.
   {
   //calling the set funktion to set the location of skrald above myre and follow.
-  skrald.set(new PVector(this.location.x,this.location.y-skrald.tallness));
+  skrald.set(new PVector(this.location.x,this.location.y-skrald.h));
   }
   
   void bounce() //bounces the myre off the walls, and the roof.
@@ -146,10 +145,11 @@ class Myre
     }
   }
   
+  
  void dontWalkThroughWalls() //returns a bool, whether the myre is touching ground or not
   {
     int depthWidthRatio = 2;
-    int heightToScan = tallness-4; //how many pixels to the side of the myre should be checked if they are a wall. This is not equal to the height of the myre, since we don't want to scan the pixels at the feet of the myre, enabling it to walk on crooked floors
+    int heightToScan = h-4; //how many pixels to the side of the myre should be checked if they are a wall. This is not equal to the height of the myre, since we don't want to scan the pixels at the feet of the myre, enabling it to walk on crooked floors
     int arraySize = 200;
     color[] leftColors = new color[arraySize];    
     color[] rightColors = new color[arraySize];    
@@ -159,7 +159,7 @@ class Myre
       {
         for(int k = 0; k < depthWidthRatio; k++)
         {
-           leftColors[j*(k+1)] = get(ceil(location.x - breadth/2 - k +0.1), ceil(location.y + heightToScan*j/(arraySize/depthWidthRatio))); //check all the pixels in a rectangle to the left of the myre, above the ground.
+           leftColors[j*(k+1)] = get(ceil(location.x - w/2 - k +0.1), ceil(location.y + heightToScan*j/(arraySize/depthWidthRatio))); //check all the pixels in a rectangle to the left of the myre, above the ground.
         }
       }
       fill(100, 200, 100);
@@ -178,7 +178,7 @@ class Myre
       {
         for(int k = 0; k < depthWidthRatio; k++)
         {
-           rightColors[j*(k+1)] = get(ceil(location.x + breadth/2 - k +0.1), ceil(location.y + heightToScan*j/(arraySize/depthWidthRatio))); //check all the pixels in a rectangle to the right of the myre, above the ground.
+           rightColors[j*(k+1)] = get(ceil(location.x + w/2 - k +0.1), ceil(location.y + heightToScan*j/(arraySize/depthWidthRatio))); //check all the pixels in a rectangle to the right of the myre, above the ground.
         }
       }
       fill(100, 200, 100);
@@ -190,6 +190,5 @@ class Myre
           velocity.x = velocity.x - 0.1; //move the myre backwards to the right the amount of
         }
       }
-    
   } // end dontWalkThroughWalls
 }// end class
