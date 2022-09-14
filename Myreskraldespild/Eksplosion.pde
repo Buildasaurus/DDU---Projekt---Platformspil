@@ -29,4 +29,15 @@ class Particle
     stroke(0);
     fill(255);
   }
+  
+  boolean isDead() 
+  {
+    if (lifespan < 0.0) 
+    {
+      return true;
+    } else 
+    {
+      return false;
+    }
+  }
 }

@@ -1,20 +1,20 @@
 Myre myre = new Myre();
 Skrald skrald = new Skrald();
-Skraldespand[] skraldespands = {new Skraldespand(new PVector(100,100)),new Skraldespand(new PVector(200,200))};
-boolean start = true;
+Skraldespand[] skraldespands = {new Skraldespand(new PVector(100,100)),new Skraldespand(new PVector(400,600))};
+boolean start = false;
 float startKnap = 50;
 PImage platforms;
 PImage front;
 PImage startskaerm;
-ArrayList<Particle> p = new ArrayList<Particle>();
+Particle[] p = new Particle [200];
 boolean z = false;
 boolean q = false;
 
 void setup()
 {
   size(1280,720); // 16:9 ratio
-  platforms = loadImage("Baggrund.png");
-  front = loadImage("Forgrund.png");
+  platforms = loadImage("Baggrund til myrespil.png");
+  front = loadImage("Forgrund til myrespil 2.png");
   startskaerm = loadImage("Myrestartskaerm.png");
   frameRate(300);
 }
@@ -66,14 +66,9 @@ void game()
   }
   if (z == true)
   {
-    for(Particle part:p)
+    for(int i=0; i<p.length; i++) 
     {
-      if (part.lifespan < 0)
-      {
-        p.remove(part); 
-        break;
-      }
-      part.update();
+      p[i].update();
     }
   }
 }
@@ -85,9 +80,9 @@ void mousePressed()
 
 void zote()
 {
-   for (int i=0; i<200; i++) 
+   for (int i=0; i<p.length; i++) 
    {
-     p.add(new Particle(new PVector(skraldespands[0].location.x,skraldespands[0].location.y)));
+     p[i] = new Particle(new PVector(skraldespands[0].location.x,skraldespands[0].location.y)); 
    }
    q = false;
    z = true;
