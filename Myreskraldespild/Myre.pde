@@ -4,10 +4,10 @@ class Myre
   //direction and velocity of myre.
   PVector location = new PVector(200,600);
   PVector velocity = new PVector(0,0);
-  int h = 20;
-  int w = 10;
+  int h = 50;
+  int w = 30;
   boolean right = false, left = false, up = false, touchingGround = false, touchingCeiling = false, pickedUp = false; 
-  float jumpPower = -4.2;
+  float jumpPower = -4;
   float gravity = 0.05;
   
   
@@ -33,7 +33,8 @@ class Myre
   //method that shows a figure (currently a rectangle), at the
   //coordinats of the myre.
   {
-      image(myreimage, location.x, location.y);
+    image(myreimage, location.x, location.y, w, h);
+    //rect(location.x, location.y, w, h);
   }
   
   
@@ -52,7 +53,7 @@ class Myre
     
     //jump only if myren is on the ground
     if(up == true && touchingGround == true)
-    {
+    { //<>//
       velocity.y = jumpPower; //<>// //<>//
       touchingGround = false;
     }
@@ -96,14 +97,14 @@ class Myre
     color[] colors = new color[200];
     for(int i = 1; i < colors.length; i++)
     {
-      colors[i] = get(ceil(location.x), ceil(location.y + 20 + i*0.01));
+      colors[i] = get(ceil(location.x), ceil(location.y + h + i*0.01));
     }
 
     for(int i = 0; i < colors.length; i++)
     {
       if (colors[i] == -16777216) //if the color beneath the myre is black, then it the myre is touching the floor
       {
-        location.y = location.y + i*0.01 - 0.2; // the last constant choses the velocity of which myren is pushed up from the floor
+        location.y = location.y + i*0.01 - 2; // the last constant choses the velocity of which myren is pushed up from the floor
         return true;
       }
     }
@@ -166,7 +167,7 @@ class Myre
       {
         for(int k = 0; k < depthWidthRatio; k++)
         {
-           leftColors[j*(k+1)] = get(ceil(location.x - w/2 - k +0.1), ceil(location.y + heightToScan*j/(arraySize/depthWidthRatio))); //check all the pixels in a rectangle to the left of the myre, above the ground.
+           leftColors[j*(k+1)] = get(ceil(location.x + k), ceil(location.y + heightToScan*j/(arraySize/depthWidthRatio))); //check all the pixels in a rectangle to the left of the myre, above the ground.
         }
       }
 
