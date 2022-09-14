@@ -9,6 +9,7 @@ class Myre
   boolean right = false, left = false, up = false, touchingGround = false, touchingCeiling = false, pickedUp = false; 
   float jumpPower = -4;
   float gravity = 0.05;
+  boolean lastright = true;
   
   
   void update()
@@ -33,8 +34,16 @@ class Myre
   //method that shows a figure (currently a rectangle), at the
   //coordinats of the myre.
   {
-    image(myreimage, location.x, location.y, w, h);
-    //rect(location.x, location.y, w, h);
+    if (lastright == true)
+    {
+      image(myreimage, location.x, location.y, w, h);
+      //rect(location.x, location.y, w, h);
+    }
+    if (lastright == false)
+    {
+      image(myreimage, location.x, location.y, w, h);
+      //rect(location.x, location.y, w, h);
+    }
   }
   
   
@@ -78,9 +87,11 @@ class Myre
     {
       case 39: //if right arrow is clicked
         right = bool;
+        lastright = true;
         return;
       case 37: //if left arrow is clicked
         left = bool;
+        lastright = false;
         return;
       case 38: //if up arrow is clicked
         up = bool;
