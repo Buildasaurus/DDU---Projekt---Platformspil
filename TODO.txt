@@ -2,15 +2,18 @@ funktioner:
 Forventet tid (benyttet tid)
 + input funktion(Jonathan) 1 time (1 time)
 + fysikudregnefunktion(Jonathan) 30 min (30 min)
-+ kollision med mur (Jonathan) 4 timer (12 timer)
-+ samle op funktion (Cathrine) 1 time (2 timer)
-	- Mangler at gøre det inden for hvis radius af skrald (Jonathan) 1 time
+- kollision med mur (Jonathan) 4 timer (7 timer)
+- samle op funktion (Cathrine) 1 time (2 timer)
+	-Mangler at gøre det inden for hvis radius af skrald
 - smide ud funktion (Jonathan)
-- banedesign - tegne i tegneprogram (Cathrine) 2 timer (4 timer)
-- Indsætte bane 30 min (30 min)
-- Man skal ikke kunne hoppe ud af banen (Jonathan) 5 min
++ banedesign - tegne i tegneprogram (Cathrine) 2 timer (4 timer)
++ Indsætte bane 30 min (30 min) (Jonathan)
++ Man skal ikke kunne hoppe ud af banen (Jonathan) 5 min
 + eksplosion når man putter i den forkerte skraldespand (Jonatan) 4 timer (7 timer)
 - sprite design (Jonatan) 2 timer
+	-Myre (Cathrine) 2 timer
+	-Skraldespande (Jonathan)
+	-Skrald (Cathrine)
 - knap til at vise sorteringsliste (Cathrine) 2 timer
 - designe sorteringsliste (i tegneprogram formegentlig?)(Jonathan) 3 timer
 - lave startskærm med play knap, der fører videre til instruktioner (Jonatan) 2 timer
