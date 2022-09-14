@@ -2,8 +2,10 @@ Myre myre = new Myre();
 ArrayList<Skrald> skralds = new ArrayList<Skrald>();
 Skraldespand[] skraldespands = {new Skraldespand(new PVector(100,100)),new Skraldespand(new PVector(200,200))};
 boolean start = true;
-float startKnap = 50;
-PImage front, startskaerm, platforms;
+float startKnapx = 140;
+float startKnapy = 100;
+PImage startskaerm, startlogo, startknap;
+PImage front, platforms;
 PImage banan, pizzabakke;
 ArrayList<Particle> p = new ArrayList<Particle>();
 boolean z = false;
@@ -15,6 +17,8 @@ void setup()
   platforms = loadImage("Baggrund.png");
   front = loadImage("Forgrund.png");
   startskaerm = loadImage("Myrestartskaerm.png");
+  startlogo = loadImage("Startlogo.png");
+  startknap = loadImage("Startknap.png");
   banan = loadImage("banan.png");
   pizzabakke = loadImage("Pizzabakke.png");
   frameRate(300);
@@ -37,18 +41,17 @@ void draw()
 
 void startscreen(){
   background(startskaerm);
-  PFont font;
-  font = loadFont("KRAnts-48.vlw");
-  textFont(font);
   textAlign(CENTER);
   fill(0);
-  text("SPIL",width/2,height/2-75);
+  imageMode(CENTER);
+  image(startlogo,width/2,height/2-200, 1080,240);
   rectMode(CENTER);
-  rect(width/2,height/2,startKnap,startKnap);
-  if (mouseX<(width+startKnap)/2 && mouseX>(width-startKnap)/2 && mouseY<(height+startKnap)/2 && mouseY>(height-startKnap)/2 && mousePressed)
+  image(startknap,width/2,height/2+50,startKnapx,startKnapy);
+  if (mouseX<(width+startKnapx)/2 && mouseX>(width-startKnapx)/2 && mouseY<(height+startKnapy+100)/2 && mouseY>(height-startKnapy+100)/2 && mousePressed)
   {
     start = false;
     rectMode(CORNER);
+    imageMode(CORNER);
   }
 }
 
