@@ -8,6 +8,7 @@ class Skrald
   int w;
   String ID;
   PImage image;
+  boolean isPickedUp = false;
   
   void update()
   {

@@ -16,17 +16,24 @@ class Myre
     move(); //moves myren if the move booleans are true (if a key is pressed)
     bounce();
     dontWalkThroughWalls();
-    wantToPickUp();
+    for(Skrald skrald : skralds)
+    {
+      if(skrald.isPickedUp == true)
+      {
+        hold(skrald);
+      }
+    }
     location.x = location.x + velocity.x;
     location.y = location.y + velocity.y;
     velocity.x = 0; // reset the x velocity of myreren.
   }
   
+  
   void display()
   //method that shows a figure (currently a rectangle), at the
   //coordinats of the myre.
   {
-      rect(location.x, location.y, w, h);
+      image(myreimage, location.x, location.y);
   }
   
   
@@ -46,7 +53,7 @@ class Myre
     //jump only if myren is on the ground
     if(up == true && touchingGround == true)
     {
-      velocity.y = jumpPower; //<>//
+      velocity.y = jumpPower; //<>// //<>//
       touchingGround = false;
     }
     if(touchingGround == false) //if not touching ground, apply gravity.
@@ -63,6 +70,7 @@ class Myre
     }
   }
 
+
   void setMove(int keycode, boolean bool) //set the booleans of the directions, to figure which key is pressed
   {
     switch(keycode) //alternative if statement.
@@ -70,16 +78,18 @@ class Myre
       case 39: //if right arrow is clicked
         right = bool;
         return;
-      case 38: //if up arrow is clicked
-        up = bool;
-        return;
       case 37: //if left arrow is clicked
         left = bool;
         return;
+      case 38: //if up arrow is clicked
+        up = bool;
+        return;
       case 32:
+        pickedUp = bool;
         
     }
   }
+
 
   boolean isTouchingGround() //returns a bool, whether the myre is touching ground or not
   {
@@ -94,12 +104,12 @@ class Myre
       if (colors[i] == -16777216) //if the color beneath the myre is black, then it the myre is touching the floor
       {
         location.y = location.y + i*0.01 - 0.2; // the last constant choses the velocity of which myren is pushed up from the floor
-
         return true;
       }
     }
     return false;
   }
+  
   
   boolean isTouchingCeiling()//checks whether the myre is touching the cealing
   {
@@ -119,10 +129,10 @@ class Myre
     return false;
   }
   
-  void pickUp(Skrald skrald)//Making a method to change the location of skrald.
+  void hold(Skrald skrald)//Making a method to change the location of skrald.
   {
-  //calling the set funktion to set the location of skrald above myre and follow.
-  skrald.set(new PVector(this.location.x,this.location.y-skrald.h));
+    //calling the set funktion to set the location of skrald above myre and follow.
+    skrald.set(new PVector(this.location.x,this.location.y-skrald.h));
   }
   
   void bounce() //bounces the myre off the walls, and the roof.
@@ -159,7 +169,6 @@ class Myre
            leftColors[j*(k+1)] = get(ceil(location.x - w/2 - k +0.1), ceil(location.y + heightToScan*j/(arraySize/depthWidthRatio))); //check all the pixels in a rectangle to the left of the myre, above the ground.
         }
       }
-      fill(100, 200, 100);
 
       for(int i = 0; i < arraySize; i++)
       {
@@ -178,7 +187,6 @@ class Myre
            rightColors[j*(k+1)] = get(ceil(location.x + w/2 - k +0.1), ceil(location.y + heightToScan*j/(arraySize/depthWidthRatio))); //check all the pixels in a rectangle to the right of the myre, above the ground.
         }
       }
-      fill(100, 200, 100);
 
       for(int i = 0; i < arraySize; i++)
       {
@@ -189,7 +197,9 @@ class Myre
       }
   } // end dontWalkThroughWalls
   
-  void wantToPickUp()
+  
+  
+  void wantToPickUp() //pick up
   {
     PVector distanceToSkrald;
     for(Skrald skrald : skralds)
@@ -197,12 +207,8 @@ class Myre
       distanceToSkrald = PVector.sub(skrald.location, location);
       if((skrald.location.y - location.y) < 20 && distanceToSkrald.mag() < 40)
       {
-        pickUp(skrald);
+        skrald.isPickedUp = !skrald.isPickedUp;
       }
-    }
-    if(pickedUp == true)
-    {
-      //pickUp(skrald);
     }
   }
   
