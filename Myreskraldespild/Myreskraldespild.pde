@@ -19,7 +19,7 @@ void setup()
   pizzabakke = loadImage("Pizzabakke.png");
   frameRate(300);
   skralds.add(new Skrald("bioaffald", banan, 20, 20, new PVector(400, 300)));
-  skralds.add(new Skrald("bioaffald", pizzabakke, 40, 40, new PVector(300, 400)));
+  skralds.add(new Skrald("bioaffald", pizzabakke, 40, 40, new PVector(300, 600)));
 
 }
 
@@ -109,7 +109,7 @@ void keyPressed() //input function to control the movements of myren.
   myre.setMove(keyCode, true);
   if (keyCode == 32)//if space is pressed it flips the bool value, so you drop or pick up skrald
   {
-    myre.pickedUp = !myre.pickedUp;
+    myre.wantToPickUp();
   }
   rect(20,20,20,20);
   fill(200, 300, 300);
