@@ -189,15 +189,15 @@ class Myre
   {
     if(location.x < 3)
     {
-      location.x = location.x + 3;
+      location.x = location.x + myreSpeed + 0.3;
     }
     if (location.x > width-12)
     {
-      location.x = location.x -3;
+      location.x = location.x - myreSpeed - 0.3;
     }
     if (location.y < 0)
     {
-      location.y = location.y +3;
+      location.y = location.y + 3;
       velocity.y = 0;
     }
   }
@@ -251,6 +251,8 @@ class Myre
   void wantToPickUp() //pick up
   {
     PVector distanceToSkrald;
+    PVector distanceToSkraldespand;
+    
     for(Skrald skrald : skralds)
     {
       distanceToSkrald = PVector.sub(skrald.location, location);
@@ -261,7 +263,18 @@ class Myre
         {
           for(Skraldespand skraldespand : skraldespands)
           {
-            //if(skraldespand.location.y - location.y
+            distanceToSkraldespand = PVector.sub(skraldespand.location, location);
+            if((skraldespand.location.y - location.y) < 40 && distanceToSkrald.mag() < 60)
+            {
+              if(skraldespand.sortingType == skrald.sortingType)
+              {
+                skralds.remove(skrald);
+              }
+              if(skraldespand.sortingType == skrald.sortingType)
+              {
+                skralds.remove(skrald);
+              }
+            }
           }
         }
       }

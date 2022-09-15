@@ -6,7 +6,7 @@ class Skrald
   PVector velocity = new PVector(0,0);
   int h;
   int w;
-  String ID;
+  String sortingType;
   PImage skraldImage;
   boolean isPickedUp = false;
   
@@ -17,7 +17,7 @@ class Skrald
   
   Skrald(String _ID, PImage _image, int _h, int _w, PVector _location) //e.g "bioaffald"
   {
-    this.ID = _ID;
+    this.sortingType = _ID;
     this.skraldImage = _image.copy();
     this.h = _h;
     this.w = _w;
