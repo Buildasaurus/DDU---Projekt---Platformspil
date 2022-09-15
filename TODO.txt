@@ -20,6 +20,9 @@ Forventet tid (benyttet tid)
 + designe sorteringsliste (i tegneprogram formegentlig?)(Cathrine) 3 timer (4 timer)
 - Lave instruktioner
 + lave startskærm med play knap, der fører videre til instruktioner (Jonatan) 2 timer (1 time)
+- instruktionsskærm
+- sorteringsliste skiop knap og sættes efter instruktionsskærm
 - Pointsystem 3 timer
 + Få myren til at vende sig når den går 10 min (20 min)
+- Skrive rapport 18 timer (alle)
 - Overveje at tilføje forhindringer man kan dø af i første bane, ellers i de senere baner (alle)
