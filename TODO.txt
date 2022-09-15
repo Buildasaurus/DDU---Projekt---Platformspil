@@ -2,10 +2,10 @@ funktioner:
 Forventet tid (benyttet tid)
 + input funktion(Jonathan) 1 time (1 time)
 + fysikudregnefunktion(Jonathan) 30 min (30 min)
-- kollision med mur (Jonathan) 4 timer (7 timer)
-- samle op funktion (Cathrine) 1 time (2 timer)
-	-Mangler at gøre det inden for hvis radius af skrald
-	-Flere forskellige skrald en liste
++ kollision med mur (Jonathan) 4 timer (7 timer)
++ samle op funktion (Cathrine og Jonathan) 1 time (2 timer)
+	+Mangler at gøre det inden for hvis radius af skrald
+	+Flere forskellige skrald en liste
 - smide ud funktion (Jonathan)
 + banedesign - tegne i tegneprogram (Cathrine) 2 timer (4 timer)
 + Indsætte bane 30 min (30 min) (Jonathan)
@@ -16,9 +16,10 @@ Forventet tid (benyttet tid)
 	+ Skraldespande (Jonatan) (30 min)
 	+ Skrald (Jonatan) (10 min)
 	+ Døren (Jonatan) 
-- knap til at vise sorteringsliste (Cathrine) 2 timer
-- designe sorteringsliste (i tegneprogram formegentlig?)(Jonathan) 3 timer
++ knap til at vise sorteringsliste (Cathrine) 2 timer
++ designe sorteringsliste (i tegneprogram formegentlig?)(Cathrine) 3 timer (4 timer)
 - Lave instruktioner
-- lave startskærm med play knap, der fører videre til instruktioner (Jonatan) 2 timer
++ lave startskærm med play knap, der fører videre til instruktioner (Jonatan) 2 timer (1 time)
 - Pointsystem 3 timer
++ Få myren til at vende sig når den går 10 min (20 min)
 - Overveje at tilføje forhindringer man kan dø af i første bane, ellers i de senere baner (alle)
