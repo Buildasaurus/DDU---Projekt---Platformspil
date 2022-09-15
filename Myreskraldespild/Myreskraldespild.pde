@@ -7,11 +7,12 @@ boolean Game = false;
 float startKnapx = 140;
 float startKnapy = 100;
 PImage startskaerm, startlogo, startknap;
-PImage front, platforms,Genbrugsknap;
+PImage front, platforms, Genbrugsknap, sorteringsliste;
 PImage banan, pizzabakke;
 PImage madaffaldsspand, plastaffaldsspand, papaffaldsspand, restaffaldsspand;
 PImage bevaegelsesIns, opsamlingsIns, smidningsIns, maalIns;
 PImage myreimage;
+PImage myreimageWithSkrald, myreimageWithoutSkrald;
 ArrayList<Particle> p = new ArrayList<Particle>();
 boolean z = false;
 boolean q = false;
@@ -27,7 +28,8 @@ void setup()
   Genbrugsknap = loadImage("Genbrugsknap.png");
   banan = loadImage("banan.png");
   pizzabakke = loadImage("Pizzabakke.png");
-  myreimage = loadImage("Myre uden skrald.png");
+  myreimageWithSkrald = loadImage("Myre med skrald.png");
+  myreimageWithoutSkrald = loadImage("Myre uden skrald.png");
   madaffaldsspand = loadImage("Skraldespand - Madaffald.png");
   plastaffaldsspand = loadImage("Skraldespand - Plastaffald.png");
   papaffaldsspand = loadImage("Skraldespand - Papaffald.png");
@@ -36,10 +38,11 @@ void setup()
   opsamlingsIns = loadImage("SamleOpInstruktion.png");
   smidningsIns = loadImage("SmideIgenInstruktion.png");
   maalIns = loadImage("MaalInstruktion.png");
+  sorteringsliste = loadImage("Sorteringsliste.png");
 
   frameRate(300);
   skralds.add(new Skrald("madaffald", banan, 20, 20, new PVector(400, 300)));
-  skralds.add(new Skrald("madaffald", pizzabakke, 40, 40, new PVector(300, 600)));
+  skralds.add(new Skrald("madaffald", pizzabakke, 60, 60, new PVector(300, 600)));
   skraldespands.add(new Skraldespand("madaffald", madaffaldsspand, new PVector(1150, 605)));
   skraldespands.add(new Skraldespand("plastaffald", plastaffaldsspand, new PVector(440, 115)));
   skraldespands.add(new Skraldespand("restaffald", restaffaldsspand, new PVector(1200, 405)));
@@ -86,7 +89,7 @@ void startscreen(){
 
 void game()
 {
-  findInfo();
+  //findInfo();
   clear();
   background(platforms);
   myre.update(); //method that update Myrerens velocity and location.
@@ -139,7 +142,7 @@ void mousePressed()
 void liste()
 {
   imageMode(CENTER);
-  image(banan, width/2, height/2, 500, 500);
+  image(sorteringsliste, width/2, height/2);
   if (mouseX>1000){
     imageMode(CORNER);
     Game = true;
@@ -164,8 +167,6 @@ void keyPressed() //input function to control the movements of myren.
   {
     myre.wantToPickUp();
   }
-  rect(20,20,20,20);
-  fill(200, 300, 300);
 }
 
 
