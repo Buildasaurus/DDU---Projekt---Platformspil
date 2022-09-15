@@ -85,19 +85,19 @@ class Myre
     touchingCeiling = isTouchingCeiling();
     if(right == true)
     {
-      velocity.x += 2;
+      velocity.x += 2.5;
       lastright = true;
     }
     if(left == true)
     {
-      velocity.x -= 2;
+      velocity.x -= 2.5;
       lastright = false;
     }
     
     //jump only if myren is on the ground
     if(up == true && touchingGround == true)
-    { //<>//
-      velocity.y = jumpPower; //<>// //<>//
+    { //<>// //<>//
+      velocity.y = jumpPower; //<>// //<>// //<>//
       touchingGround = false;
     }
     if(touchingGround == false) //if not touching ground, apply gravity.
@@ -256,6 +256,13 @@ class Myre
       if((skrald.location.y - location.y) < 40 && distanceToSkrald.mag() <60)
       {
         skrald.isPickedUp = !skrald.isPickedUp;
+        if(skrald.isPickedUp == false)
+        {
+          for(Skraldespand skraldespand : skraldespands)
+          {
+            //if(skraldespand.location.y - location.y
+          }
+        }
       }
     }
   }

@@ -154,8 +154,6 @@ void keyPressed() //input function to control the movements of myren.
   {
     myre.wantToPickUp();
   }
-  rect(20,20,20,20);
-  fill(200, 300, 300);
 }
 
 
