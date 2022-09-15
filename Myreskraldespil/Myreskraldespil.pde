@@ -7,7 +7,7 @@ boolean Game = false;
 float startKnapx = 140;
 float startKnapy = 100;
 PImage startskaerm, startlogo, startknap;
-PImage front, platforms, Genbrugsknap, sorteringsliste;
+PImage front, platforms, Genbrugsknap, sorteringsliste, skipknap;
 PImage banan, pizzabakke;
 PImage madaffaldsspand, plastaffaldsspand, papaffaldsspand, restaffaldsspand;
 PImage bevaegelsesIns, opsamlingsIns, smidningsIns, maalIns;
@@ -38,6 +38,7 @@ void setup()
   smidningsIns = loadImage("SmideIgenInstruktion.png");
   maalIns = loadImage("MaalInstruktion.png");
   sorteringsliste = loadImage("Sorteringsliste.png");
+  skipknap = loadImage("Skipknap.png");
 
   frameRate(300);
   skralds.add(new Skrald("madaffald", banan, 20, 20, new PVector(400, 300)));
@@ -123,9 +124,10 @@ void liste() //shows the sorteringsliste in fullscreen mode. only runs if game i
 {
   imageMode(CENTER);
   image(sorteringsliste, width/2, height/2);
-  if (mouseX>1000)
+  imageMode(CORNER);
+  image(skipknap,1120,670,150,60);
+  if (mouseX < 1270 && mouseX > 1120 && mouseY< 730 && mouseY> 670 && mousePressed)
   {
-    imageMode(CORNER);
     Game = true;
   }
 }
