@@ -9,6 +9,8 @@ class Instruktion
   {
     this.location = _location;
     this.Image = _image;
+    w = 200;
+    h = 100;
   }
   
    void update()
@@ -18,7 +20,7 @@ class Instruktion
   
   void display()
   {
-    image(Image, location.x, location.y);
+    image(Image, location.x, location.y, w, h);
   }
   
   
