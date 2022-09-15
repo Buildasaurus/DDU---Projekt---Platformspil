@@ -46,10 +46,10 @@ void setup()
   skraldespands.add(new Skraldespand("plastaffald", plastaffaldsspand, new PVector(440, 115)));
   skraldespands.add(new Skraldespand("restaffald", restaffaldsspand, new PVector(1200, 405)));
   skraldespands.add(new Skraldespand("papaffald", papaffaldsspand, new PVector(255, 315)));
-  instruktions.add(new Instruktion(bevaegelsesIns, new PVector(50, 520)));
-  instruktions.add(new Instruktion(opsamlingsIns, new PVector(350, 500)));
-  instruktions.add(new Instruktion(smidningsIns, new PVector(900, 580)));
-  instruktions.add(new Instruktion(maalIns, new PVector(600, 350)));
+  instruktions.add(new Instruktion(bevaegelsesIns, new PVector(50, 520), 100));
+  instruktions.add(new Instruktion(opsamlingsIns, new PVector(350, 500), 350));
+  instruktions.add(new Instruktion(smidningsIns, new PVector(900, 580), 900));
+  instruktions.add(new Instruktion(maalIns, new PVector(600, 350), 600));
 }
 
 void draw()
@@ -99,7 +99,7 @@ void game()
   }
   for (Instruktion instruktion: instruktions)
   {
-    instruktion.display();
+    instruktion.run();
   }
   myre.display(); //goes to the display function in Myre class, and draws whatever is there
   for(Skrald skrald : skralds)
