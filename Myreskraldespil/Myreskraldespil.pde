@@ -4,17 +4,26 @@ ArrayList<Skraldespand> skraldespands = new ArrayList<Skraldespand>();
 ArrayList<Instruktion> instruktions = new ArrayList<Instruktion>();
 boolean start = true;
 boolean Game = false;
+boolean Liste = false;
+boolean duFuckingLort = false;
 float startKnapx = 140;
 float startKnapy = 100;
 PImage startskaerm, startlogo, startknap;
 PImage front, platforms, Genbrugsknap, sorteringsliste, skipknap;
 PImage banan, pizzabakke;
 PImage madaffaldsspand, plastaffaldsspand, papaffaldsspand, restaffaldsspand;
+PImage tabeskaerm, genstartknap;
 PImage bevaegelsesIns, opsamlingsIns, smidningsIns, maalIns;
 PImage myreimage;
 PImage myreimageWithSkrald, myreimageWithoutSkrald;
+<<<<<<< Updated upstream
 boolean explode = false;
 Eksplosion eksplosion;
+=======
+boolean z = false;
+boolean q = false;
+int tint = 0;
+>>>>>>> Stashed changes
 
 void setup()
 {
@@ -39,6 +48,8 @@ void setup()
   maalIns = loadImage("MaalInstruktion.png");
   sorteringsliste = loadImage("Sorteringsliste.png");
   skipknap = loadImage("Skipknap.png");
+  tabeskaerm = loadImage("tabeskaerm.png");
+  genstartknap = loadImage("genstartknap.png");
 
   frameRate(300);
   skralds.add(new Skrald("madaffald", banan, 20, 20, new PVector(400, 300)));
@@ -63,9 +74,12 @@ void draw()
    {
      game(); 
    } 
-   else
+   else if (Liste == true)
    {
      liste();
+   } else if (duFuckingLort ==true)
+   {
+    tabening(); 
    }
 }
 
@@ -118,6 +132,7 @@ void game()
   if (mouseX < 75 && mouseX> 10 && mouseY< 75 && mouseY> 10 && mousePressed)
   {
     Game = false; 
+    Liste = true;
   }
 }
 
@@ -130,8 +145,43 @@ void liste() //shows the sorteringsliste in fullscreen mode. only runs if game i
   image(skipknap,1120,670,150,60);
   if (mouseX < 1270 && mouseX > 1120 && mouseY< 730 && mouseY> 670 && mousePressed)
   {
-    Game = true;
+    Liste = false;
+    duFuckingLort = true;
   }
+}
+
+void tabening()
+{
+  background(front);
+  for(Skraldespand skraldespand : skraldespands)
+  {
+    skraldespand.display();
+  }
+  for (Instruktion instruktion: instruktions)
+  {
+    instruktion.display();
+  }
+  myre.display(); //goes to the display function in Myre class, and draws whatever is there
+  for(Skrald skrald : skralds)
+  {
+    skrald.display();
+  }
+  fill(0,200);
+ rect(0,0,width,height);
+ image(tabeskaerm,0,0,width, height);
+ tint(255,tint);
+ imageMode(CENTER);
+ image(genstartknap,width/2,height/2,150,50);
+ imageMode(CORNER);
+  if (tint < 255)
+ {
+   tint += 5;
+ } else if (mouseX<(width+150)/2 && mouseX>(width-150)/2 && mouseY<(height+50)/2 && mouseY>(height-50)/2 && mousePressed)
+ {
+   duFuckingLort = false;
+   Game = true; 
+   tint = 0;
+ }
 }
 
 

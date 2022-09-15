@@ -7,9 +7,9 @@ class Myre
   int h = 50;
   int w = 30;
   boolean right = false, left = false, up = false, touchingGround = false, touchingCeiling = false, pickedUp = false, holdingSkrald = false; 
-  float myreSpeed = 3.2;
-  float jumpPower = -6.7;
-  float gravity = 0.13;
+  float myreSpeed = 7.6;
+  float jumpPower = -19;
+  float gravity = 1;
   boolean lastright = true;
   
   
@@ -96,8 +96,8 @@ class Myre
     
     //jump only if myren is on the ground
     if(up == true && touchingGround == true) //<>//
-    { //<>// //<>// //<>//
-      velocity.y = jumpPower; //<>// //<>// //<>//
+    { //<>//
+      velocity.y = jumpPower;  //<>//
       touchingGround = false; //<>//
     }
     if(touchingGround == false) //if not touching ground, apply gravity.
@@ -145,14 +145,14 @@ class Myre
     color[] colors = new color[200];
     for(int i = 1; i < colors.length; i++)
     {
-      colors[i] = get(ceil(location.x), ceil(location.y + h + i*0.01));
+      colors[i] = get(ceil(location.x), ceil(location.y + h + i*0.08));
     }
 
     for(int i = 0; i < colors.length; i++)
     {
       if (colors[i] == -16777216) //if the color beneath the myre is black, then it the myre is touching the floor
       {
-        location.y = location.y + i*0.01 - 2; // the last constant choses the velocity of which myren is pushed up from the floor
+        location.y = location.y + i*0.08 - 4; // the last constant choses the velocity of which myren is pushed up from the floor
         return true;
       }
     }
@@ -186,17 +186,17 @@ class Myre
   
   void bounce() //bounces the myre off the walls, and the roof.
   {
-    if(location.x < 3)
+    if(location.x < myreSpeed)
     {
-      location.x = location.x + myreSpeed + 0.3;
+      location.x = location.x + myreSpeed + myreSpeed/5;
     }
-    if (location.x > width-12)
+    if (location.x > width-w-myreSpeed)
     {
-      location.x = location.x - myreSpeed - 0.3;
+      location.x = location.x - myreSpeed - myreSpeed/5;
     }
     if (location.y < 0)
     {
-      location.y = location.y + 3;
+      location.y = location.y + myreSpeed;
       velocity.y = 0;
     }
   }
@@ -204,7 +204,7 @@ class Myre
   
  void dontWalkThroughWalls() //returns a bool, whether the myre is touching ground or not
   {
-    int depthWidthRatio = 2;
+    int depthWidthRatio = 3;
     int heightToScan = h-4; //how many pixels to the side of the myre should be checked if they are a wall. This is not equal to the height of the myre, since we don't want to scan the pixels at the feet of the myre, enabling it to walk on crooked floors
     int arraySize = 200;
     color[] leftColors = new color[arraySize];    
@@ -215,7 +215,7 @@ class Myre
     {
       for(int k = 0; k < depthWidthRatio; k++)
       {
-         leftColors[j*(k+1)] = get(ceil(location.x + k), ceil(location.y + heightToScan*j/(arraySize/depthWidthRatio))); //check all the pixels in a rectangle to the left of the myre, above the ground.
+         leftColors[j*(k+1)] = get(ceil(location.x - k - w/10), ceil(location.y + heightToScan*j/(arraySize/depthWidthRatio))); //check all the pixels in a rectangle to the left of the myre, above the ground.
       }
     }
 
@@ -223,7 +223,7 @@ class Myre
     {
       if (leftColors[i] == -16777216) //if the color beneath the myre is black, then it the myre is touching the floor
       {
-        velocity.x = velocity.x + 0.1; //move the myre backwards to the right the amount of
+        velocity.x = velocity.x + 0.2; //move the myre backwards to the right the amount of
       }
     }
       
@@ -233,7 +233,7 @@ class Myre
     {
       for(int k = 0; k < depthWidthRatio; k++)
       {
-         rightColors[j*(k+1)] = get(ceil(location.x + w/2 - k +0.1), ceil(location.y + heightToScan*j/(arraySize/depthWidthRatio))); //check all the pixels in a rectangle to the right of the myre, above the ground.
+         rightColors[j*(k+1)] = get(ceil(location.x + w + k), ceil(location.y + heightToScan*j/(arraySize/depthWidthRatio))); //check all the pixels in a rectangle to the right of the myre, above the ground.
       }
     }
 
@@ -241,7 +241,7 @@ class Myre
     {
       if (rightColors[i] == -16777216) //if the color beneath the myre is black, then it the myre is touching the floor
       {
-        velocity.x = velocity.x - 0.1; //move the myre backwards to the right the amount of
+        velocity.x = velocity.x - 0.2; //move the myre backwards to the right the amount of
       }
     }
   } // end dontWalkThroughWalls
