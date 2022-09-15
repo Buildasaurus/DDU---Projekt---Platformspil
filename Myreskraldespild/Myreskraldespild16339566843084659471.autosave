@@ -1,7 +1,6 @@
 Myre myre = new Myre();
 ArrayList<Skrald> skralds = new ArrayList<Skrald>();
-ArrayList<Skraldespand> skraldespands = new ArrayList<Skraldespand>();
-ArrayList<Instruktion> instruktions = new ArrayList<Instruktion>();
+Skraldespand[] skraldespands = {new Skraldespand(new PVector(100,100)),new Skraldespand(new PVector(200,200))};
 boolean start = true;
 boolean Game = false;
 float startKnapx = 140;
@@ -9,8 +8,6 @@ float startKnapy = 100;
 PImage startskaerm, startlogo, startknap;
 PImage front, platforms,Genbrugsknap;
 PImage banan, pizzabakke;
-PImage madaffaldsspand, plastaffaldsspand, papaffaldsspand, restaffaldsspand;
-PImage bevaegelsesIns, opsamlingsIns, smidningsIns, maalIns;
 PImage myreimage;
 ArrayList<Particle> p = new ArrayList<Particle>();
 boolean z = false;
@@ -28,26 +25,10 @@ void setup()
   banan = loadImage("banan.png");
   pizzabakke = loadImage("Pizzabakke.png");
   myreimage = loadImage("Myre uden skrald.png");
-  madaffaldsspand = loadImage("Skraldespand - Madaffald.png");
-  plastaffaldsspand = loadImage("Skraldespand - Plastaffald.png");
-  papaffaldsspand = loadImage("Skraldespand - Papaffald.png");
-  restaffaldsspand = loadImage("Skraldespand - Restaffald.png");
-  bevaegelsesIns = loadImage("BevaegelsesInstruktion.png");
-  opsamlingsIns = loadImage("SamleOpInstruktion.png");
-  smidningsIns = loadImage("SmideIgenInstruktion.png");
-  maalIns = loadImage("MaalInstruktion.png");
-
   frameRate(300);
-  skralds.add(new Skrald("madaffald", banan, 20, 20, new PVector(400, 300)));
-  skralds.add(new Skrald("madaffald", pizzabakke, 40, 40, new PVector(300, 600)));
-  skraldespands.add(new Skraldespand("madaffald", madaffaldsspand, new PVector(1150, 605)));
-  skraldespands.add(new Skraldespand("plastaffald", plastaffaldsspand, new PVector(440, 115)));
-  skraldespands.add(new Skraldespand("restaffald", restaffaldsspand, new PVector(1200, 405)));
-  skraldespands.add(new Skraldespand("papaffald", papaffaldsspand, new PVector(255, 315)));
-  instruktions.add(new Instruktion(bevaegelsesIns, new PVector(255, 315)));
-  instruktions.add(new Instruktion(opsamlingsIns, new PVector(255, 315)));
-  instruktions.add(new Instruktion(smidningsIns, new PVector(255, 315)));
-  instruktions.add(new Instruktion(maalIns, new PVector(255, 315)));
+  skralds.add(new Skrald("bioaffald", banan, 20, 20, new PVector(400, 300)));
+  skralds.add(new Skrald("bioaffald", pizzabakke, 40, 40, new PVector(300, 600)));
+
 }
 
 void draw()
@@ -86,25 +67,19 @@ void startscreen(){
 
 void game()
 {
-  findInfo();
   clear();
   background(platforms);
   myre.update(); //method that update Myrerens velocity and location.
   background(front);
-  for(Skraldespand skraldespand : skraldespands)
-  {
-    skraldespand.display();
-  }
   myre.display(); //goes to the display function in Myre class, and draws whatever is there
-  for (Instruktion instruktion: instruktions)
-  {
-    instruktion.display();
-  }
   for(Skrald skrald : skralds)
   {
     skrald.display();
   }
-
+  for (int i = 0; i < skraldespands.length; i++)
+  {
+    skraldespands[i].display();
+  }
   if (q == true)
   {
     zote();
@@ -141,7 +116,7 @@ void liste()
   imageMode(CENTER);
   image(banan, width/2, height/2, 500, 500);
   if (mouseX>1000){
-    imageMode(CORNER);
+    imageMode(CORNER);  
     Game = true;
     
   }
@@ -151,6 +126,7 @@ void zote()
 {
    for (int i=0; i<200; i++) 
    {
+     p.add(new Particle(new PVector(skraldespands[0].location.x,skraldespands[0].location.y)));
    }
    q = false;
    z = true;
@@ -175,10 +151,10 @@ void keyReleased() //input function to control the movements of myren.
 }
 
 
-void findInfo()
+void findColor()
 {
   color col = get(mouseX, mouseY);
-  System.out.println("color is " + col);
+  text("color is " + col, 300, 300);
   fill(300, 300, 300);
-  System.out.println("mouse x: " + mouseX + " mouse y: " + mouseY);
+  text("mouse x: " + mouseX + " mouse y: " + mouseY, 600, 300);
 }
