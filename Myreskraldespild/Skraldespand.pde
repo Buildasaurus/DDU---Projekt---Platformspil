@@ -9,8 +9,8 @@ class Skraldespand
   Skraldespand(String _sortingType, PImage _image, PVector _location)
   {
     this.sortingType = _sortingType;
-    this.skraldespandsImage = _image;
-    this.location = _location;
+    this.skraldespandsImage = _image.copy();
+    this.location = _location.copy();
   }
   
   void update()

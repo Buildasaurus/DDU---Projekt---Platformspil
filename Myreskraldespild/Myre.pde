@@ -34,14 +34,15 @@ class Myre
   //method that shows a figure (currently a rectangle), at the
   //coordinats of the myre.
   {
+    System.out.println("myre location x: " + location.x + "location y: " +  location.y);
     holdingSkrald = false;
     for(Skrald skrald : skralds)
+    {
+      if(skrald.isPickedUp)
       {
-        if(skrald.isPickedUp)
-        {
-          holdingSkrald = true;
-        }
+        holdingSkrald = true;
       }
+    }
     if (lastright == true)
     {
       if(holdingSkrald == true)
@@ -107,6 +108,9 @@ class Myre
     {
       velocity.y = 0;
     }
+    
+    
+    //if touching the celing, then make velocity negative.
     if (touchingCeiling == true)
     {
       velocity.y = abs(velocity.y) * 0.5;
@@ -131,7 +135,7 @@ class Myre
         return;
       case 32:
         pickedUp = bool;
-        
+        return;
     }
   }
 
@@ -177,7 +181,7 @@ class Myre
   void hold(Skrald skrald)//Making a method to change the location of skrald.
   {
     //calling the set funktion to set the location of skrald above myre and follow.
-    skrald.set(new PVector(this.location.x,this.location.y-skrald.h));
+    skrald.set(new PVector(this.location.x, this.location.y));
   }
   
   void bounce() //bounces the myre off the walls, and the roof.
@@ -249,7 +253,7 @@ class Myre
     for(Skrald skrald : skralds)
     {
       distanceToSkrald = PVector.sub(skrald.location, location);
-      if((skrald.location.y - location.y) < 20 && distanceToSkrald.mag() < 40)
+      if((skrald.location.y - location.y) < 40 && distanceToSkrald.mag() <60)
       {
         skrald.isPickedUp = !skrald.isPickedUp;
       }
