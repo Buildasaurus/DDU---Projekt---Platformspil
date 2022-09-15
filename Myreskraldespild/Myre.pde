@@ -7,8 +7,9 @@ class Myre
   int h = 50;
   int w = 30;
   boolean right = false, left = false, up = false, touchingGround = false, touchingCeiling = false, pickedUp = false, holdingSkrald = false; 
-  float jumpPower = -4;
-  float gravity = 0.05;
+  float myreSpeed = 3.2;
+  float jumpPower = -6.7;
+  float gravity = 0.13;
   boolean lastright = true;
   
   
@@ -85,19 +86,19 @@ class Myre
     touchingCeiling = isTouchingCeiling();
     if(right == true)
     {
-      velocity.x += 2.5;
+      velocity.x += myreSpeed;
       lastright = true;
     }
     if(left == true)
     {
-      velocity.x -= 2.5;
+      velocity.x -= myreSpeed;
       lastright = false;
     }
     
     //jump only if myren is on the ground
-    if(up == true && touchingGround == true)
+    if(up == true && touchingGround == true) //<>//
     { //<>// //<>//
-      velocity.y = jumpPower; //<>// //<>// //<>//
+      velocity.y = jumpPower; //<>// //<>//
       touchingGround = false;
     }
     if(touchingGround == false) //if not touching ground, apply gravity.
