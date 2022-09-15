@@ -34,10 +34,10 @@ void setup()
   frameRate(300);
   skralds.add(new Skrald("madaffald", banan, 20, 20, new PVector(400, 300)));
   skralds.add(new Skrald("madaffald", pizzabakke, 40, 40, new PVector(300, 600)));
-  skraldespands.add(new Skraldespand("madaffald", madaffaldsspand, 60, 40, new PVector(500, 100)));
-  skraldespands.add(new Skraldespand("plastaffald", plastaffaldsspand, 60, 40, new PVector(600, 100)));
-  skraldespands.add(new Skraldespand("restaffald", restaffaldsspand, 60, 40, new PVector(700, 100)));
-  skraldespands.add(new Skraldespand("papaffald", papaffaldsspand, 60, 40, new PVector(800, 100)));
+  skraldespands.add(new Skraldespand("madaffald", madaffaldsspand, new PVector(1150, 605)));
+  skraldespands.add(new Skraldespand("plastaffald", plastaffaldsspand, new PVector(440, 115)));
+  skraldespands.add(new Skraldespand("restaffald", restaffaldsspand, new PVector(1200, 405)));
+  skraldespands.add(new Skraldespand("papaffald", papaffaldsspand, new PVector(255, 315)));
 
 
 }
@@ -83,15 +83,16 @@ void game()
   background(platforms);
   myre.update(); //method that update Myrerens velocity and location.
   background(front);
+  for(Skraldespand skraldespand : skraldespands)
+  {
+    skraldespand.display();
+  }
   myre.display(); //goes to the display function in Myre class, and draws whatever is there
   for(Skrald skrald : skralds)
   {
     skrald.display();
   }
-  for(Skraldespand skraldespand : skraldespands)
-  {
-    skraldespand.display();
-  }
+
   if (q == true)
   {
     zote();

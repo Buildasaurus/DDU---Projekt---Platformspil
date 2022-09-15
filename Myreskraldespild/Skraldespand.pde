@@ -1,17 +1,15 @@
 class Skraldespand
 {
   PVector location;
-  int h;
-  int w;
+  int h = 72;
+  int w = 65;
   String sortingType;
   PImage skraldespandsImage;
   
-  Skraldespand(String _sortingType, PImage _image, int _h, int _w, PVector _location)
+  Skraldespand(String _sortingType, PImage _image, PVector _location)
   {
     this.sortingType = _sortingType;
     this.skraldespandsImage = _image;
-    this.h = _h;
-    this.w = _w;
     this.location = _location;
   }
   
