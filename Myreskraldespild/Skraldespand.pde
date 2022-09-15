@@ -1,13 +1,18 @@
 class Skraldespand
 {
-  PVector location = new PVector();
-  int h = 30;
-  int w = 20;
-  String SortingType;
+  PVector location;
+  int h;
+  int w;
+  String sortingType;
+  PImage skraldespandsImage;
   
-  Skraldespand(PVector l)
+  Skraldespand(String _sortingType, PImage _image, int _h, int _w, PVector _location)
   {
-     location = l.copy();
+    this.sortingType = _sortingType;
+    this.skraldespandsImage = _image;
+    this.h = _h;
+    this.w = _w;
+    this.location = _location;
   }
   
   void update()
@@ -17,7 +22,7 @@ class Skraldespand
   
   void display()
   {
-    rect(location.x, location.y, w, h);
+    image(skraldespandsImage, location.x, location.y, w, h);
   }
 
 }

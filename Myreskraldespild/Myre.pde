@@ -28,7 +28,7 @@ class Myre
     location.y = location.y + velocity.y;
     velocity.x = 0; // reset the x velocity of myreren.
   }
-  
+    
   
   void display()
   //method that shows a figure (currently a rectangle), at the
@@ -36,12 +36,16 @@ class Myre
   {
     if (lastright == true)
     {
-      image(myreimage, location.x, location.y, w, h);
+      image(myreimage, location.x, location.y, w+3, h+3); //plussing with 3, because the myre doesn't perfectly fit the square that it is calculated in
       //rect(location.x, location.y, w, h);
     }
     if (lastright == false)
     {
-      image(myreimage, location.x, location.y, w, h);
+      pushMatrix();
+      translate( location.x + w, location.y);
+      scale( -1, 1 );
+      image(myreimage, 0, 0, w+3, h+3); //plussing with 3, because the myre doesn't perfectly fit the square that it is calculated in
+      popMatrix();
       //rect(location.x, location.y, w, h);
     }
   }
@@ -54,10 +58,12 @@ class Myre
     if(right == true)
     {
       velocity.x += 2;
+      lastright = true;
     }
     if(left == true)
     {
       velocity.x -= 2;
+      lastright = false;
     }
     
     //jump only if myren is on the ground
@@ -175,40 +181,39 @@ class Myre
 
     //checking left side
     for(int j = 0; j < arraySize/depthWidthRatio; j++) //each repeat is a different heigh level. it will currently look 4 pixels to the side of the myre
+    {
+      for(int k = 0; k < depthWidthRatio; k++)
       {
-        for(int k = 0; k < depthWidthRatio; k++)
-        {
-           leftColors[j*(k+1)] = get(ceil(location.x + k), ceil(location.y + heightToScan*j/(arraySize/depthWidthRatio))); //check all the pixels in a rectangle to the left of the myre, above the ground.
-        }
+         leftColors[j*(k+1)] = get(ceil(location.x + k), ceil(location.y + heightToScan*j/(arraySize/depthWidthRatio))); //check all the pixels in a rectangle to the left of the myre, above the ground.
       }
+    }
 
-      for(int i = 0; i < arraySize; i++)
+    for(int i = 0; i < arraySize; i++)
+    {
+      if (leftColors[i] == -16777216) //if the color beneath the myre is black, then it the myre is touching the floor
       {
-        if (leftColors[i] == -16777216) //if the color beneath the myre is black, then it the myre is touching the floor
-        {
-          velocity.x = velocity.x + 0.1; //move the myre backwards to the right the amount of
-        }
+        velocity.x = velocity.x + 0.1; //move the myre backwards to the right the amount of
       }
+    }
       
-      
-      //checking right side
-      for(int j = 0; j < arraySize/depthWidthRatio; j++) //each repeat is a different heigh level. it will currently look 4 pixels to the side of the myre
+    
+    //checking right side
+    for(int j = 0; j < arraySize/depthWidthRatio; j++) //each repeat is a different heigh level. it will currently look 4 pixels to the side of the myre
+    {
+      for(int k = 0; k < depthWidthRatio; k++)
       {
-        for(int k = 0; k < depthWidthRatio; k++)
-        {
-           rightColors[j*(k+1)] = get(ceil(location.x + w/2 - k +0.1), ceil(location.y + heightToScan*j/(arraySize/depthWidthRatio))); //check all the pixels in a rectangle to the right of the myre, above the ground.
-        }
+         rightColors[j*(k+1)] = get(ceil(location.x + w/2 - k +0.1), ceil(location.y + heightToScan*j/(arraySize/depthWidthRatio))); //check all the pixels in a rectangle to the right of the myre, above the ground.
       }
+    }
 
-      for(int i = 0; i < arraySize; i++)
+    for(int i = 0; i < arraySize; i++)
+    {
+      if (rightColors[i] == -16777216) //if the color beneath the myre is black, then it the myre is touching the floor
       {
-        if (rightColors[i] == -16777216) //if the color beneath the myre is black, then it the myre is touching the floor
-        {
-          velocity.x = velocity.x - 0.1; //move the myre backwards to the right the amount of
-        }
+        velocity.x = velocity.x - 0.1; //move the myre backwards to the right the amount of
       }
+    }
   } // end dontWalkThroughWalls
-  
   
   
   void wantToPickUp() //pick up

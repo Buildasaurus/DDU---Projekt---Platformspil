@@ -7,7 +7,7 @@ class Skrald
   int h;
   int w;
   String ID;
-  PImage image;
+  PImage skraldImage;
   boolean isPickedUp = false;
   
   void update()
@@ -18,7 +18,7 @@ class Skrald
   Skrald(String _ID, PImage _image, int _h, int _w, PVector _location) //e.g "bioaffald"
   {
     this.ID = _ID;
-    this.image = _image;
+    this.skraldImage = _image;
     this.h = _h;
     this.w = _w;
     this.location = _location;
@@ -27,7 +27,7 @@ class Skrald
 
   void display()//Showing skrald (right now a rectangle)
   {
-    image(image, location.x, location.y, w, h); 
+    image(skraldImage, location.x, location.y, w, h); 
   }
   
   void set(PVector newLocation)//making a set function to change location of skrald in myre class

@@ -1,6 +1,6 @@
 Myre myre = new Myre();
 ArrayList<Skrald> skralds = new ArrayList<Skrald>();
-Skraldespand[] skraldespands = {new Skraldespand(new PVector(100,100)),new Skraldespand(new PVector(200,200))};
+ArrayList<Skraldespand> skraldespands = new ArrayList<Skraldespand>();
 boolean start = true;
 boolean Game = false;
 float startKnapx = 140;
@@ -8,6 +8,7 @@ float startKnapy = 100;
 PImage startskaerm, startlogo, startknap;
 PImage front, platforms,Genbrugsknap;
 PImage banan, pizzabakke;
+PImage madaffaldsspand, plastaffaldsspand, papaffaldsspand, restaffaldsspand;
 PImage myreimage;
 ArrayList<Particle> p = new ArrayList<Particle>();
 boolean z = false;
@@ -25,9 +26,19 @@ void setup()
   banan = loadImage("banan.png");
   pizzabakke = loadImage("Pizzabakke.png");
   myreimage = loadImage("Myre uden skrald.png");
+  madaffaldsspand = loadImage("Skraldespand - Madaffald.png");
+  plastaffaldsspand = loadImage("Skraldespand - Plastaffald.png");
+  papaffaldsspand = loadImage("Skraldespand - Papaffald.png");
+  restaffaldsspand = loadImage("Skraldespand - Restaffald.png");
+
   frameRate(300);
-  skralds.add(new Skrald("bioaffald", banan, 20, 20, new PVector(400, 300)));
-  skralds.add(new Skrald("bioaffald", pizzabakke, 40, 40, new PVector(300, 600)));
+  skralds.add(new Skrald("madaffald", banan, 20, 20, new PVector(400, 300)));
+  skralds.add(new Skrald("madaffald", pizzabakke, 40, 40, new PVector(300, 600)));
+  skraldespands.add(new Skraldespand("madaffald", madaffaldsspand, 60, 40, new PVector(500, 100)));
+  skraldespands.add(new Skraldespand("plastaffald", plastaffaldsspand, 60, 40, new PVector(600, 100)));
+  skraldespands.add(new Skraldespand("restaffald", restaffaldsspand, 60, 40, new PVector(700, 100)));
+  skraldespands.add(new Skraldespand("papaffald", papaffaldsspand, 60, 40, new PVector(800, 100)));
+
 
 }
 
@@ -67,6 +78,7 @@ void startscreen(){
 
 void game()
 {
+  findInfo();
   clear();
   background(platforms);
   myre.update(); //method that update Myrerens velocity and location.
@@ -76,9 +88,9 @@ void game()
   {
     skrald.display();
   }
-  for (int i = 0; i < skraldespands.length; i++)
+  for(Skraldespand skraldespand : skraldespands)
   {
-    skraldespands[i].display();
+    skraldespand.display();
   }
   if (q == true)
   {
@@ -126,7 +138,6 @@ void zote()
 {
    for (int i=0; i<200; i++) 
    {
-     p.add(new Particle(new PVector(skraldespands[0].location.x,skraldespands[0].location.y)));
    }
    q = false;
    z = true;
@@ -151,10 +162,10 @@ void keyReleased() //input function to control the movements of myren.
 }
 
 
-void findColor()
+void findInfo()
 {
   color col = get(mouseX, mouseY);
-  text("color is " + col, 300, 300);
+  System.out.println("color is " + col);
   fill(300, 300, 300);
-  text("mouse x: " + mouseX + " mouse y: " + mouseY, 600, 300);
+  System.out.println("mouse x: " + mouseX + " mouse y: " + mouseY);
 }
