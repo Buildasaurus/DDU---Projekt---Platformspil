@@ -6,7 +6,7 @@ boolean Game = false;
 float startKnapx = 140;
 float startKnapy = 100;
 PImage startskaerm, startlogo, startknap;
-PImage front, platforms, Genbrugsknap, sorteringsliste;
+PImage front, platforms,Genbrugsknap, Sorteringsliste;
 PImage banan, pizzabakke;
 PImage madaffaldsspand, plastaffaldsspand, papaffaldsspand, restaffaldsspand;
 PImage myreimageWithSkrald, myreimageWithoutSkrald;
@@ -31,11 +31,11 @@ void setup()
   plastaffaldsspand = loadImage("Skraldespand - Plastaffald.png");
   papaffaldsspand = loadImage("Skraldespand - Papaffald.png");
   restaffaldsspand = loadImage("Skraldespand - Restaffald.png");
-  sorteringsliste = loadImage("Sorteringsliste.png");
+  Sorteringsliste = loadImage("Sorteringsliste.png");
 
   frameRate(300);
   skralds.add(new Skrald("madaffald", banan, 20, 20, new PVector(400, 300)));
-  skralds.add(new Skrald("madaffald", pizzabakke, 60, 60, new PVector(300, 600)));
+  skralds.add(new Skrald("madaffald", pizzabakke, 40, 40, new PVector(300, 600)));
   skraldespands.add(new Skraldespand("madaffald", madaffaldsspand, new PVector(1150, 605)));
   skraldespands.add(new Skraldespand("plastaffald", plastaffaldsspand, new PVector(440, 115)));
   skraldespands.add(new Skraldespand("restaffald", restaffaldsspand, new PVector(1200, 405)));
@@ -80,7 +80,7 @@ void startscreen(){
 
 void game()
 {
-  //findInfo();
+  findInfo();
   clear();
   background(platforms);
   myre.update(); //method that update Myrerens velocity and location.
@@ -129,7 +129,7 @@ void mousePressed()
 void liste()
 {
   imageMode(CENTER);
-  image(sorteringsliste, width/2, height/2);
+  image(Sorteringsliste, width/2, height/2);
   if (mouseX>1000){
     imageMode(CORNER);
     Game = true;
