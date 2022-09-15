@@ -34,7 +34,7 @@ void setup()
 
   frameRate(300);
   skralds.add(new Skrald("madaffald", banan, 20, 20, new PVector(400, 300)));
-  skralds.add(new Skrald("madaffald", pizzabakke, 40, 40, new PVector(300, 600)));
+  skralds.add(new Skrald("madaffald", pizzabakke, 60, 60, new PVector(300, 600)));
   skraldespands.add(new Skraldespand("madaffald", madaffaldsspand, new PVector(1150, 605)));
   skraldespands.add(new Skraldespand("plastaffald", plastaffaldsspand, new PVector(440, 115)));
   skraldespands.add(new Skraldespand("restaffald", restaffaldsspand, new PVector(1200, 405)));
@@ -79,7 +79,7 @@ void startscreen(){
 
 void game()
 {
-  findInfo();
+  //findInfo();
   clear();
   background(platforms);
   myre.update(); //method that update Myrerens velocity and location.
