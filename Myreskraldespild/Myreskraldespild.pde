@@ -9,7 +9,7 @@ PImage startskaerm, startlogo, startknap;
 PImage front, platforms,Genbrugsknap;
 PImage banan, pizzabakke;
 PImage madaffaldsspand, plastaffaldsspand, papaffaldsspand, restaffaldsspand;
-PImage myreimage;
+PImage myreimageWithSkrald, myreimageWithoutSkrald;
 ArrayList<Particle> p = new ArrayList<Particle>();
 boolean z = false;
 boolean q = false;
@@ -25,7 +25,8 @@ void setup()
   Genbrugsknap = loadImage("Genbrugsknap.png");
   banan = loadImage("banan.png");
   pizzabakke = loadImage("Pizzabakke.png");
-  myreimage = loadImage("Myre uden skrald.png");
+  myreimageWithSkrald = loadImage("Myre med skrald.png");
+  myreimageWithoutSkrald = loadImage("Myre uden skrald.png");
   madaffaldsspand = loadImage("Skraldespand - Madaffald.png");
   plastaffaldsspand = loadImage("Skraldespand - Plastaffald.png");
   papaffaldsspand = loadImage("Skraldespand - Papaffald.png");

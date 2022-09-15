@@ -6,7 +6,7 @@ class Myre
   PVector velocity = new PVector(0,0);
   int h = 50;
   int w = 30;
-  boolean right = false, left = false, up = false, touchingGround = false, touchingCeiling = false, pickedUp = false; 
+  boolean right = false, left = false, up = false, touchingGround = false, touchingCeiling = false, pickedUp = false, holdingSkrald = false; 
   float jumpPower = -4;
   float gravity = 0.05;
   boolean lastright = true;
@@ -34,18 +34,45 @@ class Myre
   //method that shows a figure (currently a rectangle), at the
   //coordinats of the myre.
   {
+    holdingSkrald = false;
+    for(Skrald skrald : skralds)
+      {
+        if(skrald.isPickedUp)
+        {
+          holdingSkrald = true;
+        }
+      }
     if (lastright == true)
     {
-      image(myreimage, location.x, location.y, w+3, h+3); //plussing with 3, because the myre doesn't perfectly fit the square that it is calculated in
+      if(holdingSkrald == true)
+      {
+        image(myreimageWithSkrald, location.x, location.y, w+3, h+3); //plussing with 3, because the myre doesn't perfectly fit the square that it is calculated in
+      }
+      else
+      {
+         image(myreimageWithoutSkrald, location.x, location.y, w+3, h+3); //plussing with 3, because the myre doesn't perfectly fit the square that it is calculated in
+      }
       //rect(location.x, location.y, w, h);
+
     }
     if (lastright == false)
     {
+      
+      if(holdingSkrald == true)
+      {
       pushMatrix();
       translate( location.x + w, location.y);
       scale( -1, 1 );
-      image(myreimage, 0, 0, w+3, h+3); //plussing with 3, because the myre doesn't perfectly fit the square that it is calculated in
-      popMatrix();
+      image(myreimageWithSkrald, 0, 0, w+3, h+3); //plussing with 3, because the myre doesn't perfectly fit the square that it is calculated in
+      popMatrix();      }
+      else
+      {
+      pushMatrix();
+      translate( location.x + w, location.y);
+      scale( -1, 1 );
+      image(myreimageWithoutSkrald, 0, 0, w+3, h+3); //plussing with 3, because the myre doesn't perfectly fit the square that it is calculated in
+      popMatrix();      }
+      
       //rect(location.x, location.y, w, h);
     }
   }
