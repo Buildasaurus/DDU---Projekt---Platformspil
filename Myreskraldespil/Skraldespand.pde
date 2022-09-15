@@ -18,6 +18,11 @@ class Skraldespand
   
   }
   
+  String toString()
+  {
+    return("sorterings type: " + sortingType + " location: " + location.x + " " + location.y);
+  }
+  
   void display()
   {
     image(skraldespandsImage, location.x, location.y, w, h);

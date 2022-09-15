@@ -35,7 +35,6 @@ class Myre
   //method that shows a figure (currently a rectangle), at the
   //coordinats of the myre.
   {
-    System.out.println("myre location x: " + location.x + "location y: " +  location.y);
     holdingSkrald = false;
     for(Skrald skrald : skralds)
     {
@@ -97,9 +96,9 @@ class Myre
     
     //jump only if myren is on the ground
     if(up == true && touchingGround == true) //<>//
-    { //<>// //<>//
-      velocity.y = jumpPower; //<>// //<>//
-      touchingGround = false;
+    { //<>// //<>// //<>//
+      velocity.y = jumpPower; //<>// //<>// //<>//
+      touchingGround = false; //<>//
     }
     if(touchingGround == false) //if not touching ground, apply gravity.
     {
@@ -264,18 +263,23 @@ class Myre
           for(Skraldespand skraldespand : skraldespands)
           {
             distanceToSkraldespand = PVector.sub(skraldespand.location, location);
-            if((skraldespand.location.y - location.y) < 40 && distanceToSkrald.mag() < 60)
+            if((skraldespand.location.y - location.y) < 40 && distanceToSkraldespand.mag() < 60)
             {
-              if(skraldespand.sortingType == skrald.sortingType)
+              System.out.println("skraldespand.sortingType: " + skraldespand.sortingType + " skrald.sortingType: " + skrald.sortingType + " Skraldespand location: " + skraldespand.location);
+              if(skraldespand.sortingType != skrald.sortingType)
               {
-                skralds.remove(skrald);
+                eksplosion = new Eksplosion(skraldespand.location, 300);
+                explode = true;
               }
               if(skraldespand.sortingType == skrald.sortingType)
               {
+                System.out.println(" you are in the if statement"); //<>//
                 skralds.remove(skrald);
+                System.out.println(" you removed skrald");
               }
+              System.out.println(" you are past breakpoint");
             }
-          }
+          }//end skraldespandforloop
         }
       }
     }

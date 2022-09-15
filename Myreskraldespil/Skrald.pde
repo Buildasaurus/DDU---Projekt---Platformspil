@@ -28,7 +28,6 @@ class Skrald
   void display()//Showing skrald (right now a rectangle)
   {
     image(skraldImage, location.x, location.y - h + h/5, w, h); 
-    System.out.println("location x: " + location.x + "location y: " +  location.y);
   }
   
   void set(PVector newLocation)//making a set function to change location of skrald in myre class

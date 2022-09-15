@@ -13,8 +13,8 @@ PImage madaffaldsspand, plastaffaldsspand, papaffaldsspand, restaffaldsspand;
 PImage bevaegelsesIns, opsamlingsIns, smidningsIns, maalIns;
 PImage myreimage;
 PImage myreimageWithSkrald, myreimageWithoutSkrald;
-boolean z = false;
-boolean q = false;
+boolean explode = false;
+Eksplosion eksplosion;
 
 void setup()
 {
@@ -42,7 +42,7 @@ void setup()
 
   frameRate(300);
   skralds.add(new Skrald("madaffald", banan, 20, 20, new PVector(400, 300)));
-  skralds.add(new Skrald("madaffald", pizzabakke, 60, 60, new PVector(300, 600)));
+  skralds.add(new Skrald("restaffald", pizzabakke, 60, 60, new PVector(300, 600)));
   skraldespands.add(new Skraldespand("madaffald", madaffaldsspand, new PVector(1150, 605)));
   skraldespands.add(new Skraldespand("plastaffald", plastaffaldsspand, new PVector(440, 115)));
   skraldespands.add(new Skraldespand("restaffald", restaffaldsspand, new PVector(1200, 405)));
@@ -107,8 +107,10 @@ void game()
   {
     skrald.display();
   }
-
-
+  if(explode == true)
+  {
+    eksplosion.explode();
+  }
   rect(0, 0, 85, 85);
   fill(150, 200, 150, 200);
   noStroke();

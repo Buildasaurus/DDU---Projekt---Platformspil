@@ -1,6 +1,6 @@
 class Eksplosion
 {
-  ArrayList<Particle> p = new ArrayList<Particle>();
+  ArrayList<Particle> particles = new ArrayList<Particle>();
   PVector position;
   int size;
   
@@ -8,18 +8,23 @@ class Eksplosion
   {
     this.position = _position.copy();
     this.size = _size;
+    
+    for(int i = 0; i < size; i++)
+    {
+      particles.add(new Particle(position));
+    }
   }
   
   void explode()
   {
-    for(Particle part:p)
+    for(Particle particle : particles)
     {
-      if (part.lifespan < 0)
+      if (particle.lifespan < 0)
       {
-        p.remove(part); 
+        particles.remove(particle); 
         break;
       }
-      part.update();
+      particle.update();
     }
   }
 
