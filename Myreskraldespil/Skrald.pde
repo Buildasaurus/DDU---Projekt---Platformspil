@@ -16,15 +16,6 @@ class Skrald
 
   }
   
-  Skrald(String _ID, PImage _image, int _h, int _w, PVector _location) //e.g "bioaffald"
-  {
-    this.sortingType = _ID;
-    this.skraldImage = _image.copy();
-    this.h = _h;
-    this.w = _w;
-    this.location = _location.copy();
-  }
-  
   Skrald(String _ID, PImage _image, int _h, int _w, PVector _location, int _rotateAngle) //e.g "bioaffald"
   {
     this.sortingType = _ID;
@@ -34,6 +25,16 @@ class Skrald
     this.location = _location.copy();
     this.rotateAngle = _rotateAngle;
   }
+  
+  Skrald(String _ID, PImage _image, int _h, int _w, PVector _location) //e.g "bioaffald"
+  {
+    this.sortingType = _ID;
+    this.skraldImage = _image.copy();
+    this.h = _h;
+    this.w = _w;
+    this.location = _location.copy();
+  }
+  
 
   void display()//Showing skrald (right now a rectangle)
   {
@@ -41,7 +42,7 @@ class Skrald
     translate(location.x, location.y - h/2 );
     rotate(radians(rotateAngle));
     image(skraldImage, 0, 0, w, h); 
-    popMatrix();
+    popMatrix();    
   }
   
   void set(PVector newLocation)//making a set function to change location of skrald in myre class
