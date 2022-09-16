@@ -185,10 +185,10 @@ class Myre
           {
             lastpicture = 2;
             pushMatrix();
-            translate( location.x + w, location.y); //<>// //<>//
-            scale( -1, 1 ); //<>// //<>//
-            image(myrereWithoutSkrald[2], 0, 0, w+3, h+3); //plussing with 3, because the myre doesn't perfectly fit the square that it is calculated in //<>// //<>//
-            popMatrix(); //<>// //<>//
+            translate( location.x + w, location.y); //<>//
+            scale( -1, 1 ); //<>//
+            image(myrereWithoutSkrald[2], 0, 0, w+3, h+3); //plussing with 3, because the myre doesn't perfectly fit the square that it is calculated in //<>//
+            popMatrix(); //<>//
           }
         }
         else //if last thing was walking left without skrald
@@ -363,7 +363,7 @@ class Myre
     }
 
     for(int i = 0; i < arraySize; i++)
-    { //<>// //<>//
+    { //<>//
       if (rightColors[i] == -16777216) //if the color beneath the myre is black, then it the myre is touching the floor
       {
         velocity.x = velocity.x - 0.34; //move the myre backwards to the right the amount of
@@ -399,8 +399,12 @@ class Myre
               }
               if(skraldespand.sortingType == skralds.get(i).sortingType)
               {
-                System.out.println(" you are in the if statement"); //<>//
+                System.out.println(" you are in the if statement"); 
+                completedLevel = true;
+                winFrame = frameCount;
+                Game = false;
                 skralds.remove(skralds.get(i));
+                
                 System.out.println(" you removed skrald");
               }
               System.out.println(" you are past breakpoint");

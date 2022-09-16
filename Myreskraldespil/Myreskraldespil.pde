@@ -6,6 +6,7 @@ boolean start = true;
 boolean Game = false, completedLevel = false, Liste = false, duFuckingLort = false; // game situation booleans
 float startKnapx = 140;
 float startKnapy = 100;
+int startFrame, winFrame;
 PImage startskaerm, startlogo, startknap;
 PImage front, platforms, Genbrugsknap, sorteringsliste, skipknap;
 PImage banan, pizzabakke, toothbrush;
@@ -107,6 +108,7 @@ void startscreen(){
   {
     start = false;
     Game = true;
+    startFrame = frameCount;
     rectMode(CORNER);
     imageMode(CORNER);
   }
@@ -188,8 +190,11 @@ void winningScreen()
   fill(0,200);
   rect(0,0,width,height);
   rectMode(CENTER);
-  rect(0,0, 160, 90);
+  rect(width/2,height/2, 160, 90);
+  fill(255);
+  text((winFrame - startFrame)/60, width/2, height/2);
   rectMode(CORNER);
+  
 }
 
 void restart()
