@@ -20,7 +20,6 @@ PImage[] myrereWithoutSkrald = new PImage[3];
 boolean explode = false;
 Eksplosion eksplosion;
 boolean z = false;
-boolean q = false;
 int tint = 0;
 
 
