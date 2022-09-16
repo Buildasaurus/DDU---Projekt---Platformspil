@@ -19,7 +19,7 @@
  }
  void update()
  {
-   //if(baneCleared)
+   if(baneCleared)
    {
     open = true;
    }
@@ -37,6 +37,4 @@
    }
    
  }
- 
-}
-*/
+}*/
