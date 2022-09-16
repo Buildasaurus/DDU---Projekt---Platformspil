@@ -10,18 +10,15 @@ float startKnapx = 140;
 float startKnapy = 100;
 PImage startskaerm, startlogo, startknap;
 PImage front, platforms, Genbrugsknap, sorteringsliste, skipknap;
-PImage banan, pizzabakke, toothbrush;
+PImage banan, pizzabakke;
 PImage madaffaldsspand, plastaffaldsspand, papaffaldsspand, restaffaldsspand;
 PImage tabeskaerm, genstartknap;
-PImage bevaegelsesIns, opsamlingsIns, smidningsIns, maalIns;
+PImage bevaegelsesIns, opsamlingsIns, smidningsIns, maalIns, listeIns;
 PImage myreimage;
-PImage[] myrereWithSkrald = new PImage[3];
-PImage[] myrereWithoutSkrald = new PImage[3];
+PImage myreimageWithSkrald, myreimageWithoutSkrald;
 boolean explode = false;
 Eksplosion eksplosion;
-boolean z = false;
 int tint = 0;
-
 
 void setup()
 {
@@ -34,14 +31,8 @@ void setup()
   Genbrugsknap = loadImage("Genbrugsknap.png");
   banan = loadImage("banan.png");
   pizzabakke = loadImage("Pizzabakke.png");
-  toothbrush = loadImage("Toothbrush.png");
-  
-  myrereWithSkrald[0] = loadImage("Myre med skrald.png");
-  myrereWithSkrald[1] = loadImage("Myre med skrald 2.png");
-  myrereWithSkrald[2] = loadImage("Myre med skrald 3.png");
-  myrereWithoutSkrald[0] = loadImage("Myre uden skrald.png");
-  myrereWithoutSkrald[1] = loadImage("Myre uden skrald 2.png");
-  myrereWithoutSkrald[2] = loadImage("Myre uden skrald 3.png");
+  myreimageWithSkrald = loadImage("Myre med skrald.png");
+  myreimageWithoutSkrald = loadImage("Myre uden skrald.png");
   madaffaldsspand = loadImage("Skraldespand - Madaffald.png");
   plastaffaldsspand = loadImage("Skraldespand - Plastaffald.png");
   papaffaldsspand = loadImage("Skraldespand - Papaffald.png");
@@ -50,23 +41,24 @@ void setup()
   opsamlingsIns = loadImage("SamleOpInstruktion.png");
   smidningsIns = loadImage("SmideIgenInstruktion.png");
   maalIns = loadImage("MaalInstruktion.png");
+  listeIns = loadImage("GuideTilSkraldInstruktion.png");
   sorteringsliste = loadImage("Sorteringsliste.png");
   skipknap = loadImage("Skipknap.png");
   tabeskaerm = loadImage("tabeskaerm.png");
   genstartknap = loadImage("genstartknap.png");
 
-  frameRate(60);
-  skralds.add(new Skrald("madaffald", banan, 20, 20, new PVector(400, 650)));
-  skralds.add(new Skrald("restaffald", pizzabakke, 60, 60, new PVector(600, 190)));
-  skralds.add(new Skrald("plastaffald", toothbrush, 60, 60, new PVector(300, 190), 90));
+  frameRate(300);
+  skralds.add(new Skrald("madaffald", banan, 20, 20, new PVector(400, 300)));
+  skralds.add(new Skrald("restaffald", pizzabakke, 60, 60, new PVector(300, 600)));
   skraldespands.add(new Skraldespand("madaffald", madaffaldsspand, new PVector(1150, 605)));
   skraldespands.add(new Skraldespand("plastaffald", plastaffaldsspand, new PVector(440, 115)));
   skraldespands.add(new Skraldespand("restaffald", restaffaldsspand, new PVector(1200, 405)));
   skraldespands.add(new Skraldespand("papaffald", papaffaldsspand, new PVector(255, 315)));
-  instruktions.add(new Instruktion(bevaegelsesIns, new PVector(50, 520), 100));
-  instruktions.add(new Instruktion(opsamlingsIns, new PVector(350, 500), 350));
-  instruktions.add(new Instruktion(smidningsIns, new PVector(900, 580), 900));
-  instruktions.add(new Instruktion(maalIns, new PVector(600, 350), 600));
+  instruktions.add(new Instruktion(bevaegelsesIns, new PVector(50, 520), 100,700));
+  instruktions.add(new Instruktion(opsamlingsIns, new PVector(350, 500), 350,700));
+  instruktions.add(new Instruktion(smidningsIns, new PVector(900, 580), 900,700));
+  instruktions.add(new Instruktion(maalIns, new PVector(600, 350), 600, 600));
+  instruktions.add(new Instruktion(listeIns, new PVector(100, 100), 100,200));
 }
 
 void draw()
@@ -151,7 +143,7 @@ void liste() //shows the sorteringsliste in fullscreen mode. only runs if game i
   if (mouseX < 1270 && mouseX > 1120 && mouseY< 730 && mouseY> 670 && mousePressed)
   {
     Liste = false;
-    duFuckingLort = true;
+    Game = true;
   }
 }
 
@@ -182,13 +174,25 @@ void tabening()
  {
    tint += 5;
  } else if (mouseX<(width+150)/2 && mouseX>(width-150)/2 && mouseY<(height+50)/2 && mouseY>(height-50)/2 && mousePressed)
- {
-   duFuckingLort = false;
-   Game = true; 
-   tint = 0;
- }
+   {
+     restart();
+   }
 }
-
+void restart()
+{
+  Game = true;
+  Liste = false;
+  duFuckingLort = false;
+  startKnapx = 140;
+  startKnapy = 100;
+  explode = false;
+  tint = 0;
+  myre.setLocation(new PVector(200,600));
+  for (Instruktion instruktion: instruktions)
+  {
+    instruktion.setTint(0);
+  }
+}
 
 void keyPressed() //input function to control the movements of myren.
 {

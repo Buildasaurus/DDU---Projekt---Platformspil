@@ -3,8 +3,8 @@ class Particle
   PVector location;
   PVector velocity;
   PVector acceleration;
-  float lifespan;
-  float particleSize;
+  int lifespan;
+  int particleSize;
   float theta;
 
   Particle (PVector _location)
@@ -16,6 +16,8 @@ class Particle
     lifespan = 255;
     particleSize = 1;
   }
+  
+
 
   void update ()
   {

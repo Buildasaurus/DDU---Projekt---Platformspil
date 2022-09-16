@@ -16,9 +16,14 @@ class Instruktion
     h = 100;
     xposition = _xposition;
     yposition = _yposition; 
-    trans = 0;
+    tint = 0;
   }
-   void run()
+  
+  void setTint(int _tint)
+  {
+    tint = _tint;
+  }
+  void run()
    {
     update();
     display();
@@ -34,7 +39,7 @@ class Instruktion
   
   void display()
   {
-    tint(255,trans);
+    tint(255,tint);
     image(Image, location.x, location.y, w, h);
     noTint();
   }
