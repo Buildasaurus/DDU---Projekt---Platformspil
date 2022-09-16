@@ -22,6 +22,8 @@ class Eksplosion
       if (particle.lifespan < 0)
       {
         particles.remove(particle); 
+        Game = false;
+        duFuckingLort = true;
         break;
       }
       particle.update();
@@ -29,25 +31,3 @@ class Eksplosion
   }
 
 }
-/*
-
-  if (q == true)
-  {
-    zote();
-  }
-  
-  
-  void mousePressed()
-{
-  q = true;
-}
-
-void zote()
-{
-   for (int i=0; i<200; i++) 
-   {
-   }
-   q = false;
-   z = true;
-}
-*/

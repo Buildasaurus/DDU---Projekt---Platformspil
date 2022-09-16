@@ -14,6 +14,10 @@ class Myre
   int walkingPace = 6;
   int lastpicture = 0;
   
+  void setLocation(PVector newLocation){
+   location = newLocation; 
+  }
+  
   
   void update()
   {
