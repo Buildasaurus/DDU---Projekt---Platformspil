@@ -221,6 +221,10 @@ void keyPressed() //input function to control the movements of myren.
   {
     myre.wantToPickUp();
   }
+  if (keyCode == 82)
+  {
+    restart();
+  }
 }
 
 
