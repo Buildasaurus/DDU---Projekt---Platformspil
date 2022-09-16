@@ -1,4 +1,5 @@
 /*class Door
+
 {
  PVector location; 
  boolean open;
