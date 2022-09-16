@@ -4,7 +4,7 @@ class Instruktion
   PImage Image;
   int w;
   int h;
-  int trans;
+  int tint;
   int xposition;
   int yposition;
   
@@ -31,9 +31,9 @@ class Instruktion
   
    void update()
   {
-    if (myre.location.x > xposition && myre.location.y < yposition && trans < 255)
+    if (myre.location.x > xposition && myre.location.y < yposition && tint < 255)
     {
-      trans +=10;
+      tint +=10;
     }
   }
   

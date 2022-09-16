@@ -70,7 +70,7 @@ void setup()
   instruktions.add(new Instruktion(opsamlingsIns, new PVector(350, 500), 350,700));
   instruktions.add(new Instruktion(smidningsIns, new PVector(900, 580), 900,700));
   instruktions.add(new Instruktion(maalIns, new PVector(600, 350), 600, 600));
-  instruktions.add(new Instruktion(listeIns, new PVector(100, 100), 100,200));
+  instruktions.add(new Instruktion(listeIns, new PVector(100, 100), 100, 200));
 }
 
 void draw()
@@ -187,7 +187,7 @@ void tabening()
    tint += 5;
  } else if (mouseX<(width+150)/2 && mouseX>(width-150)/2 && mouseY<(height+50)/2 && mouseY>(height-50)/2 && mousePressed)
    {
-     restart();
+     //restart();
    }
 }
 void restart()
@@ -200,10 +200,6 @@ void restart()
   explode = false;
   tint = 0;
   myre.setLocation(new PVector(200,600));
-  for (Instruktion instruktion: instruktions)
-  {
-    instruktion.setTint(0);
-  }
 }
 
 void keyPressed() //input function to control the movements of myren.
