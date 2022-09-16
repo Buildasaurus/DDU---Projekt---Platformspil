@@ -3,11 +3,10 @@ ArrayList<Skrald> skralds = new ArrayList<Skrald>();
 ArrayList<Skraldespand> skraldespands = new ArrayList<Skraldespand>();
 ArrayList<Instruktion> instruktions = new ArrayList<Instruktion>();
 boolean start = true;
-boolean Game = false;
-boolean Liste = false;
-boolean duFuckingLort = false;
+boolean Game = false, completedLevel = false, Liste = false, duFuckingLort = false; // game situation booleans
 float startKnapx = 140;
 float startKnapy = 100;
+int startFrame, winFrame;
 PImage startskaerm, startlogo, startknap;
 PImage front, platforms, Genbrugsknap, sorteringsliste, skipknap;
 PImage banan, pizzabakke, toothbrush;
@@ -86,9 +85,14 @@ void draw()
    else if (Liste == true)
    {
      liste();
-   } else if (duFuckingLort ==true)
+   } 
+   else if (duFuckingLort ==true)
    {
     tabening(); 
+   }
+   else if(completedLevel)
+   {
+     winningScreen();
    }
 }
 
@@ -104,6 +108,7 @@ void startscreen(){
   {
     start = false;
     Game = true;
+    startFrame = frameCount;
     rectMode(CORNER);
     imageMode(CORNER);
   }
@@ -161,35 +166,37 @@ void liste() //shows the sorteringsliste in fullscreen mode. only runs if game i
 
 void tabening()
 {
-  background(front);
-  for(Skraldespand skraldespand : skraldespands)
-  {
-    skraldespand.display();
-  }
-  for (Instruktion instruktion: instruktions)
-  {
-    instruktion.display();
-  }
-  myre.display(); //goes to the display function in Myre class, and draws whatever is there
-  for(Skrald skrald : skralds)
-  {
-    skrald.display();
-  }
+  lastImage();
   fill(0,200);
- rect(0,0,width,height);
- image(tabeskaerm,0,0,width, height);
- tint(255,tint);
- imageMode(CENTER);
- image(genstartknap,width/2,height/2,150,50);
- imageMode(CORNER);
+  rect(0,0,width,height);
+  image(tabeskaerm,0,0,width, height);
+  tint(255,tint);
+  imageMode(CENTER);
+  image(genstartknap,width/2,height/2,150,50);
+  imageMode(CORNER);
   if (tint < 255)
- {
-   tint += 15;
- } else if (mouseX<(width+150)/2 && mouseX>(width-150)/2 && mouseY<(height+50)/2 && mouseY>(height-50)/2 && mousePressed)
+   {
+     tint += 15;
+   } 
+   else if (mouseX<(width+150)/2 && mouseX>(width-150)/2 && mouseY<(height+50)/2 && mouseY>(height-50)/2 && mousePressed)
    {
      restart();
    }
 }
+
+void winningScreen()
+{
+  lastImage();
+  fill(0,200);
+  rect(0,0,width,height);
+  rectMode(CENTER);
+  rect(width/2,height/2, 160, 90);
+  fill(255);
+  text((winFrame - startFrame)/60, width/2, height/2);
+  rectMode(CORNER);
+  
+}
+
 void restart()
 {
   Game = true;
@@ -212,6 +219,24 @@ void restart()
   skralds.add(new Skrald("restaffald", pizzabakke, 60, 60, new PVector(600, 190)));
   skralds.add(new Skrald("plastaffald", toothbrush, 60, 60, new PVector(300, 190), 90));
   
+}
+
+void lastImage() //draws the background as without enabling movement.
+{
+  background(front);
+  for(Skraldespand skraldespand : skraldespands)
+  {
+    skraldespand.display();
+  }
+  for (Instruktion instruktion: instruktions)
+  {
+    instruktion.display();
+  }
+  myre.display(); //goes to the display function in Myre class, and draws whatever is there
+  for(Skrald skrald : skralds)
+  {
+    skrald.display();
+  }
 }
 
 void keyPressed() //input function to control the movements of myren.

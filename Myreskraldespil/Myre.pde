@@ -399,8 +399,12 @@ class Myre
               }
               if(skraldespand.sortingType == skralds.get(i).sortingType)
               {
-                System.out.println(" you are in the if statement"); //<>//
+                System.out.println(" you are in the if statement"); 
+                completedLevel = true;
+                winFrame = frameCount;
+                Game = false;
                 skralds.remove(skralds.get(i));
+                
                 System.out.println(" you removed skrald");
               }
               System.out.println(" you are past breakpoint");
