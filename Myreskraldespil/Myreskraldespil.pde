@@ -178,10 +178,6 @@ void tabening()
    } 
    else if (mouseX<(width+150)/2 && mouseX>(width-150)/2 && mouseY<(height+50)/2 && mouseY>(height-50)/2 && mousePressed)
    {
-     tint += 5;
-   } 
-   else if (mouseX<(width+150)/2 && mouseX>(width-150)/2 && mouseY<(height+50)/2 && mouseY>(height-50)/2 && mousePressed)
-   {
      restart();
    }
 }
