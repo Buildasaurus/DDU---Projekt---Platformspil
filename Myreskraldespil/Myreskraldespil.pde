@@ -10,20 +10,19 @@ float startKnapx = 140;
 float startKnapy = 100;
 PImage startskaerm, startlogo, startknap;
 PImage front, platforms, Genbrugsknap, sorteringsliste, skipknap;
-PImage banan, pizzabakke;
+PImage banan, pizzabakke, toothbrush;
 PImage madaffaldsspand, plastaffaldsspand, papaffaldsspand, restaffaldsspand;
 PImage tabeskaerm, genstartknap;
 PImage bevaegelsesIns, opsamlingsIns, smidningsIns, maalIns;
 PImage myreimage;
-PImage myreimageWithSkrald, myreimageWithoutSkrald;
-<<<<<<< Updated upstream
+PImage[] myrereWithSkrald = new PImage[3];
+PImage[] myrereWithoutSkrald = new PImage[3];
 boolean explode = false;
 Eksplosion eksplosion;
-=======
 boolean z = false;
 boolean q = false;
 int tint = 0;
->>>>>>> Stashed changes
+
 
 void setup()
 {
@@ -36,8 +35,14 @@ void setup()
   Genbrugsknap = loadImage("Genbrugsknap.png");
   banan = loadImage("banan.png");
   pizzabakke = loadImage("Pizzabakke.png");
-  myreimageWithSkrald = loadImage("Myre med skrald.png");
-  myreimageWithoutSkrald = loadImage("Myre uden skrald.png");
+  toothbrush = loadImage("Toothbrush.png");
+  
+  myrereWithSkrald[0] = loadImage("Myre med skrald.png");
+  myrereWithSkrald[1] = loadImage("Myre med skrald 2.png");
+  myrereWithSkrald[2] = loadImage("Myre med skrald 3.png");
+  myrereWithoutSkrald[0] = loadImage("Myre uden skrald.png");
+  myrereWithoutSkrald[1] = loadImage("Myre uden skrald 2.png");
+  myrereWithoutSkrald[2] = loadImage("Myre uden skrald 3.png");
   madaffaldsspand = loadImage("Skraldespand - Madaffald.png");
   plastaffaldsspand = loadImage("Skraldespand - Plastaffald.png");
   papaffaldsspand = loadImage("Skraldespand - Papaffald.png");
@@ -51,9 +56,10 @@ void setup()
   tabeskaerm = loadImage("tabeskaerm.png");
   genstartknap = loadImage("genstartknap.png");
 
-  frameRate(300);
-  skralds.add(new Skrald("madaffald", banan, 20, 20, new PVector(400, 300)));
-  skralds.add(new Skrald("restaffald", pizzabakke, 60, 60, new PVector(300, 600)));
+  frameRate(60);
+  skralds.add(new Skrald("madaffald", banan, 20, 20, new PVector(400, 650)));
+  skralds.add(new Skrald("restaffald", pizzabakke, 60, 60, new PVector(600, 190)));
+  skralds.add(new Skrald("plastaffald", toothbrush, 60, 60, new PVector(300, 190), 90));
   skraldespands.add(new Skraldespand("madaffald", madaffaldsspand, new PVector(1150, 605)));
   skraldespands.add(new Skraldespand("plastaffald", plastaffaldsspand, new PVector(440, 115)));
   skraldespands.add(new Skraldespand("restaffald", restaffaldsspand, new PVector(1200, 405)));

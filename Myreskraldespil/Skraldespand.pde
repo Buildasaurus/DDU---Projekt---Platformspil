@@ -13,6 +13,7 @@ class Skraldespand
     this.location = _location.copy();
   }
   
+  
   void update()
   {
   
