@@ -11,9 +11,9 @@ class Skrald
   boolean isPickedUp = false;
   int rotateAngle = 0;
   
-  void update()
+  void setLocation(PVector _location)
   {
-
+    location = _location.copy();
   }
   
   Skrald(String _ID, PImage _image, int _h, int _w, PVector _location, int _rotateAngle) //e.g "bioaffald"

@@ -4,7 +4,7 @@ class Particle
   PVector velocity;
   PVector acceleration;
   int lifespan;
-  int particleSize;
+  float particleSize;
   float theta;
 
   Particle (PVector _location)

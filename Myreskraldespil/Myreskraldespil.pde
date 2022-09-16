@@ -184,10 +184,10 @@ void tabening()
  imageMode(CORNER);
   if (tint < 255)
  {
-   tint += 5;
+   tint += 15;
  } else if (mouseX<(width+150)/2 && mouseX>(width-150)/2 && mouseY<(height+50)/2 && mouseY>(height-50)/2 && mousePressed)
    {
-     //restart();
+     restart();
    }
 }
 void restart()
@@ -200,6 +200,18 @@ void restart()
   explode = false;
   tint = 0;
   myre.setLocation(new PVector(200,600));
+  for (Instruktion instruktion: instruktions)
+  {
+    instruktion.setTint(0);
+  }
+  for (int i=skralds.size()-1; i >= 0; i--)
+  {
+    skralds.remove(skralds.get(i));
+  }
+  skralds.add(new Skrald("madaffald", banan, 20, 20, new PVector(400, 650)));
+  skralds.add(new Skrald("restaffald", pizzabakke, 60, 60, new PVector(600, 190)));
+  skralds.add(new Skrald("plastaffald", toothbrush, 60, 60, new PVector(300, 190), 90));
+  
 }
 
 void keyPressed() //input function to control the movements of myren.
