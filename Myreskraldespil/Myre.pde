@@ -113,7 +113,7 @@ class Myre
     }    
     
     
-    //if the last thing the myre did was walking right
+    //if the last thing the myre did was walking left
     
     if (lastright == false) //if the last thing myre did was walking left
     {
@@ -139,7 +139,7 @@ class Myre
             image(myrereWithSkrald[1], 0, 0, w+3, h+3); //plussing with 3, because the myre doesn't perfectly fit the square that it is calculated in
             popMatrix();
           }
-          else // if not currently walking left/
+          else // if not currently walking left
           {
             lastpicture = 2;
             pushMatrix();
@@ -150,7 +150,7 @@ class Myre
           }
         }
         
-        else // if not not currently walking, but turned right and holding skrald
+        else // if not not currently walking, but turned left and holding skrald
         {
           pushMatrix();
           translate( location.x + w, location.y);
@@ -159,13 +159,46 @@ class Myre
           popMatrix();
         }
       }
-      else //if not holding skrald and walking left
+      else //if not holding skrald and last thing was left
       {
-        pushMatrix();
-        translate( location.x + w, location.y);
-        scale( -1, 1 );
-        image(myrereWithoutSkrald[0], 0, 0, w+3, h+3); //plussing with 3, because the myre doesn't perfectly fit the square that it is calculated in
-        popMatrix();      
+        if(left == true) // if currently walking, while not holding skrald
+        {
+          if(frameCount % walkingPace > walkingPace - walkingPace/6 || frameCount % walkingPace <= walkingPace/6) //top and bottom part of framrates
+          {
+            lastpicture = 0;
+            pushMatrix();
+            translate(location.x + w, location.y);
+            scale(-1, 1);
+            image(myrereWithoutSkrald[0], 0, 0, w+3, h+3); //plussing with 3, because the myre doesn't perfectly fit the square that it is calculated in
+            popMatrix();
+          }
+          else if(frameCount % walkingPace > walkingPace/6 && frameCount % walkingPace <= walkingPace/2) // middle bottom part of framrates
+          {
+            lastpicture = 1;
+            pushMatrix();
+            translate( location.x + w, location.y);
+            scale( -1, 1 );
+            image(myrereWithoutSkrald[1], 0, 0, w+3, h+3); //plussing with 3, because the myre doesn't perfectly fit the square that it is calculated in
+            popMatrix();
+          }
+          else // if not currently walking left
+          {
+            lastpicture = 2;
+            pushMatrix();
+            translate( location.x + w, location.y); //<>//
+            scale( -1, 1 ); //<>//
+            image(myrereWithoutSkrald[2], 0, 0, w+3, h+3); //plussing with 3, because the myre doesn't perfectly fit the square that it is calculated in //<>//
+            popMatrix(); //<>//
+          }
+        }
+        else //if last thing was walking left without skrald
+        {
+          pushMatrix();
+          translate( location.x + w, location.y);
+          scale( -1, 1 );
+          image(myrereWithoutSkrald[lastpicture], 0, 0, w+3, h+3); //plussing with 3, because the myre doesn't perfectly fit the square that it is calculated in
+          popMatrix();
+        }
       }
     }
   }
@@ -185,12 +218,12 @@ class Myre
       velocity.x -= myreSpeed;
       lastright = false;
     }
-     //<>//
-    //jump only if myren is on the ground //<>//
-    if(up == true && touchingGround == true) //<>// //<>//
-    { //<>// //<>//
-      velocity.y = jumpPower;  //<>//
-      touchingGround = false; //<>//
+    
+    //jump only if myren is on the ground
+    if(up == true && touchingGround == true) 
+    { //<>//
+      velocity.y = jumpPower; 
+      touchingGround = false; 
     }
     if(touchingGround == false) //if not touching ground, apply gravity.
     {
@@ -330,7 +363,7 @@ class Myre
     }
 
     for(int i = 0; i < arraySize; i++)
-    {
+    { //<>//
       if (rightColors[i] == -16777216) //if the color beneath the myre is black, then it the myre is touching the floor
       {
         velocity.x = velocity.x - 0.34; //move the myre backwards to the right the amount of
@@ -363,7 +396,7 @@ class Myre
               {
                 eksplosion = new Eksplosion(skraldespand.location, 300);
                 explode = true;
-              } //<>//
+              }
               if(skraldespand.sortingType == skralds.get(i).sortingType)
               {
                 System.out.println(" you are in the if statement"); //<>//
