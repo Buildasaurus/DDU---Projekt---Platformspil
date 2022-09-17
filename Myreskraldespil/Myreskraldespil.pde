@@ -1,4 +1,5 @@
 Myre myre = new Myre();
+Door door;
 ArrayList<Skrald> skralds = new ArrayList<Skrald>();
 ArrayList<Skraldespand> skraldespands = new ArrayList<Skraldespand>();
 ArrayList<Instruktion> instruktions = new ArrayList<Instruktion>();
@@ -13,7 +14,7 @@ PImage banan, pizzabakke, toothbrush;
 PImage madaffaldsspand, plastaffaldsspand, papaffaldsspand, restaffaldsspand;
 PImage tabeskaerm, genstartknap;
 PImage bevaegelsesIns, opsamlingsIns, smidningsIns, maalIns, listeIns;
-PImage myreimage;
+PImage myreimage, openDoor, closedDoor;
 PImage[] myrereWithSkrald = new PImage[3];
 PImage[] myrereWithoutSkrald = new PImage[3];
 boolean explode = false;
@@ -56,11 +57,14 @@ void setup()
   skipknap = loadImage("Skipknap.png");
   tabeskaerm = loadImage("tabeskaerm.png");
   genstartknap = loadImage("genstartknap.png");
+  closedDoor = loadImage("Doer.png");
+  openDoor = loadImage("Doer_aaben.png");
+
 
   frameRate(60);
   skralds.add(new Skrald("madaffald", banan, 20, 20, new PVector(400, 650)));
   skralds.add(new Skrald("restaffald", pizzabakke, 60, 60, new PVector(600, 190)));
-  skralds.add(new Skrald("plastaffald", toothbrush, 60, 60, new PVector(300, 190), 90));
+  skralds.add(new Skrald("plastaffald", toothbrush, 60, 60, new PVector(300, 240), 90));
   skraldespands.add(new Skraldespand("madaffald", madaffaldsspand, new PVector(1150, 605)));
   skraldespands.add(new Skraldespand("plastaffald", plastaffaldsspand, new PVector(440, 115)));
   skraldespands.add(new Skraldespand("restaffald", restaffaldsspand, new PVector(1200, 405)));
@@ -70,6 +74,7 @@ void setup()
   instruktions.add(new Instruktion(smidningsIns, new PVector(900, 580), 900,700));
   instruktions.add(new Instruktion(maalIns, new PVector(600, 350), 600, 600));
   instruktions.add(new Instruktion(listeIns, new PVector(100, 100), 100, 200));
+  door = new Door(new PVector(900, 110), openDoor, closedDoor);
 }
 
 void draw()
@@ -122,6 +127,7 @@ void game()
   background(platforms);
   myre.update(); //method that update Myrerens velocity and location.
   background(front);
+  door.display();
   for(Skraldespand skraldespand : skraldespands)
   {
     skraldespand.display();
@@ -245,6 +251,12 @@ void keyPressed() //input function to control the movements of myren.
   if (keyCode == 32)//if space is pressed it flips the bool value, so you drop or pick up skrald
   {
     myre.wantToPickUp();
+    if(abs(door.location.y - myre.location.y) < 40 && PVector.sub(myre.location, door.location).mag() < 40 && skralds.size() == 0)
+    {
+      completedLevel = true;
+      winFrame = frameCount;
+      Game = false;
+    }
   }
   if (keyCode == 82)
   {

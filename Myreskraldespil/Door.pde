@@ -1,41 +1,26 @@
-/*class Door
-
+class Door
 {
- PVector location; 
- boolean open;
- int w;
- int h;
- int ekstradoor;
- 
- 
- Door(PVector l)
- {
-  location =l.copy();
-  open = false;
- }
- void run()
- {
-   update();
-   display();
- }
- void update()
- {
-   if(baneCleared)
-   {
-    open = true;
-   }
- }
- 
- void display()
- {
-   if (open)
-   {
-     image(dooropen, location.x, location.y, w + ekstradoor, h);
-   }
-   if (!open)
-   {
-     image(doorclosed, location.x, location.y, w, h);
-   }
-   
- }
-}*/
+  PVector location ;
+  PImage openDoorImg;
+  PImage closedDoorImg;
+  
+  Door(PVector _location, PImage _openDoorImg, PImage _closedDoorImg) 
+  {
+    this.location = _location;
+    this.openDoorImg = _openDoorImg;
+    this.closedDoorImg = _closedDoorImg;
+  } 
+
+
+  void display()
+  {
+    if(skralds.size() == 0) 
+    {
+      image(openDoorImg, location.x, location.y, 80, 80);
+    } 
+    else
+    {
+      image(closedDoorImg, location.x, location.y, 50, 80);
+    } 
+  }
+} 
