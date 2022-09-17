@@ -15,11 +15,14 @@ PImage madaffaldsspand, plastaffaldsspand, papaffaldsspand, restaffaldsspand;
 PImage tabeskaerm, genstartknap;
 PImage bevaegelsesIns, opsamlingsIns, smidningsIns, maalIns, listeIns;
 PImage myreimage, openDoor, closedDoor;
+PImage fullStarSkraldespand, emptyStarSkraldespand;
 PImage[] myrereWithSkrald = new PImage[3];
 PImage[] myrereWithoutSkrald = new PImage[3];
 boolean explode = false;
 Eksplosion eksplosion;
 int tint = 0;
+int difficultyGradient = 15; //time between every lost skraldespand Star
+int difficultyStart = 30; //time before you lose your first skraldespand Star
 
 void setup()
 {
@@ -57,8 +60,11 @@ void setup()
   skipknap = loadImage("Skipknap.png");
   tabeskaerm = loadImage("tabeskaerm.png");
   genstartknap = loadImage("genstartknap.png");
+  
   closedDoor = loadImage("Doer.png");
   openDoor = loadImage("Doer_aaben.png");
+  fullStarSkraldespand = loadImage("Fuld stjerne.png");
+  emptyStarSkraldespand = loadImage("Tom stjerne.png");
 
 
   frameRate(60);
@@ -192,13 +198,37 @@ void tabening()
 
 void winningScreen()
 {
+  int distanceBetweenStars = 150;
   lastImage();
   fill(0,200);
   rect(0,0,width,height);
   rectMode(CENTER);
-  rect(width/2,height/2, 160, 90);
+  imageMode(CENTER);
+  rect(width/2,height/2, 460, 290);
   fill(255);
-  text((winFrame - startFrame)/60, width/2, height/2);
+  int emptyStar = ceil((((float)(winFrame - startFrame)/60)-difficultyStart)/difficultyGradient);
+  System.out.println("empty star %f " + emptyStar + "time above 30 secs %f" + (float)((winFrame - startFrame)/60-difficultyStart));
+  if(emptyStar < 0) // if you are fast enough, you could potentially have a negative amount of empty stars, this will be fixed here, mening you will just have 0
+  {
+    emptyStar = 0;
+  }
+  System.out.println(emptyStar);
+
+  for(int i = 0; i < 3-emptyStar; i++) // draw full star skraldespands until the amount that should be empty are missing
+  {
+    image(fullStarSkraldespand, width/2 + i*distanceBetweenStars - distanceBetweenStars, height/2, 100, 100);
+    System.out.println("first loop" + i);
+  }
+
+  for(int i = 0; i < emptyStar; i++) //draw the rest as empty
+  {
+    image(emptyStarSkraldespand, width/2 - i*distanceBetweenStars + distanceBetweenStars, height/2, 100, 100);
+    System.out.println("second loop" + i);
+    System.out.println(emptyStar);
+
+  }
+  text("Du gennemførte på " + (float)(winFrame - startFrame)/60 + " sekunder!", width/2, height/2 + 100);
+  imageMode(CORNER);
   rectMode(CORNER);
   
 }
@@ -212,6 +242,7 @@ void restart()
   startKnapy = 100;
   explode = false;
   tint = 0;
+  startFrame = frameCount;
   myre.setLocation(new PVector(200,600));
   for (Instruktion instruktion: instruktions)
   {
@@ -238,11 +269,11 @@ void lastImage() //draws the background as without enabling movement.
   {
     instruktion.display();
   }
-  myre.display(); //goes to the display function in Myre class, and draws whatever is there
   for(Skrald skrald : skralds)
   {
     skrald.display();
   }
+  door.display();
 }
 
 void keyPressed() //input function to control the movements of myren.
