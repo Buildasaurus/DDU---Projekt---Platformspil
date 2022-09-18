@@ -7,7 +7,7 @@ class Particle
   float particleSize;
   float theta;
 
-  Particle (PVector _location)
+  Particle (PVector _location) // constructer of particle, saves the values.
   {
     theta = random(0,2*PI);
     velocity = new PVector(cos(theta)*random(0,5),sin(theta)*random(0,5)); //gør så at disse partikler skyder ud tifældigt i en cirkelbevægelse frem for en firkant
@@ -19,7 +19,7 @@ class Particle
   
 
 
-  void update ()
+  void update ()  //gør så partiklen bevæger sig samtidig med at den gradvist forsvinder og bliver større.
   {
     velocity.add(acceleration);
     location.add(velocity);
@@ -30,6 +30,5 @@ class Particle
     rect (location.x, location.y, particleSize, particleSize);
     stroke(0);
     fill(255);
-    //gør så partiklen bevæger sig samtidig med at den gradvist forsvinder og bliver større.
   }
 }

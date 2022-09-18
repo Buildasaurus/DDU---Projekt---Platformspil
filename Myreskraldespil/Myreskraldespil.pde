@@ -17,13 +17,15 @@ int startFrame, winFrame;
 int tint = 0;
 int difficultyGradient = 20; //time between every lost skraldespand Star
 int difficultyStart = 45; //time before you lose your first skraldespand Star
+int boxHeight = 50;
 
 PImage startskaerm, startlogo, startknap;
 PImage front, platforms, Genbrugsknap, sorteringsliste, skipknap, timer;
 PImage banan, pizzabakke, toothbrush;
 PImage madaffaldsspand, plastaffaldsspand, papaffaldsspand, restaffaldsspand;
 PImage tabeskaerm, genstartknap;
-PImage bevaegelsesIns, opsamlingsIns, smidningsIns, maalIns, listeIns, klarBanenIns;
+PImage bevaegelsesIns, opsamlingsIns, smidningsIns, maalIns, listeIns, klarBanenIns; 
+//fordi den brugte font er meget begrænset i hvilke karakterer den har, så blev det lavet til billeder frem for en reel font.
 PImage myreimage, openDoor, closedDoor;
 PImage fullStarSkraldespand, emptyStarSkraldespand, dansingMyre1, dansingMyre2, shine;
 PImage[] myrereWithSkrald = new PImage[3];
@@ -128,7 +130,8 @@ void draw()
    //opdeler spillet i mere overskuelige underkategorier, som kører når de andre ikke gør 
 }
 
-void startscreen(){
+void startscreen()
+{
   background(startskaerm);
   textAlign(CENTER);
   fill(0);
@@ -136,7 +139,7 @@ void startscreen(){
   image(startlogo,width/2,height/2-200, 1080,240);
   rectMode(CENTER);
   image(startknap,width/2,height/2+50,startKnapx,startKnapy);
-  if (mouseX<(width+startKnapx)/2 && mouseX>(width-startKnapx)/2 && mouseY<(height+startKnapy+100)/2 && mouseY>(height-startKnapy+100)/2 && mousePressed)
+  if (mouseX<(width+startKnapx)/2 && mouseX>(width-startKnapx)/2 && mouseY<(height+startKnapy+100)/2 && mouseY>(height-startKnapy+100)/2 && mousePressed) // if button is clicked, start the game.
   {
     start = false;
     Game = true;
@@ -148,13 +151,12 @@ void startscreen(){
 }
 
 
-void game()
+void game() // her sker det generelle spil
 {
-  //findInfo();
   clear();
-  background(platforms);
+  background(platforms); //her bliver der lavet den reelle bane som myren ser når tester for platformne i spillet.
   myre.update(); //method that update Myrerens velocity and location.
-  background(front);
+  background(front); //Her kommer en visuel forgrund ovenpå platforme, så det er pænere at se.
   displayTimer();
   door.display();
   for(Skraldespand skraldespand : skraldespands)
@@ -178,7 +180,7 @@ void game()
   fill(150, 200, 150, 200);
   noStroke();
   image(Genbrugsknap, 10, 10, 65, 65);
-  if (mouseX < 75 && mouseX> 10 && mouseY< 75 && mouseY> 10 && mousePressed)
+  if (mouseX < 75 && mouseX> 10 && mouseY< 75 && mouseY> 10 && mousePressed) // if recycle icon is clicked, go to the liste view.
   {
     Game = false; 
     Liste = true;
@@ -199,7 +201,7 @@ void liste() //shows the sorteringsliste in fullscreen mode. only runs if game i
   }
 }
 
-void tabening()
+void tabening()  //laver en kopi af spillet som det er i det øjeblik og laver en halvtransperant baggrund, og hvor en genstartknap gradvist kommer ind for at prøve banen igen.
 {
   lastImage();
   fill(0,200);
@@ -209,7 +211,7 @@ void tabening()
   imageMode(CENTER);
   image(genstartknap,width/2,height/2,150,50);
   imageMode(CORNER);
-  if (tint < 255)
+  if (tint < 255) //
    {
      tint += 15;
    } 
@@ -217,10 +219,10 @@ void tabening()
    {
      restart();
    }
-   //laver en kopi af spillet som det er i det øjeblik og laver en halvtransperant baggrund, og hvor en genstartknap gradvist kommer ind for at prøve banen igen.
 }
 
-void winningScreen()
+
+void winningScreen() // displays the winning image.
 {
   int distanceBetweenStars = 150;
   lastImage();
@@ -230,8 +232,7 @@ void winningScreen()
   imageMode(CENTER);
   image(shine,width/2+100, 400, 2400, 1280);
   fill(255);
-  int emptyStar = ceil((((float)(winFrame - startFrame)/60)-difficultyStart)/difficultyGradient);
-  System.out.println("empty star %f " + emptyStar + "time above 30 secs %f" + (float)((winFrame - startFrame)/60-difficultyStart));
+  int emptyStar = ceil((((float)(winFrame - startFrame)/60)-difficultyStart)/difficultyGradient); // calculates how many empty and full skraldespande should be drawn.
   if(emptyStar < 0) // if you are fast enough, you could potentially have a negative amount of empty stars, this will be fixed here, mening you will just have 0
   {
     emptyStar = 0;
@@ -269,7 +270,7 @@ void winningScreen()
   
 }
 
-void restart()
+void restart() // restarts the game, by setting everything to its start value.
 {
   Game = true;
   Liste = false;
@@ -284,7 +285,7 @@ void restart()
   {
     instruktion.setTint(0);
   }
-  for (int i=skralds.size()-1; i >= 0; i--)
+  for (int i=skralds.size()-1; i >= 0; i--)//sletter alt skrald som ikke er slettet endnu, hvorefter det placeres igen.
   {
     skralds.remove(skralds.get(i));
   }
@@ -294,7 +295,8 @@ void restart()
   
 }
 
-void lastImage() //draws the background as without enabling movement.
+
+void lastImage() //draws the background as it was a moment ago, without enabling movement.
 {
   background(front);
   for(Skraldespand skraldespand : skraldespands)
@@ -310,7 +312,17 @@ void lastImage() //draws the background as without enabling movement.
     skrald.display();
   }
   door.display();
+  imageMode(CENTER);
+  image(timer, width/2, boxHeight/2, 2*boxHeight, boxHeight); 
+  fill(255);
+  text((frameCount-startFrame)/60, width/2, boxHeight/2); 
+  imageMode(CORNER);
+  rect(0, 0, 85, 85);
+  fill(150, 200, 150, 200);
+  noStroke();
+  image(Genbrugsknap, 10, 10, 65, 65);
 }
+
 
 void keyPressed() //input function to control the movements of myren.
 {
@@ -337,21 +349,11 @@ void keyReleased() //input function to control the movements of myren.
   myre.setMove(keyCode, false);
 }
 
-void displayTimer()
+void displayTimer() //displays the timer at the top
 {
-  int boxHeight = 50;
   imageMode(CENTER);
-  fill(0);
   image(timer, width/2, boxHeight/2, 2*boxHeight, boxHeight); 
   fill(255);
   text((frameCount-startFrame)/60, width/2, boxHeight/2); 
   imageMode(CORNER);
-}
-
-void findInfo()
-{
-  color col = get(mouseX, mouseY);
-  System.out.println("color is " + col);
-  fill(300, 300, 300);
-  System.out.println("mouse x: " + mouseX + " mouse y: " + mouseY);
 }
