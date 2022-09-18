@@ -9,6 +9,7 @@ ArrayList<Instruktion> instruktions = new ArrayList<Instruktion>();
 boolean start = true;
 boolean Game = false, completedLevel = false, Liste = false, duFuckingLort = false; // game situation booleans
 boolean explode = false;
+boolean firstSkip = true;
 
 float startKnapx = 140;
 float startKnapy = 100;
@@ -143,7 +144,6 @@ void startscreen()
   {
     start = false;
     Liste = true;
-    startFrame = frameCount;
     rectMode(CORNER);
     imageMode(CORNER);
   }
@@ -198,6 +198,11 @@ void liste() //shows the sorteringsliste in fullscreen mode. only runs if game i
   {
     Liste = false;
     Game = true;
+    if(firstSkip == true)
+    {
+      startFrame = frameCount;
+      firstSkip = false;
+    }
   }
 }
 
