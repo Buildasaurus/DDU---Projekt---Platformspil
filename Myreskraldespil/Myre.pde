@@ -395,7 +395,6 @@ class Myre
             distanceToSkraldespand = PVector.sub(skraldespand.location, location);
             if(abs(skraldespand.location.y - location.y) < 40 && distanceToSkraldespand.mag() < 60) // if you are close to a skraldespand
             {
-              System.out.println("skraldespand.sortingType: " + skraldespand.sortingType + " skrald.sortingType: " + skralds.get(i).sortingType + " Skraldespand location: " + skraldespand.location);
               if(skraldespand.sortingType != skralds.get(i).sortingType)
               {
                 eksplosion = new Eksplosion(skraldespand.location, 300);
