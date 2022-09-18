@@ -242,20 +242,19 @@ void winningScreen() // displays the winning image.
   {
     emptyStar = 0;
   }
-  System.out.println(emptyStar);
+  if(emptyStar > 3) // if you are slow enough, you could potentially have a huge amount of amount of empty stars, this will be fixed here, mening you will just have 0
+  {
+    emptyStar = 3;
+  }
 
   for(int i = 0; i < 3-emptyStar; i++) // draw full star skraldespands until the amount that should be empty are missing
   {
     image(fullStarSkraldespand, width/2 + i*distanceBetweenStars - distanceBetweenStars, height/2, 100, 100);
-    System.out.println("first loop" + i);
   }
 
   for(int i = 0; i < emptyStar; i++) //draw the rest as empty
   {
     image(emptyStarSkraldespand, width/2 - i*distanceBetweenStars + distanceBetweenStars, height/2, 100, 100);
-    System.out.println("second loop" + i);
-    System.out.println(emptyStar);
-
   }
   text("Du gennemførte på " + (float)(winFrame - startFrame)/60 + " sekunder!", width/2, height/2 + 100);
   
