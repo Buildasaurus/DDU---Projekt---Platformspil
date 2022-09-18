@@ -126,7 +126,8 @@ void draw()
    //opdeler spillet i mere overskuelige underkategorier, som kører når de andre ikke gør 
 }
 
-void startscreen(){
+void startscreen()
+{
   background(startskaerm);
   textAlign(CENTER);
   fill(0);
@@ -134,7 +135,7 @@ void startscreen(){
   image(startlogo,width/2,height/2-200, 1080,240);
   rectMode(CENTER);
   image(startknap,width/2,height/2+50,startKnapx,startKnapy);
-  if (mouseX<(width+startKnapx)/2 && mouseX>(width-startKnapx)/2 && mouseY<(height+startKnapy+100)/2 && mouseY>(height-startKnapy+100)/2 && mousePressed)
+  if (mouseX<(width+startKnapx)/2 && mouseX>(width-startKnapx)/2 && mouseY<(height+startKnapy+100)/2 && mouseY>(height-startKnapy+100)/2 && mousePressed) // if button is clicked, start the game.
   {
     start = false;
     Game = true;
@@ -176,7 +177,7 @@ void game()
   fill(150, 200, 150, 200);
   noStroke();
   image(Genbrugsknap, 10, 10, 65, 65);
-  if (mouseX < 75 && mouseX> 10 && mouseY< 75 && mouseY> 10 && mousePressed)
+  if (mouseX < 75 && mouseX> 10 && mouseY< 75 && mouseY> 10 && mousePressed) // if recycle icon is clicked, go to the liste view.
   {
     Game = false; 
     Liste = true;
@@ -197,7 +198,7 @@ void liste() //shows the sorteringsliste in fullscreen mode. only runs if game i
   }
 }
 
-void tabening()
+void tabening()  //laver en kopi af spillet som det er i det øjeblik og laver en halvtransperant baggrund, og hvor en genstartknap gradvist kommer ind for at prøve banen igen.
 {
   lastImage();
   fill(0,200);
@@ -207,7 +208,7 @@ void tabening()
   imageMode(CENTER);
   image(genstartknap,width/2,height/2,150,50);
   imageMode(CORNER);
-  if (tint < 255)
+  if (tint < 255) //
    {
      tint += 15;
    } 
@@ -215,10 +216,10 @@ void tabening()
    {
      restart();
    }
-   //laver en kopi af spillet som det er i det øjeblik og laver en halvtransperant baggrund, og hvor en genstartknap gradvist kommer ind for at prøve banen igen.
 }
 
-void winningScreen()
+
+void winningScreen() // displays the winning image.
 {
   int distanceBetweenStars = 150;
   lastImage();
@@ -228,8 +229,7 @@ void winningScreen()
   imageMode(CENTER);
   //rect(width/2,height/2, 460, 290);
   fill(255);
-  int emptyStar = ceil((((float)(winFrame - startFrame)/60)-difficultyStart)/difficultyGradient);
-  System.out.println("empty star %f " + emptyStar + "time above 30 secs %f" + (float)((winFrame - startFrame)/60-difficultyStart));
+  int emptyStar = ceil((((float)(winFrame - startFrame)/60)-difficultyStart)/difficultyGradient); // calculates how many empty and full skraldespande should be drawn.
   if(emptyStar < 0) // if you are fast enough, you could potentially have a negative amount of empty stars, this will be fixed here, mening you will just have 0
   {
     emptyStar = 0;
@@ -255,7 +255,8 @@ void winningScreen()
   
 }
 
-void restart()
+
+void restart() // restarts the game, by setting everything to its start value.
 {
   Game = true;
   Liste = false;
@@ -280,7 +281,8 @@ void restart()
   
 }
 
-void lastImage() //draws the background as without enabling movement.
+
+void lastImage() //draws the background as it was a moment ago, without enabling movement.
 {
   background(front);
   for(Skraldespand skraldespand : skraldespands)
@@ -307,6 +309,7 @@ void lastImage() //draws the background as without enabling movement.
   image(Genbrugsknap, 10, 10, 65, 65);
 }
 
+
 void keyPressed() //input function to control the movements of myren.
 {
   myre.setMove(keyCode, true); //sets a boolean of the arrow that was pressed to true, making the myre move.
@@ -332,7 +335,7 @@ void keyReleased() //input function to control the movements of myren.
   myre.setMove(keyCode, false);
 }
 
-void displayTimer()
+void displayTimer() //displays the timer at the top
 {
   imageMode(CENTER);
   image(timer, width/2, boxHeight/2, 2*boxHeight, boxHeight); 
@@ -341,7 +344,7 @@ void displayTimer()
   imageMode(CORNER);
 }
 
-void findInfo()
+void findInfo() // function if you want to get x and y position, and color of whatever.
 {
   color col = get(mouseX, mouseY);
   System.out.println("color is " + col);
