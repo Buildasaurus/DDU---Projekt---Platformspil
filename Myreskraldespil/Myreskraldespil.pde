@@ -21,8 +21,8 @@ PImage[] myrereWithoutSkrald = new PImage[3];
 boolean explode = false;
 Eksplosion eksplosion;
 int tint = 0;
-int difficultyGradient = 15; //time between every lost skraldespand Star
-int difficultyStart = 30; //time before you lose your first skraldespand Star
+int difficultyGradient = 20; //time between every lost skraldespand Star
+int difficultyStart = 45; //time before you lose your first skraldespand Star
 
 void setup()
 {
