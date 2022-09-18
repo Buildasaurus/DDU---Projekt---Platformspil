@@ -133,6 +133,7 @@ void game()
   background(platforms);
   myre.update(); //method that update Myrerens velocity and location.
   background(front);
+  displayTimer();
   door.display();
   for(Skraldespand skraldespand : skraldespands)
   {
@@ -204,7 +205,7 @@ void winningScreen()
   rect(0,0,width,height);
   rectMode(CENTER);
   imageMode(CENTER);
-  rect(width/2,height/2, 460, 290);
+  //rect(width/2,height/2, 460, 290);
   fill(255);
   int emptyStar = ceil((((float)(winFrame - startFrame)/60)-difficultyStart)/difficultyGradient);
   System.out.println("empty star %f " + emptyStar + "time above 30 secs %f" + (float)((winFrame - startFrame)/60-difficultyStart));
@@ -301,6 +302,16 @@ void keyReleased() //input function to control the movements of myren.
   myre.setMove(keyCode, false);
 }
 
+void displayTimer()
+{
+  int boxHeight = 50;
+  rectMode(CENTER);
+  fill(0);
+  rect(width/2, boxHeight/2, 100, boxHeight); 
+  fill(255);
+  text((frameCount-startFrame)/60, width/2, boxHeight/2); 
+  rectMode(CORNER);
+}
 
 void findInfo()
 {
