@@ -1,7 +1,9 @@
 Myre myre = new Myre();
 Eksplosion eksplosion;
 Door door;
-
+import processing.sound.*;
+SoundFile deathSound;
+SoundFile gameSound;
 ArrayList<Skrald> skralds = new ArrayList<Skrald>();
 ArrayList<Skraldespand> skraldespands = new ArrayList<Skraldespand>();
 ArrayList<Instruktion> instruktions = new ArrayList<Instruktion>();
@@ -34,8 +36,12 @@ PImage[] myrereWithoutSkrald = new PImage[3];
 PFont font;
 
 void setup()
-{
+{ 
   size(1280,720); // 16:9 ratio
+  
+  deathSound = new SoundFile(this, "Død3.mp3");
+  gameSound = new SoundFile(this, "VildtSoundtrack.mp3");
+  
   platforms = loadImage("Baggrund.png");
   front = loadImage("Forgrund.png");
   startskaerm = loadImage("Myrestartskaerm.png");
@@ -159,6 +165,11 @@ void game() // her sker det generelle spil
   background(front); //Her kommer en visuel forgrund ovenpå platforme, så det er pænere at se.
   displayTimer();
   door.display();
+  if((frameCount-startFrame)%3600 == 10)
+  {
+    deathSound.stop();
+    gameSound.play();
+  }
   for(Skraldespand skraldespand : skraldespands)
   {
     skraldespand.display();
