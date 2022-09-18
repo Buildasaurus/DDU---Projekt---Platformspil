@@ -19,12 +19,12 @@ class Myre
    location = _Location; 
   }
   
-  void update()
+  void update() // updates the position of the myre.
   {
     move(); //moves myren if the move booleans are true (if a key is pressed)
-    bounce();
+    bounce(); 
     dontWalkThroughWalls();
-    for(Skrald skrald : skralds)
+    for(Skrald skrald : skralds) // if myre is holding skrald, call the hold, with the skrald that it is holding, to make the skrald move with the myre.
     {
       if(skrald.isPickedUp == true)
       {
@@ -51,6 +51,10 @@ class Myre
       }
     }
     
+    
+    //the following is a lot of if statements displaying the myre to the right, if right was clicked as the last key, and opposite.
+    //the if statements also make the walking animation of the myre, and raises the arm of the myre, if it is holding skrald.
+    //caos to read, just go past this function.
     
     if (lastright == true) // if the last thing myre did was walking right
     {
@@ -206,7 +210,7 @@ class Myre
   
   void move() //moves myren if the arrows are clicked.
   {
-    touchingGround = isTouchingGround();
+    touchingGround = isTouchingGround(); 
     touchingCeiling = isTouchingCeiling();
     if(right == true)
     {
@@ -217,11 +221,11 @@ class Myre
     {
       velocity.x -= myreSpeed;
       lastright = false;
-    }
+    } //<>//
     
     //jump only if myren is on the ground
     if(up == true && touchingGround == true) 
-    { //<>// //<>// //<>// //<>// //<>//
+    {
       velocity.y = jumpPower; 
       touchingGround = false; 
     }
@@ -361,7 +365,7 @@ class Myre
       for(int k = 0; k < depthWidthRatio; k++)
       {
          rightColors[j*(k+1)] = get(ceil(location.x + w/1.3 + k), ceil(location.y + heightToScan*j/(arraySize/depthWidthRatio))); //check all the pixels in a rectangle to the right of the myre, above the ground.
-      }
+      } //<>//
     }
 
     for(int i = 0; i < arraySize; i++)
@@ -374,7 +378,7 @@ class Myre
   } // end dontWalkThroughWalls
   
   
-  void wantToPickUp() //pick up
+  void wantToPickUp() //picks up skrald if it is close enough, and you don't hold some already
   {
     PVector distanceToSkrald;
     PVector distanceToSkraldespand;
