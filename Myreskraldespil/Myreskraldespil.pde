@@ -36,7 +36,7 @@ void setup()
   Genbrugsknap = loadImage("Genbrugsknap.png");
   
   banan = loadImage("banan.png");
-  pizzabakke = loadImage("Pizzabakke.png");
+  pizzabakke = loadImage("pizzabakke.png");
   toothbrush = loadImage("Toothbrush.png");
   
   myrereWithSkrald[0] = loadImage("Myre med skrald.png");
@@ -68,9 +68,9 @@ void setup()
 
 
   frameRate(60);
-  skralds.add(new Skrald("madaffald", banan, 20, 20, new PVector(400, 650)));
-  skralds.add(new Skrald("restaffald", pizzabakke, 60, 60, new PVector(600, 190)));
-  skralds.add(new Skrald("plastaffald", toothbrush, 60, 60, new PVector(300, 240), 90));
+  skralds.add(new Skrald("madaffald", banan, 40, 40, new PVector(400, 650)));
+  skralds.add(new Skrald("restaffald", pizzabakke, 80, 80, new PVector(650, 150)));
+  skralds.add(new Skrald("plastaffald", toothbrush, 100, 100, new PVector(1150, 450), 90));
   skraldespands.add(new Skraldespand("madaffald", madaffaldsspand, new PVector(1150, 605)));
   skraldespands.add(new Skraldespand("plastaffald", plastaffaldsspand, new PVector(440, 115)));
   skraldespands.add(new Skraldespand("restaffald", restaffaldsspand, new PVector(1200, 405)));
@@ -253,9 +253,9 @@ void restart()
   {
     skralds.remove(skralds.get(i));
   }
-  skralds.add(new Skrald("madaffald", banan, 20, 20, new PVector(400, 650)));
-  skralds.add(new Skrald("restaffald", pizzabakke, 60, 60, new PVector(600, 190)));
-  skralds.add(new Skrald("plastaffald", toothbrush, 60, 60, new PVector(300, 190), 90));
+  skralds.add(new Skrald("madaffald", banan, 40, 40, new PVector(400, 650)));
+  skralds.add(new Skrald("restaffald", pizzabakke, 80, 80, new PVector(650, 150)));
+  skralds.add(new Skrald("plastaffald", toothbrush, 100, 100, new PVector(1150, 450), 90));
   
 }
 
