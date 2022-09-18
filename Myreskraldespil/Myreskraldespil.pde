@@ -1,13 +1,22 @@
 Myre myre = new Myre();
+Eksplosion eksplosion;
 Door door;
 ArrayList<Skrald> skralds = new ArrayList<Skrald>();
 ArrayList<Skraldespand> skraldespands = new ArrayList<Skraldespand>();
 ArrayList<Instruktion> instruktions = new ArrayList<Instruktion>();
+
 boolean start = true;
 boolean Game = false, completedLevel = false, Liste = false, duFuckingLort = false; // game situation booleans
+boolean explode = false;
+
 float startKnapx = 140;
 float startKnapy = 100;
+
 int startFrame, winFrame;
+int tint = 0;
+int difficultyGradient = 20; //time between every lost skraldespand Star
+int difficultyStart = 45; //time before you lose your first skraldespand Star
+
 PImage startskaerm, startlogo, startknap;
 PImage front, platforms, Genbrugsknap, sorteringsliste, skipknap;
 PImage banan, pizzabakke, toothbrush;
@@ -18,11 +27,6 @@ PImage myreimage, openDoor, closedDoor;
 PImage fullStarSkraldespand, emptyStarSkraldespand;
 PImage[] myrereWithSkrald = new PImage[3];
 PImage[] myrereWithoutSkrald = new PImage[3];
-boolean explode = false;
-Eksplosion eksplosion;
-int tint = 0;
-int difficultyGradient = 20; //time between every lost skraldespand Star
-int difficultyStart = 45; //time before you lose your first skraldespand Star
 
 void setup()
 {
@@ -36,7 +40,7 @@ void setup()
   Genbrugsknap = loadImage("Genbrugsknap.png");
   
   banan = loadImage("banan.png");
-  pizzabakke = loadImage("pizzabakke.png");
+  pizzabakke = loadImage("Pizzabakke.png");
   toothbrush = loadImage("Toothbrush.png");
   
   myrereWithSkrald[0] = loadImage("Myre med skrald.png");
@@ -71,15 +75,19 @@ void setup()
   skralds.add(new Skrald("madaffald", banan, 40, 40, new PVector(400, 650)));
   skralds.add(new Skrald("restaffald", pizzabakke, 80, 80, new PVector(650, 150)));
   skralds.add(new Skrald("plastaffald", toothbrush, 100, 100, new PVector(1150, 450), 90));
+  
+  
   skraldespands.add(new Skraldespand("madaffald", madaffaldsspand, new PVector(1150, 605)));
   skraldespands.add(new Skraldespand("plastaffald", plastaffaldsspand, new PVector(440, 115)));
   skraldespands.add(new Skraldespand("restaffald", restaffaldsspand, new PVector(1200, 405)));
   skraldespands.add(new Skraldespand("papaffald", papaffaldsspand, new PVector(255, 315)));
+  
   instruktions.add(new Instruktion(bevaegelsesIns, new PVector(50, 520), 100,700));
   instruktions.add(new Instruktion(opsamlingsIns, new PVector(350, 500), 350,700));
   instruktions.add(new Instruktion(smidningsIns, new PVector(900, 580), 900,700));
   instruktions.add(new Instruktion(maalIns, new PVector(600, 350), 600, 600));
   instruktions.add(new Instruktion(listeIns, new PVector(100, 100), 100, 200));
+  
   door = new Door(new PVector(900, 110), openDoor, closedDoor);
 }
 
