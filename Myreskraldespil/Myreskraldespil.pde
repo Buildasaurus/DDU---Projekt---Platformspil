@@ -17,6 +17,7 @@ int startFrame, winFrame;
 int tint = 0;
 int difficultyGradient = 20; //time between every lost skraldespand Star
 int difficultyStart = 45; //time before you lose your first skraldespand Star
+int boxHeight = 50;
 
 PImage startskaerm, startlogo, startknap;
 PImage front, platforms, Genbrugsknap, sorteringsliste, skipknap, timer;
@@ -295,6 +296,15 @@ void lastImage() //draws the background as without enabling movement.
     skrald.display();
   }
   door.display();
+  imageMode(CENTER);
+  image(timer, width/2, boxHeight/2, 2*boxHeight, boxHeight); 
+  fill(255);
+  text((frameCount-startFrame)/60, width/2, boxHeight/2); 
+  imageMode(CORNER);
+  rect(0, 0, 85, 85);
+  fill(150, 200, 150, 200);
+  noStroke();
+  image(Genbrugsknap, 10, 10, 65, 65);
 }
 
 void keyPressed() //input function to control the movements of myren.
@@ -324,9 +334,7 @@ void keyReleased() //input function to control the movements of myren.
 
 void displayTimer()
 {
-  int boxHeight = 50;
   imageMode(CENTER);
-  fill(0);
   image(timer, width/2, boxHeight/2, 2*boxHeight, boxHeight); 
   fill(255);
   text((frameCount-startFrame)/60, width/2, boxHeight/2); 
