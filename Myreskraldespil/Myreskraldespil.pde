@@ -18,7 +18,7 @@ int difficultyGradient = 20; //time between every lost skraldespand Star
 int difficultyStart = 45; //time before you lose your first skraldespand Star
 
 PImage startskaerm, startlogo, startknap;
-PImage front, platforms, Genbrugsknap, sorteringsliste, skipknap;
+PImage front, platforms, Genbrugsknap, sorteringsliste, skipknap, timer;
 PImage banan, pizzabakke, toothbrush;
 PImage madaffaldsspand, plastaffaldsspand, papaffaldsspand, restaffaldsspand;
 PImage tabeskaerm, genstartknap;
@@ -27,6 +27,16 @@ PImage myreimage, openDoor, closedDoor;
 PImage fullStarSkraldespand, emptyStarSkraldespand;
 PImage[] myrereWithSkrald = new PImage[3];
 PImage[] myrereWithoutSkrald = new PImage[3];
+<<<<<<< Updated upstream
+=======
+boolean explode = false;
+Eksplosion eksplosion;
+int tint = 0;
+int difficultyGradient = 20; //time between every lost skraldespand Star
+int difficultyStart = 45; //time before you lose your first skraldespand Star
+PFont font;
+
+>>>>>>> Stashed changes
 
 void setup()
 {
@@ -60,17 +70,22 @@ void setup()
   smidningsIns = loadImage("SmideIgenInstruktion.png");
   maalIns = loadImage("MaalInstruktion.png");
   listeIns = loadImage("GuideTilSkraldInstruktion.png");
+  
   sorteringsliste = loadImage("Sorteringsliste.png");
   skipknap = loadImage("Skipknap.png");
+  
   tabeskaerm = loadImage("tabeskaerm.png");
   genstartknap = loadImage("genstartknap.png");
+  timer = loadImage("Timer.png");
+  
   
   closedDoor = loadImage("Doer.png");
   openDoor = loadImage("Doer_aaben.png");
   fullStarSkraldespand = loadImage("Fuld stjerne.png");
   emptyStarSkraldespand = loadImage("Tom stjerne.png");
 
-
+  font = createFont("Dubai-Bold-48.vlw", 24);
+  textFont(font);
   frameRate(60);
   skralds.add(new Skrald("madaffald", banan, 40, 40, new PVector(400, 650)));
   skralds.add(new Skrald("restaffald", pizzabakke, 80, 80, new PVector(650, 150)));
@@ -313,12 +328,12 @@ void keyReleased() //input function to control the movements of myren.
 void displayTimer()
 {
   int boxHeight = 50;
-  rectMode(CENTER);
+  imageMode(CENTER);
   fill(0);
-  rect(width/2, boxHeight/2, 100, boxHeight); 
+  image(timer, width/2, boxHeight/2, 2*boxHeight, boxHeight); 
   fill(255);
   text((frameCount-startFrame)/60, width/2, boxHeight/2); 
-  rectMode(CORNER);
+  imageMode(CORNER);
 }
 
 void findInfo()
