@@ -327,9 +327,9 @@ class Myre
       velocity.y = 0;
     }
   }
+
   
-  
- void dontWalkThroughWalls() //returns a bool, whether the myre is touching ground or not
+  void dontWalkThroughWalls() //returns a bool, whether the myre is touching ground or not
   {
     int depthWidthRatio = 10;
     int heightToScan = h-4; //how many pixels to the side of the myre should be checked if they are a wall. This is not equal to the height of the myre, since we don't want to scan the pixels at the feet of the myre, enabling it to walk on crooked floors
@@ -379,19 +379,17 @@ class Myre
     PVector distanceToSkrald;
     PVector distanceToSkraldespand;
     
-    for(int i = skralds.size()-1; i >= 0; i--)
+    if(holdingSkrald)
     {
-      distanceToSkrald = PVector.sub(skralds.get(i).location, location);
-      if(abs(skralds.get(i).location.y - location.y) < 80 && distanceToSkrald.mag() < 80)
+      for(int i = skralds.size()-1; i >= 0; i--)
       {
-        skralds.get(i).isPickedUp = !skralds.get(i).isPickedUp;
-        if(skralds.get(i).isPickedUp == false)
+        if(skralds.get(i).isPickedUp == true)
         {
-          for(Skraldespand skraldespand : skraldespands)
+          skralds.get(i).isPickedUp = !skralds.get(i).isPickedUp; // drop the skrald
+          for(Skraldespand skraldespand : skraldespands) // now loop through the skraldespands to check if you dropped the skrald in them.
           {
             distanceToSkraldespand = PVector.sub(skraldespand.location, location);
-            if((skraldespand.location.y - location.y) < 40 && distanceToSkraldespand.mag() < 60)
-            if(abs(skraldespand.location.y - location.y) < 40 && distanceToSkraldespand.mag() < 40)
+            if(abs(skraldespand.location.y - location.y) < 40 && distanceToSkraldespand.mag() < 60) // if you are close to a skraldespand
             {
               System.out.println("skraldespand.sortingType: " + skraldespand.sortingType + " skrald.sortingType: " + skralds.get(i).sortingType + " Skraldespand location: " + skraldespand.location);
               if(skraldespand.sortingType != skralds.get(i).sortingType)
@@ -401,17 +399,24 @@ class Myre
               }
               if(skraldespand.sortingType == skralds.get(i).sortingType)
               {
-                System.out.println(" you are in the if statement"); 
                 skralds.remove(skralds.get(i));
-                
-                System.out.println(" you removed skrald");
               }
-              System.out.println(" you are past breakpoint");
             }
-          }//end skraldespandforloop
+          }
+        }
+      }
+    }
+    else //if not holdingSkrald
+    {
+      for(int i = skralds.size()-1; i >= 0; i--)
+      {
+        distanceToSkrald = PVector.sub(skralds.get(i).location, location);
+        if(abs(skralds.get(i).location.y - location.y) < 80 && distanceToSkrald.mag() < 80)
+        {
+          skralds.get(i).isPickedUp = !skralds.get(i).isPickedUp;
+          break;
         }
       }
     }
   }
-  
 }// end class
