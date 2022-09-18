@@ -36,7 +36,7 @@ class Skrald
   }
   
 
-  void display()//Showing skrald (right now a rectangle)
+  void display()//Showing skrald, rotates it if it should be
   {
     pushMatrix();
     imageMode(CENTER);
