@@ -2,8 +2,6 @@ Myre myre = new Myre();
 Eksplosion eksplosion;
 Door door;
 
-PFont font;
-
 ArrayList<Skrald> skralds = new ArrayList<Skrald>();
 ArrayList<Skraldespand> skraldespands = new ArrayList<Skraldespand>();
 ArrayList<Instruktion> instruktions = new ArrayList<Instruktion>();
@@ -30,12 +28,7 @@ PImage myreimage, openDoor, closedDoor;
 PImage fullStarSkraldespand, emptyStarSkraldespand;
 PImage[] myrereWithSkrald = new PImage[3];
 PImage[] myrereWithoutSkrald = new PImage[3];
-
-<<<<<<< Updated upstream
-
-=======
 PFont font;
->>>>>>> Stashed changes
 
 void setup()
 {
@@ -277,7 +270,7 @@ void restart()
   }
   skralds.add(new Skrald("madaffald", banan, 40, 40, new PVector(400, 650)));
   skralds.add(new Skrald("restaffald", pizzabakke, 80, 80, new PVector(650, 150)));
-  skralds.add(new Skrald("plastaffald", toothbrush, 100, 100, new PVector(1150, 450), 90));
+  skralds.add(new Skrald("plastaffald", toothbrush, 100, 16, new PVector(1150, 450), 90));
   
 }
 
