@@ -25,7 +25,7 @@ PImage madaffaldsspand, plastaffaldsspand, papaffaldsspand, restaffaldsspand;
 PImage tabeskaerm, genstartknap;
 PImage bevaegelsesIns, opsamlingsIns, smidningsIns, maalIns, listeIns, klarBanenIns;
 PImage myreimage, openDoor, closedDoor;
-PImage fullStarSkraldespand, emptyStarSkraldespand;
+PImage fullStarSkraldespand, emptyStarSkraldespand, dansingMyre1, dansingMyre2, shine;
 PImage[] myrereWithSkrald = new PImage[3];
 PImage[] myrereWithoutSkrald = new PImage[3];
 PFont font;
@@ -76,6 +76,9 @@ void setup()
   openDoor = loadImage("Doer_aaben.png");
   fullStarSkraldespand = loadImage("Fuld stjerne.png");
   emptyStarSkraldespand = loadImage("Tom stjerne.png");
+  dansingMyre1 = loadImage("Dansemyre 1.png");
+  dansingMyre2 = loadImage("Dansemyre 2.png");
+  shine = loadImage("Skinnende baggrund.png");
 
   font = createFont("Dubai-Bold-48.vlw", 24);
   textFont(font);
@@ -225,7 +228,7 @@ void winningScreen()
   rect(0,0,width,height);
   rectMode(CENTER);
   imageMode(CENTER);
-  //rect(width/2,height/2, 460, 290);
+  image(shine,width/2+100, 400, 2400, 1280);
   fill(255);
   int emptyStar = ceil((((float)(winFrame - startFrame)/60)-difficultyStart)/difficultyGradient);
   System.out.println("empty star %f " + emptyStar + "time above 30 secs %f" + (float)((winFrame - startFrame)/60-difficultyStart));
@@ -249,8 +252,20 @@ void winningScreen()
 
   }
   text("Du gennemførte på " + (float)(winFrame - startFrame)/60 + " sekunder!", width/2, height/2 + 100);
+  
+  if(frameCount%20<10)
+  {
+    image(dansingMyre1, width/4, height/2,210,240);
+    image(dansingMyre2,3*width/4,height/2,210,240);
+  }
+  if(frameCount%20>=10)
+  {
+    image(dansingMyre2,width/4, height/2,210,240);
+    image(dansingMyre1,3*width/4,height/2,210,240);
+  }
   imageMode(CORNER);
   rectMode(CORNER);
+  
   
 }
 
