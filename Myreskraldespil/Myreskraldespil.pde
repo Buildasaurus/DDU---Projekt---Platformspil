@@ -1,6 +1,9 @@
 Myre myre = new Myre();
 Eksplosion eksplosion;
 Door door;
+
+PFont font;
+
 ArrayList<Skrald> skralds = new ArrayList<Skrald>();
 ArrayList<Skraldespand> skraldespands = new ArrayList<Skraldespand>();
 ArrayList<Instruktion> instruktions = new ArrayList<Instruktion>();
@@ -27,16 +30,8 @@ PImage myreimage, openDoor, closedDoor;
 PImage fullStarSkraldespand, emptyStarSkraldespand;
 PImage[] myrereWithSkrald = new PImage[3];
 PImage[] myrereWithoutSkrald = new PImage[3];
-<<<<<<< Updated upstream
-=======
-boolean explode = false;
-Eksplosion eksplosion;
-int tint = 0;
-int difficultyGradient = 20; //time between every lost skraldespand Star
-int difficultyStart = 45; //time before you lose your first skraldespand Star
-PFont font;
 
->>>>>>> Stashed changes
+
 
 void setup()
 {
