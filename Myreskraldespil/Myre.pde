@@ -221,7 +221,7 @@ class Myre
     
     //jump only if myren is on the ground
     if(up == true && touchingGround == true) 
-    { //<>// //<>// //<>//
+    { //<>// //<>// //<>// //<>// //<>//
       velocity.y = jumpPower; 
       touchingGround = false; 
     }
@@ -365,7 +365,7 @@ class Myre
     }
 
     for(int i = 0; i < arraySize; i++)
-    { //<>// //<>// //<>//
+    { //<>// //<>// //<>// //<>// //<>//
       if (rightColors[i] == -16777216) //if the color beneath the myre is black, then it the myre is touching the floor
       {
         velocity.x = velocity.x - 0.34; //move the myre backwards to the right the amount of
