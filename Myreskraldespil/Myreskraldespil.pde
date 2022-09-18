@@ -288,6 +288,7 @@ void winningScreen() // displays the winning image.
 void restart() // restarts the game, by setting everything to its start value.
 {
   Game = true;
+  gameSound.stop();
   Liste = false;
   duFuckingLort = false;
   startKnapx = 140;
