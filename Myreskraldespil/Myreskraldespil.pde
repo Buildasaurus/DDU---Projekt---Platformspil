@@ -24,7 +24,8 @@ PImage front, platforms, Genbrugsknap, sorteringsliste, skipknap, timer;
 PImage banan, pizzabakke, toothbrush;
 PImage madaffaldsspand, plastaffaldsspand, papaffaldsspand, restaffaldsspand;
 PImage tabeskaerm, genstartknap;
-PImage bevaegelsesIns, opsamlingsIns, smidningsIns, maalIns, listeIns, klarBanenIns;
+PImage bevaegelsesIns, opsamlingsIns, smidningsIns, maalIns, listeIns, klarBanenIns; 
+//fordi den brugte font er meget begrænset i hvilke karakterer den har, så blev det lavet til billeder frem for en reel font.
 PImage myreimage, openDoor, closedDoor;
 PImage fullStarSkraldespand, emptyStarSkraldespand;
 PImage[] myrereWithSkrald = new PImage[3];
@@ -146,13 +147,12 @@ void startscreen(){
 }
 
 
-void game()
+void game() // her sker det generelle spil
 {
-  //findInfo();
   clear();
-  background(platforms);
+  background(platforms); //her bliver der lavet den reelle bane som myren ser når tester for platformne i spillet.
   myre.update(); //method that update Myrerens velocity and location.
-  background(front);
+  background(front); //Her kommer en visuel forgrund ovenpå platforme, så det er pænere at se.
   displayTimer();
   door.display();
   for(Skraldespand skraldespand : skraldespands)
@@ -255,7 +255,7 @@ void winningScreen()
   
 }
 
-void restart()
+void restart()//sætter alle de værdier der ændrer sig gennem spillet tilbage til hvad de var i starten af banen.
 {
   Game = true;
   Liste = false;
@@ -270,7 +270,7 @@ void restart()
   {
     instruktion.setTint(0);
   }
-  for (int i=skralds.size()-1; i >= 0; i--)
+  for (int i=skralds.size()-1; i >= 0; i--)//sletter alt skrald som ikke er slettet endnu, hvorefter det placeres igen.
   {
     skralds.remove(skralds.get(i));
   }
@@ -339,12 +339,4 @@ void displayTimer()
   fill(255);
   text((frameCount-startFrame)/60, width/2, boxHeight/2); 
   imageMode(CORNER);
-}
-
-void findInfo()
-{
-  color col = get(mouseX, mouseY);
-  System.out.println("color is " + col);
-  fill(300, 300, 300);
-  System.out.println("mouse x: " + mouseX + " mouse y: " + mouseY);
 }
