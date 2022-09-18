@@ -142,7 +142,7 @@ void startscreen()
   if (mouseX<(width+startKnapx)/2 && mouseX>(width-startKnapx)/2 && mouseY<(height+startKnapy+100)/2 && mouseY>(height-startKnapy+100)/2 && mousePressed) // if button is clicked, start the game.
   {
     start = false;
-    Game = true;
+    Liste = true;
     startFrame = frameCount;
     rectMode(CORNER);
     imageMode(CORNER);
