@@ -39,9 +39,11 @@ class Skrald
   void display()//Showing skrald (right now a rectangle)
   {
     pushMatrix();
-    translate(location.x, location.y - h/2 );
+    imageMode(CENTER);
+    translate(location.x, location.y);
     rotate(radians(rotateAngle));
-    image(skraldImage, 0, 0, w, h); 
+    image(skraldImage, 0, 0, w, h);
+    imageMode(CORNER);
     popMatrix();    
   }
   

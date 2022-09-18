@@ -185,10 +185,10 @@ class Myre
           {
             lastpicture = 2;
             pushMatrix();
-            translate( location.x + w, location.y); //<>// //<>// //<>//
-            scale( -1, 1 ); //<>// //<>// //<>//
-            image(myrereWithoutSkrald[2], 0, 0, w+3, h+3); //plussing with 3, because the myre doesn't perfectly fit the square that it is calculated in //<>// //<>// //<>//
-            popMatrix(); //<>// //<>// //<>//
+            translate( location.x + w, location.y); //<>// //<>//
+            scale( -1, 1 ); //<>// //<>//
+            image(myrereWithoutSkrald[2], 0, 0, w+3, h+3); //plussing with 3, because the myre doesn't perfectly fit the square that it is calculated in //<>// //<>//
+            popMatrix(); //<>// //<>//
           }
         }
         else //if last thing was walking left without skrald
@@ -303,10 +303,12 @@ class Myre
     return false;
   }
   
+  
   void hold(Skrald skrald)//Making a method to change the location of skrald.
   {
     //calling the set funktion to set the location of skrald above myre and follow.
-    skrald.set(new PVector(this.location.x, this.location.y));
+    
+    skrald.set(new PVector(this.location.x + w/2, this.location.y - skrald.h/5));
   }
   
   void bounce() //bounces the myre off the walls, and the roof.

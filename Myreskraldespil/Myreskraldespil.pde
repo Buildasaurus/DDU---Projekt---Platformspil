@@ -209,7 +209,7 @@ void winningScreen()
 {
   int distanceBetweenStars = 150;
   lastImage();
-  fill(0,200);
+  fill(0 ,200);
   rect(0,0,width,height);
   rectMode(CENTER);
   imageMode(CENTER);
