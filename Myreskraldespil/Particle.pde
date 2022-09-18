@@ -10,7 +10,7 @@ class Particle
   Particle (PVector _location)
   {
     theta = random(0,2*PI);
-    velocity = new PVector(cos(theta)*random(0,5),sin(theta)*random(0,5)); 
+    velocity = new PVector(cos(theta)*random(0,5),sin(theta)*random(0,5)); //gør så at disse partikler skyder ud tifældigt i en cirkelbevægelse frem for en firkant
     acceleration = new PVector(0,0.01);
     location = _location.copy();
     lifespan = 255;
@@ -30,5 +30,6 @@ class Particle
     rect (location.x, location.y, particleSize, particleSize);
     stroke(0);
     fill(255);
+    //gør så partiklen bevæger sig samtidig med at den gradvist forsvinder og bliver større.
   }
 }

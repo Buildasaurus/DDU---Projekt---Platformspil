@@ -22,5 +22,6 @@ class Door
     {
       image(closedDoorImg, location.x, location.y, 50, 80);
     } 
+    //Tjekker om alt skraldet er væk, og hvis ja, så åbnes døren. 
   }
 } 

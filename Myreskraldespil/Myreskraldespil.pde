@@ -23,7 +23,7 @@ PImage front, platforms, Genbrugsknap, sorteringsliste, skipknap, timer;
 PImage banan, pizzabakke, toothbrush;
 PImage madaffaldsspand, plastaffaldsspand, papaffaldsspand, restaffaldsspand;
 PImage tabeskaerm, genstartknap;
-PImage bevaegelsesIns, opsamlingsIns, smidningsIns, maalIns, listeIns;
+PImage bevaegelsesIns, opsamlingsIns, smidningsIns, maalIns, listeIns, klarBanenIns;
 PImage myreimage, openDoor, closedDoor;
 PImage fullStarSkraldespand, emptyStarSkraldespand;
 PImage[] myrereWithSkrald = new PImage[3];
@@ -62,6 +62,7 @@ void setup()
   smidningsIns = loadImage("SmideIgenInstruktion.png");
   maalIns = loadImage("MaalInstruktion.png");
   listeIns = loadImage("GuideTilSkraldInstruktion.png");
+  klarBanenIns = loadImage("KlareBanenIns.png");
   
   sorteringsliste = loadImage("Sorteringsliste.png");
   skipknap = loadImage("Skipknap.png");
@@ -94,6 +95,7 @@ void setup()
   instruktions.add(new Instruktion(smidningsIns, new PVector(900, 580), 900,700));
   instruktions.add(new Instruktion(maalIns, new PVector(600, 350), 600, 600));
   instruktions.add(new Instruktion(listeIns, new PVector(100, 100), 100, 200));
+  instruktions.add(new Instruktion(klarBanenIns, new PVector(700, 25), 300, 200));
   
   door = new Door(new PVector(900, 110), openDoor, closedDoor);
 }
@@ -120,6 +122,7 @@ void draw()
    {
      winningScreen();
    }
+   //opdeler spillet i mere overskuelige underkategorier, som kører når de andre ikke gør 
 }
 
 void startscreen(){
@@ -138,6 +141,7 @@ void startscreen(){
     rectMode(CORNER);
     imageMode(CORNER);
   }
+  //startskærmen hvor man kan starte spillet når man klikker på en startknap. 
 }
 
 
@@ -210,6 +214,7 @@ void tabening()
    {
      restart();
    }
+   //laver en kopi af spillet som det er i det øjeblik og laver en halvtransperant baggrund, og hvor en genstartknap gradvist kommer ind for at prøve banen igen.
 }
 
 void winningScreen()

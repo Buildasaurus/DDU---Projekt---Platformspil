@@ -23,6 +23,7 @@ class Instruktion
   {
     tint = _tint;
   }
+  
   void run()
    {
     update();
@@ -35,6 +36,7 @@ class Instruktion
     {
       tint +=10;
     }
+    //hvis myren kommer inden for et bestemt område, så dukker instruktionerne gradvist frem
   }
   
   void display()
@@ -42,5 +44,6 @@ class Instruktion
     tint(255,tint);
     image(Image, location.x, location.y, w, h);
     noTint();
+    //Viser introduktionerne, og sikre at alle andre billeder ikke har samme gennemsigtighed.
   }
 }

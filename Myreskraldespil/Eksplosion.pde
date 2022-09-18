@@ -13,6 +13,7 @@ class Eksplosion
     {
       particles.add(new Particle(position));
     }
+    //gør at der bliver dannet en x antal particler det samme sted på samme tidspunkt.
   }
   
   void explode()
@@ -27,6 +28,7 @@ class Eksplosion
         break;
       }
       particle.update();
+      //gør så partiklerne ikke bare forsætter med at blive bevæge sig efter de er blevet usynlige.
     }
   }
 
