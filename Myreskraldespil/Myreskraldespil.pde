@@ -280,9 +280,7 @@ void winningScreen() // displays the winning image.
     image(dansingMyre1,3*width/4,height/2,210,240);
   }
   imageMode(CORNER);
-  rectMode(CORNER);
-  
-  
+  rectMode(CORNER);  
 }
 
 void restart() // restarts the game, by setting everything to its start value.
