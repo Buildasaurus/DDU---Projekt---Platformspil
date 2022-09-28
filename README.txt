@@ -5,4 +5,4 @@ ZeBoogie: Jonatan
 Buildasaurous: Jonathan
 Jhohnahthhanh: Cathrine
 
-Highscoren er: 13,35 s.
+Highscoren er: 11,95 s.

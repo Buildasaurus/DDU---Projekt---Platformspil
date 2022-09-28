@@ -1,17 +1,21 @@
+import de.bezier.data.sql.*;
+
 Myre myre = new Myre();
 Eksplosion eksplosion;
 Door door;
 import processing.sound.*;
 SoundFile deathSound;
 SoundFile gameSound;
+SQLite HighscoreDatabase;
 ArrayList<Skrald> skralds = new ArrayList<Skrald>();
 ArrayList<Skraldespand> skraldespands = new ArrayList<Skraldespand>();
 ArrayList<Instruktion> instruktions = new ArrayList<Instruktion>();
 
 boolean start = true;
-boolean Game = false, completedLevel = false, Liste = false, duFuckingLort = false; // game situation booleans
+boolean Game = false, completedLevel = false, Liste = false, duFuckingLort = false, ProfilSide = false; // game situation booleans
 boolean explode = false;
 boolean firstSkip = true;
+boolean Score = true;
 
 float startKnapx = 140;
 float startKnapy = 100;
@@ -134,6 +138,10 @@ void draw()
    {
      winningScreen();
    }
+   else if(ProfilSide)
+   {
+     profilside();
+   }
    //opdeler spillet i mere overskuelige underkategorier, som kører når de andre ikke gør 
 }
 
@@ -237,6 +245,35 @@ void tabening()  //laver en kopi af spillet som det er i det øjeblik og laver e
    }
 }
 
+void displayData()
+{
+  HighscoreDatabase = new SQLite(this, "HighscoreData.db");
+   //If connection is succesfull
+  if (HighscoreDatabase.connect() )
+  {
+    //Make Select query
+    println("nice + " + HighscoreDatabase.toString());
+    HighscoreDatabase.query("SELECT Name, Highscore, Password FROM HighscoreData;");
+    //Run through recordset using next()
+    while (HighscoreDatabase.next())
+    {
+      //Print the data to the log window.
+      println("Name: " + HighscoreDatabase.getString("Name") + " \t, Highscore: " + HighscoreDatabase.getString("Highscore") + " \t, Password: " + HighscoreDatabase.getString("Password"));
+    }
+  }
+  else
+  {
+    //Display error trying to get data from DB
+    println("Error DB");
+  }  
+  HighscoreDatabase.close();
+}
+
+
+void mousePressed()
+{
+  displayData();
+}
 
 void winningScreen() // displays the winning image.
 {
@@ -267,7 +304,7 @@ void winningScreen() // displays the winning image.
   {
     image(emptyStarSkraldespand, width/2 - i*distanceBetweenStars + distanceBetweenStars, height/2, 100, 100);
   }
-  text("Du gennemførte på " + (float)(winFrame - startFrame)/60 + " sekunder!", width/2, height/2 + 100);
+  text("Du gennemførte på " + nf((float)(winFrame - startFrame)/60 ,0,2) + " sekunder!", width/2, height/2 + 100);
   
   if(frameCount%20<10)
   {
@@ -279,10 +316,20 @@ void winningScreen() // displays the winning image.
     image(dansingMyre2,width/4, height/2,210,240);
     image(dansingMyre1,3*width/4,height/2,210,240);
   }
+  fill(255);
+  rect(width/2,height/2+100,300,100);
+  if (mouseX<(width+150)/2 && mouseX>(width-150)/2 && mouseY<(height+50)/2+100 && mouseY>(height-50)/2+100 && mousePressed)
+  {
+    ProfilSide = true;
+    completedLevel = false;
+  }
   imageMode(CORNER);
-  rectMode(CORNER);
-  
-  
+  rectMode(CORNER);  
+}
+
+void profilside()
+{
+  background(255);
 }
 
 void restart() // restarts the game, by setting everything to its start value.
@@ -294,6 +341,7 @@ void restart() // restarts the game, by setting everything to its start value.
   startKnapx = 140;
   startKnapy = 100;
   explode = false;
+  Score = true;
   tint = 0;
   startFrame = frameCount;
   myre.setLocation(new PVector(200,600));
@@ -346,11 +394,12 @@ void keyPressed() //input function to control the movements of myren.
   if (keyCode == 32)//if space is pressed it flips the bool value, so you drop or pick up skrald
   {
     myre.wantToPickUp();
-    if(abs(door.location.y - myre.location.y) < 40 && PVector.sub(myre.location, door.location).mag() < 40 && skralds.size() == 0)
+    if(abs(door.location.y - myre.location.y) < 40 && PVector.sub(myre.location, door.location).mag() < 40 && skralds.size() == 0 && Score == true)
     {
       completedLevel = true;
       winFrame = frameCount;
       Game = false;
+      Score = false;
     }
   }
   if (keyCode == 82)
