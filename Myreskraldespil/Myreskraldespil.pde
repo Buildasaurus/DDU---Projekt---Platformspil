@@ -1,9 +1,12 @@
+import de.bezier.data.sql.*;
+
 Myre myre = new Myre();
 Eksplosion eksplosion;
 Door door;
 import processing.sound.*;
 SoundFile deathSound;
 SoundFile gameSound;
+SQLite HighscoreDatabase;
 ArrayList<Skrald> skralds = new ArrayList<Skrald>();
 ArrayList<Skraldespand> skraldespands = new ArrayList<Skraldespand>();
 ArrayList<Instruktion> instruktions = new ArrayList<Instruktion>();
@@ -242,6 +245,35 @@ void tabening()  //laver en kopi af spillet som det er i det øjeblik og laver e
    }
 }
 
+void displayData()
+{
+  HighscoreDatabase = new SQLite(this, "HighscoreData.db");
+   //If connection is succesfull
+  if (HighscoreDatabase.connect() )
+  {
+    //Make Select query
+    println("nice + " + HighscoreDatabase.toString());
+    HighscoreDatabase.query("SELECT Name, Highscore, Password FROM HighscoreData;");
+    //Run through recordset using next()
+    while (HighscoreDatabase.next())
+    {
+      //Print the data to the log window.
+      println("Name: " + HighscoreDatabase.getString("Name") + " \t, Highscore: " + HighscoreDatabase.getString("Highscore") + " \t, Password: " + HighscoreDatabase.getString("Password"));
+    }
+  }
+  else
+  {
+    //Display error trying to get data from DB
+    println("Error DB");
+  }  
+  HighscoreDatabase.close();
+}
+
+
+void mousePressed()
+{
+  displayData();
+}
 
 void winningScreen() // displays the winning image.
 {
