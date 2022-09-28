@@ -12,6 +12,7 @@ boolean start = true;
 boolean Game = false, completedLevel = false, Liste = false, duFuckingLort = false; // game situation booleans
 boolean explode = false;
 boolean firstSkip = true;
+boolean Score = true;
 
 float startKnapx = 140;
 float startKnapy = 100;
@@ -292,6 +293,7 @@ void restart() // restarts the game, by setting everything to its start value.
   startKnapx = 140;
   startKnapy = 100;
   explode = false;
+  Score = true;
   tint = 0;
   startFrame = frameCount;
   myre.setLocation(new PVector(200,600));
@@ -344,11 +346,12 @@ void keyPressed() //input function to control the movements of myren.
   if (keyCode == 32)//if space is pressed it flips the bool value, so you drop or pick up skrald
   {
     myre.wantToPickUp();
-    if(abs(door.location.y - myre.location.y) < 40 && PVector.sub(myre.location, door.location).mag() < 40 && skralds.size() == 0)
+    if(abs(door.location.y - myre.location.y) < 40 && PVector.sub(myre.location, door.location).mag() < 40 && skralds.size() == 0 && Score == true)
     {
       completedLevel = true;
       winFrame = frameCount;
       Game = false;
+      Score = false;
     }
   }
   if (keyCode == 82)
