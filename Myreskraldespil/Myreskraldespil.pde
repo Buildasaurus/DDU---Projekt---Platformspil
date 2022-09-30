@@ -18,6 +18,11 @@ boolean Score = true;
 
 float startKnapx = 140;
 float startKnapy = 100;
+float Levelscore;
+String score;
+String nyName;
+String nyPassword;
+String nyHighscore;
 
 int startFrame, winFrame;
 int tint = 0;
@@ -246,7 +251,7 @@ void tabening()  //laver en kopi af spillet som det er i det øjeblik og laver e
 
 void displayData()
 {
-  HighscoreDatabase = new SQLite(this, "Highscoreboard.sqlite");
+ /* HighscoreDatabase = new SQLite(this, "Highscoreboard.sqlite");
    //If connection is succesfull
   if (HighscoreDatabase.connect() )
   {
@@ -265,7 +270,7 @@ void displayData()
     //Display error trying to get data from DB
     println("Error DB");
   }  
-  HighscoreDatabase.close();
+  HighscoreDatabase.close(); */
 }
 
 
@@ -303,7 +308,8 @@ void winningScreen() // displays the winning image.
   {
     image(emptyStarSkraldespand, width/2 - i*distanceBetweenStars + distanceBetweenStars, height/2, 100, 100);
   }
-  text("Du gennemførte på " + nf((float)(winFrame - startFrame)/60 ,0,2) + " sekunder!", width/2, height/2 + 100);
+  
+  text("Du gennemførte på " + Levelscore + " sekunder!", width/2, height/2 + 100);
   
   if(frameCount%20<10)
   {
@@ -316,9 +322,10 @@ void winningScreen() // displays the winning image.
     image(dansingMyre1,3*width/4,height/2,210,240);
   }
   fill(255);
-  rect(width/2,height/2+100,300,100);
+  rect(width/2,height/2+300,300,100);
   if (mouseX<(width+150)/2 && mouseX>(width-150)/2 && mouseY<(height+50)/2+100 && mouseY>(height-50)/2+100 && mousePressed)
   {
+    hentScore();
     ProfilSide = true;
     completedLevel = false;
   }
@@ -329,6 +336,55 @@ void winningScreen() // displays the winning image.
 void profilside()
 {
   background(255);
+  fill(0);
+  text(score, height/2,width/2);
+}
+
+void hentScore()
+{
+  HighscoreDatabase = new SQLite(this, "Highscoreboard.sqlite");
+  if (HighscoreDatabase.connect() )
+  {
+    //Make Select query
+    HighscoreDatabase.query("SELECT Name, Highscore, Password FROM HighscoreData;");
+    //Run through recordset using next()
+    score = "Name: " + HighscoreDatabase.getString("Name") + " \t, Highscore: " + HighscoreDatabase.getString("Highscore") + " \t, Password: " + HighscoreDatabase.getString("Password");
+  }
+  else
+  {
+    println("Error DB");
+  }  
+  HighscoreDatabase.close();
+}
+void nybruger()
+{
+   HighscoreDatabase = new SQLite(this, "Highscoreboard.sqlite");
+  if (HighscoreDatabase.connect() )
+  {
+    //Make Select query
+    HighscoreDatabase.execute("INSERT INTO HighscoreData (Name, Password, Highscore) VALUES ('" + nyName + "', '" + nyPassword + "','"+Levelscore+"');");   
+  }
+  else
+  {
+    println("Error DB");
+  }  
+  HighscoreDatabase.close();
+}
+
+void beatscore()
+{
+  //godt gået
+  HighscoreDatabase = new SQLite(this, "Highscoreboard.sqlite");
+  if (HighscoreDatabase.connect() )
+  {
+    //Skifter til ny highscore
+    HighscoreDatabase.execute("UPDATE HighscoreData Highscore = '"+ Levelscore + " WHERE Name =" + nyName +";");
+  }
+  else
+  {
+    println("Error DB");
+  }  
+  HighscoreDatabase.close();
 }
 
 void restart() // restarts the game, by setting everything to its start value.
@@ -397,6 +453,7 @@ void keyPressed() //input function to control the movements of myren.
     {
       completedLevel = true;
       winFrame = frameCount;
+      Levelscore = float(round((float)(winFrame - startFrame)*100/60))/100;
       Game = false;
       Score = false;
     }
