@@ -1,28 +1,22 @@
 import de.bezier.data.sql.*;
-import g4p_controls.*;
-import processing.sound.*;
 Myre myre = new Myre();
 Eksplosion eksplosion;
 Door door;
+import processing.sound.*;
 SoundFile deathSound;
 SoundFile gameSound;
 SQLite HighscoreDatabase;
-Button showHighscoreButton;
 ArrayList<Skrald> skralds = new ArrayList<Skrald>();
 ArrayList<Skraldespand> skraldespands = new ArrayList<Skraldespand>();
 ArrayList<Instruktion> instruktions = new ArrayList<Instruktion>();
 ArrayList<String> profils = new ArrayList<String>();
 
 boolean start = true;
-boolean Game = false, completedLevel = false, Liste = false, duFuckingLort = false, profilSide = false, Highscore = false; // game situation booleans
+boolean Game = false, completedLevel = false, Liste = false, duFuckingLort = false, ProfilSide = false; // game situation booleans
 boolean explode = false;
 boolean firstSkip = true;
 boolean Score = true;
-boolean invalidInput;
 boolean erNyName = false;
-GTextField password;
-GTextField username;
-
 
 float startKnapx = 140;
 float startKnapy = 100;
@@ -126,8 +120,6 @@ void setup()
   instruktions.add(new Instruktion(klarBanenIns, new PVector(700, 25), 300, 200));
   
   door = new Door(new PVector(900, 110), openDoor, closedDoor);
-  
-  showHighscoreButton = new Button(new PVector(width/2-100, height/2+200-30), new PVector(100, 30), color(40,50,10));
 }
 
 void draw()
@@ -152,13 +144,9 @@ void draw()
    {
      winningScreen();
    }
-   else if(profilSide)
+   else if(ProfilSide)
    {
      profilside();
-   }
-   else if(Highscore)
-   {
-     showHighscore();
    }
    //opdeler spillet i mere overskuelige underkategorier, som kører når de andre ikke gør 
 }
@@ -243,7 +231,6 @@ void liste() //shows the sorteringsliste in fullscreen mode. only runs if game i
   }
 }
 
-
 void tabening()  //laver en kopi af spillet som det er i det øjeblik og laver en halvtransperant baggrund, og hvor en genstartknap gradvist kommer ind for at prøve banen igen.
 {
   lastImage();
@@ -263,7 +250,6 @@ void tabening()  //laver en kopi af spillet som det er i det øjeblik og laver e
      restart();
    }
 }
-
 
 void displayData()
 {
@@ -342,47 +328,18 @@ void winningScreen() // displays the winning image.
   if (mouseX<(width+150)/2 && mouseX>(width-150)/2 && mouseY<(height+50)/2+100 && mouseY>(height-50)/2+100 && mousePressed)
   {
     hentScore();
-    profilSide = true;
-  }
-  if (mouseX<(width+150)/2 && mouseX>(width-150)/2 && mouseY<(height+50)/2+100 && mouseY>(height-50)/2+100 && mousePressed)
-  {
-    profilSide = true;
+    ProfilSide = true;
     completedLevel = false;
-  }
-   rectMode(CORNER);  
-  showHighscoreButton.display();
-  rectMode(CENTER);
-  if(mousePressed && showHighscoreButton.hovered)
-  {
-    username = new GTextField(this, width/2-100, height/2, 200, 50);
-    username.setPromptText("Username");
-    password = new GTextField(this, width/2-100, height/2+100, 200, 50);
-    password.setPromptText("Password");
-    completedLevel = false;
-    profilSide = true;
   }
   imageMode(CORNER);
-  rectMode(CORNER);
+  rectMode(CORNER);  
 }
-
 
 void profilside()
 {
   background(255);
   fill(0);
-  if (keyPressed && key == ENTER && username.getText() != "" && password.getText() != "") {
-    println(password.getText());
-    Highscore = true;
-    profilSide = false;
-  }
-  else if(keyPressed && key == ENTER)
-  {
-    invalidInput = true;
-  }
-  if(invalidInput)
-  {
-    text("Indtast et unikt brugernavn og en kode", width/2, height/2 - 100);
-  }
+  text(score, height/2,width/2);
 }
 
 void hentScore()
@@ -401,8 +358,6 @@ void hentScore()
   }  
   HighscoreDatabase.close();
 }
-
-
 void nybruger()
 {
    HighscoreDatabase = new SQLite(this, "Highscoreboard.sqlite");
@@ -432,13 +387,6 @@ void beatscore()
     println("Error DB");
   }  
   HighscoreDatabase.close();
-  background(255);   
-}
-
-
-void showHighscore()
-{
-  image(banan, 20,20,20,20);
 }
 
 void profilTjek()
@@ -459,7 +407,7 @@ void profilTjek()
         erNyName = true;
       } else
       {
-         
+         //Lave en ny profil
       }
     }
   }
