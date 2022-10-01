@@ -14,7 +14,7 @@ class Button
   }
   
   void display() {
-    if ( overRect(location.x, location.y, size.x, size.y)) 
+    if ( overRect()) 
     {
       fill(buttonColor);
       rect(location.x, location.y, size.x, size.y);
@@ -28,8 +28,8 @@ class Button
     }
   }
   
-  boolean overRect(float x, float y, float width, float height)  {
-    if (mouseX >= x && mouseX <= x+width && mouseY >= y && mouseY <= y+height) 
+  boolean overRect()  {
+    if (mouseX >= location.x && mouseX <= location.x+width && mouseY >= location.y && mouseY <= location.y+height) 
     {
       return true;
     } 

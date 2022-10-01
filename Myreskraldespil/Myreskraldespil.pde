@@ -8,10 +8,10 @@ SoundFile deathSound;
 SoundFile gameSound;
 SQLite HighscoreDatabase;
 Button showHighscoreButton;
+Button createUserButton;
 ArrayList<Skrald> skralds = new ArrayList<Skrald>();
 ArrayList<Skraldespand> skraldespands = new ArrayList<Skraldespand>();
 ArrayList<Instruktion> instruktions = new ArrayList<Instruktion>();
-ArrayList<String> profils = new ArrayList<String>();
 
 boolean start = true;
 boolean Game = false, completedLevel = false, Liste = false, duFuckingLort = false, profilSide = false, Highscore = false; // game situation booleans
@@ -20,17 +20,14 @@ boolean firstSkip = true;
 boolean Score = true;
 boolean invalidInput;
 boolean erNyName = false;
+boolean creatingNewUser = false;
 GTextField password;
 GTextField username;
 
 
 float startKnapx = 140;
 float startKnapy = 100;
-float Levelscore;
-String score;
-String nyName;
-String nyPassword;
-String nyHighscore;
+float levelScore;
 
 int startFrame, winFrame;
 int tint = 0;
@@ -42,7 +39,7 @@ PImage startskaerm, startlogo, startknap;
 PImage front, platforms, Genbrugsknap, sorteringsliste, skipknap, timer;
 PImage banan, pizzabakke, toothbrush;
 PImage madaffaldsspand, plastaffaldsspand, papaffaldsspand, restaffaldsspand;
-PImage tabeskaerm, genstartknap;
+PImage tabeskaerm, genstartknap, highscoreScreen;
 PImage bevaegelsesIns, opsamlingsIns, smidningsIns, maalIns, listeIns, klarBanenIns; 
 //fordi den brugte font er meget begrænset i hvilke karakterer den har, så blev det lavet til billeder frem for en reel font.
 PImage myreimage, openDoor, closedDoor;
@@ -61,6 +58,7 @@ void setup()
   platforms = loadImage("Baggrund.png");
   front = loadImage("Forgrund.png");
   startskaerm = loadImage("Myrestartskaerm.png");
+  highscoreScreen = loadImage("High score skærm.png");
   
   startlogo = loadImage("Startlogo.png");
   startknap = loadImage("Startknap.png");
@@ -128,6 +126,8 @@ void setup()
   door = new Door(new PVector(900, 110), openDoor, closedDoor);
   
   showHighscoreButton = new Button(new PVector(width/2-100, height/2+200-30), new PVector(100, 30), color(40,50,10));
+  createUserButton = new Button(new PVector(width/2, height/2+50), new PVector(200, 200), color(40,50,10));
+
 }
 
 void draw()
@@ -325,7 +325,7 @@ void winningScreen() // displays the winning image.
     image(emptyStarSkraldespand, width/2 - i*distanceBetweenStars + distanceBetweenStars, height/2, 100, 100);
   }
   
-  text("Du gennemførte på " + Levelscore + " sekunder!", width/2, height/2 + 100);
+  text("Du gennemførte på " + levelScore + " sekunder!", width/2, height/2 + 100);
   
   if(frameCount%20<10)
   {
@@ -370,23 +370,72 @@ void profilside()
 {
   background(255);
   fill(0);
-  if (keyPressed && key == ENTER && username.getText() != "" && password.getText() != "") {
-    println(password.getText());
-    Highscore = true;
-    profilSide = false;
-  }
-  else if(keyPressed && key == ENTER)
+  createUserButton.display();
+  if (mousePressed && createUserButton.overRect()) //if you click create username 
   {
-    invalidInput = true;
+    creatingNewUser = true;
   }
-  if(invalidInput)
+  if(!creatingNewUser)
   {
-    text("Indtast et unikt brugernavn og en kode", width/2, height/2 - 100);
+    if (keyPressed && key == ENTER && username.getText() != "" && password.getText() != "") //when you enter a valid username and password
+    {
+      if(profilTjek(username.getText(), password.getText()))
+      {
+        println(password.getText());
+        Highscore = true;
+        profilSide = false;
+        password.setVisible(false);
+        username.setVisible(false);
+        println("ny bruger");
+      }
+      else
+      {
+        text("forkert password brugernavn kombination", 100, 100);
+      }
+
+    }
+    else if(keyPressed && key == ENTER)
+    {
+      invalidInput = true;
+    }
+    if(invalidInput)
+    {
+      text("Indtast et unikt brugernavn og en kode", width/2, height/2 - 100);
+    }
   }
+  else
+  {
+    if (keyPressed && key == ENTER && username.getText() != "" && password.getText() != "") //when you enter a valid username and password
+    {
+      if(nyBruger(username.getText(), password.getText(), levelScore)) //if it succesfully creates new bruger
+      {
+        println(password.getText());
+        Highscore = true;
+        profilSide = false;
+        password.setVisible(false);
+        username.setVisible(false);
+      }
+      else
+      {
+        text("brugernavn optaget", 0, 0);
+      }
+    }
+  }
+
 }
 
-void hentScore()
+
+void showHighscore()
 {
+  image(highscoreScreen, 0, 0, width, height);
+  fill(255);
+  text(hentScore(), width/2, height/10);
+}
+
+
+String hentScore() //opens the database, runs 
+{
+  String score; //local variabel kun til denne funktion, der gemmer scoren, så den kan returneres på et godt format.
   HighscoreDatabase = new SQLite(this, "Highscoreboard.sqlite");
   if (HighscoreDatabase.connect() )
   {
@@ -394,73 +443,80 @@ void hentScore()
     HighscoreDatabase.query("SELECT Name, Highscore, Password FROM HighscoreData;");
     //Run through recordset using next()
     score = "Name: " + HighscoreDatabase.getString("Name") + " \t, Highscore: " + HighscoreDatabase.getString("Highscore") + " \t, Password: " + HighscoreDatabase.getString("Password");
+    println("alt data er:   " + score);
+
   }
   else
   {
-    println("Error DB");
+    score = "Error DB";
   }  
   HighscoreDatabase.close();
+  return score;
 }
 
 
-void nybruger()
+boolean nyBruger(String nyName, String nyPassword, float levelScore) //returnerer om den nye bruger succesfuldt blev oprettet
 {
-   HighscoreDatabase = new SQLite(this, "Highscoreboard.sqlite");
-  if (HighscoreDatabase.connect() )
-  {
-    //Make Select query
-    HighscoreDatabase.execute("INSERT INTO HighscoreData (Name, Password, Highscore) VALUES ('" + nyName + "', '" + nyPassword + "','"+Levelscore+"');");   
-  }
-  else
-  {
-    println("Error DB");
-  }  
-  HighscoreDatabase.close();
-}
-
-void beatscore()
-{
-  //godt gået
   HighscoreDatabase = new SQLite(this, "Highscoreboard.sqlite");
   if (HighscoreDatabase.connect() )
   {
-    //Skifter til ny highscore
-    HighscoreDatabase.execute("UPDATE HighscoreData Highscore = '"+ Levelscore + " WHERE Name =" + nyName +";");
+    
+    //tjekker først om brugernavnet alleede eksisterer.
+    HighscoreDatabase.query("SELECT Name FROM HighscoreData;");
+    while(HighscoreDatabase.next()) //loops through all the names in the highscoredata table, and adds them to an array.
+    {
+       if (HighscoreDatabase.getString("Name") == nyName) //if username already exists, return false; 
+       {
+         HighscoreDatabase.close();
+         return false;
+       }
+    }
+    
+    //if username doesn't exist, code reaches this point.
+    //inserts a username, password and score into the highscoreboard.
+    HighscoreDatabase.execute("INSERT INTO HighscoreData (Name, Password, Highscore) VALUES ('" + nyName + "', '" + nyPassword + "', '" + levelScore + "');");   
+  }
+  else
+  {
+    println("Error DB");
+    HighscoreDatabase.close();
+    return false;
+  }  
+  HighscoreDatabase.close();
+  return true;
+}
+
+void beatscore(String username, float newHighscore) //when you beat your own score.
+{
+  //godt gået   <-////nice kommentar
+  HighscoreDatabase = new SQLite(this, "Highscoreboard.sqlite");
+  if (HighscoreDatabase.connect() )
+  {
+    //Skifter til ny highscore, ved det input som funktionen har fået.
+    HighscoreDatabase.execute("UPDATE HighscoreData Highscore = '" + newHighscore + " WHERE Name =" + username + ";");
   }
   else
   {
     println("Error DB");
   }  
   HighscoreDatabase.close();
-  background(255);   
 }
 
 
-void showHighscore()
-{
-  image(banan, 20,20,20,20);
-}
 
-void profilTjek()
+boolean profilTjek(String username, String password) //tjekker om en en et brugernavn med adgangskode eksisterer, returnerer det som en boolean.
 {
   HighscoreDatabase = new SQLite(this, "Highscoreboard.sqlite");
   if (HighscoreDatabase.connect() )
   {
     HighscoreDatabase.query("SELECT Name FROM HighscoreData;");
-    while(HighscoreDatabase.next())
+    while(HighscoreDatabase.next()) //loops through all the names in the highscoredata table, and adds them to an array.
     {
-       profils.add(HighscoreDatabase.getString("Name"));
-    }
-    for (int i = 0; i < profils.size(); i++)
-    {
-       String prof = profils.get(i);
-      if (prof == nyName)
-      {
-        erNyName = true;
-      } else
-      {
-         
-      }
+       if (HighscoreDatabase.getString("Name") == username && HighscoreDatabase.getString("Password") == password) //if input matches existing data.
+       {
+         HighscoreDatabase.close();
+         return true;
+       }
     }
   }
   else
@@ -468,6 +524,7 @@ void profilTjek()
     println("Error DB");
   }  
   HighscoreDatabase.close();
+  return false; //if username and password was no match or didn't connect to database.
 }
 
 void restart() // restarts the game, by setting everything to its start value.
@@ -536,12 +593,12 @@ void keyPressed() //input function to control the movements of myren.
     {
       completedLevel = true;
       winFrame = frameCount;
-      Levelscore = float(round((float)(winFrame - startFrame)*100/60))/100;
+      levelScore = float(round((float)(winFrame - startFrame)*100/60))/100;
       Game = false;
       Score = false;
     }
   }
-  if (keyCode == 82)
+  if (keyCode == 82 && !profilSide)
   {
     restart();
   }
