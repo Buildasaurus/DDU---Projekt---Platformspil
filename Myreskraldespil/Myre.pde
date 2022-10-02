@@ -185,14 +185,14 @@ class Myre
             image(myrereWithoutSkrald[1], 0, 0, w+3, h+3); //plussing with 3, because the myre doesn't perfectly fit the square that it is calculated in
             popMatrix();
           }
-          else // if not currently walking left //<>// //<>//
-          { //<>// //<>//
-            lastpicture = 2; //<>// //<>//
-            pushMatrix(); //<>// //<>//
-            translate( location.x + w, location.y); //<>// //<>// //<>//
-            scale( -1, 1 ); //<>// //<>// //<>//
-            image(myrereWithoutSkrald[2], 0, 0, w+3, h+3); //plussing with 3, because the myre doesn't perfectly fit the square that it is calculated in //<>// //<>// //<>//
-            popMatrix(); //<>// //<>// //<>//
+          else // if not currently walking left //<>//
+          { //<>//
+            lastpicture = 2; //<>//
+            pushMatrix(); //<>//
+            translate( location.x + w, location.y); //<>// //<>//
+            scale( -1, 1 ); //<>// //<>//
+            image(myrereWithoutSkrald[2], 0, 0, w+3, h+3); //plussing with 3, because the myre doesn't perfectly fit the square that it is calculated in //<>// //<>//
+            popMatrix(); //<>// //<>//
           }
         }
         else //if last thing was walking left without skrald
@@ -363,13 +363,13 @@ class Myre
     for(int j = 0; j < arraySize/depthWidthRatio; j++) //each repeat is a different heigh level. it will currently look 4 pixels to the side of the myre
     {
       for(int k = 0; k < depthWidthRatio; k++)
-      { //<>// //<>//
+      { //<>//
          rightColors[j*(k+1)] = get(ceil(location.x + w/1.3 + k), ceil(location.y + heightToScan*j/(arraySize/depthWidthRatio))); //check all the pixels in a rectangle to the right of the myre, above the ground.
-      } //<>// //<>//
+      } //<>//
     }
 
     for(int i = 0; i < arraySize; i++)
-    { //<>// //<>// //<>// //<>// //<>// //<>//
+    { //<>// //<>// //<>// //<>// //<>//
       if (rightColors[i] == -16777216) //if the color beneath the myre is black, then it the myre is touching the floor
       {
         velocity.x = velocity.x - 0.34; //move the myre backwards to the right the amount of
