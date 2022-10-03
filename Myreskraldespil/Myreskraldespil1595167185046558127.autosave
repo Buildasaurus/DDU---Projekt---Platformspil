@@ -21,7 +21,7 @@ boolean Score = true;
 boolean invalidInput;
 boolean erNyName = false;
 boolean creatingNewUser = false;
-GPassword password;
+GTextField password;
 GTextField username;
 
 float startKnapx = 140;
@@ -47,6 +47,7 @@ PImage[] myrereWithSkrald = new PImage[3];
 PImage[] myrereWithoutSkrald = new PImage[3];
 PFont font;
 String kodeord = "";
+
 void setup()
 { 
   size(1280,720); // 16:9 ratio
@@ -355,7 +356,8 @@ void winningScreen() // displays the winning image.
   {
     username = new GTextField(this, width/2-100, height/2, 200, 50);
     username.setPromptText("Username");
-    password = new GPassword(this, width/2-100, height/2+100, 200, 50);
+    password = new GTextField(this, width/2-100, height/2+100, 200, 50);
+    password.setPromptText("Password");
     completedLevel = false;
     profilSide = true;
   }
@@ -363,27 +365,37 @@ void winningScreen() // displays the winning image.
   rectMode(CORNER);
 }
 
+void omdanTilStjerner()
+{
+  String stjerneordet = "";
+  kodeord += password.getText().replace("*","");
+  for(int i = 0; i<= kodeord.length(); i = i++)
+  {
+  stjerneordet += "*";
+  }
+  password.setText(stjerneordet);
+}
 
 void profilside()
 {
   background(255);
   fill(0);
   createUserButton.display();
+  //omdanTilStjerner();
   if (mousePressed && createUserButton.overRect()) //if you click create username 
   {
     creatingNewUser = true;
   }
   if(!creatingNewUser)
   {
-    if (keyPressed && key == ENTER && username.getText() != "" && password.getPassword() != "") //when you enter a valid username and password
+    if (keyPressed && key == ENTER && username.getText() != "" && password.getText() != "") //when you enter a valid username and password
     {
-      text(username.getText() + "password: " + password.getPassword(), 200, 200);
-      if(profilTjek(username.getText(), password.getPassword()))
+      text(username.getText() + "password: " + password.getText(), 200, 200);
+      if(profilTjek(username.getText(), password.getText()))
       {
-        println(password.getPassword());
+        println(password.getText());
         Highscore = true;
         profilSide = false;
-        scoreSortering();
         password.setVisible(false);
         username.setVisible(false);
       }
@@ -403,11 +415,11 @@ void profilside()
   }
   else
   {
-    if (keyPressed && key == ENTER && username.getText() != "" && password.getPassword() != "") //when you enter a valid username and password
+    if (keyPressed && key == ENTER && username.getText() != "" && password.getText() != "") //when you enter a valid username and password
     {
-      if(nyBruger(username.getText(), password.getPassword(), levelScore)) //if it succesfully creates new bruger
+      if(nyBruger(username.getText(), password.getText(), levelScore)) //if it succesfully creates new bruger
       {
-        println(password.getPassword());
+        println(password.getText());
         Highscore = true;
         profilSide = false;
         password.setVisible(false);
@@ -435,7 +447,6 @@ void showHighscore()
   {
     text(scores.get(i), width/2, topTextPlacement + (i+1)*50);
   }
-  Highscore = false;
 }
 
 
@@ -499,17 +510,18 @@ void beatscore(String username, float newHighscore) //when you beat your own sco
 {
   //godt gået   <-////nice kommentar
   HighscoreDatabase = new SQLite(this, "Highscoreboard.sqlite");
-  if (HighscoreDatabase.connect())
+  if (HighscoreDatabase.connect() )
   {
     //Skifter til ny highscore, ved det input som funktionen har fået.
-    HighscoreDatabase.execute("UPDATE HighscoreData SET Highscore = " + newHighscore + " WHERE Name = '" + username + "';");
+    HighscoreDatabase.execute("UPDATE HighscoreData Highscore = '" + newHighscore + " WHERE Name =" + username + ";");
   }
   else
   {
     println("Error DB");
-  }
+  }  
   HighscoreDatabase.close();
 }
+
 
 
 boolean profilTjek(String loginUsername, String loginPassword) //tjekker om en en et brugernavn med adgangskode eksisterer, returnerer det som en boolean.
@@ -517,24 +529,12 @@ boolean profilTjek(String loginUsername, String loginPassword) //tjekker om en e
   HighscoreDatabase = new SQLite(this, "Highscoreboard.sqlite");
   if (HighscoreDatabase.connect() )
   {
-    HighscoreDatabase.query("SELECT Name, Password, Highscore FROM HighscoreData;");
+    HighscoreDatabase.query("SELECT Name, Password FROM HighscoreData;");
     while(HighscoreDatabase.next()) //loops through all the names in the highscoredata table, and adds them to an array.
     {
-      println(HighscoreDatabase.getInt("Highscore") + "test" + levelScore);
       if (HighscoreDatabase.getString("Name").equals(loginUsername) && HighscoreDatabase.getString("Password").equals(loginPassword)) //if input matches existing data.
-<<<<<<< Updated upstream
-      {
-        //check if score should be beaten, before login in. TO BE DONE
-        println(HighscoreDatabase.getInt("Highscore") + "profiltestst" + levelScore);
-        if(levelScore < HighscoreDatabase.getInt("Highscore")) // if your new score is better than your older one.
-        {
-          HighscoreDatabase.close();
-          beatscore(username.getText(), levelScore);
-        }
-        return true;
-      }
-=======
-       {
+       {         
+
          HighscoreDatabase.close();
          //check if score should be beaten, before login in. TO BE DONE
          /*
@@ -543,7 +543,6 @@ boolean profilTjek(String loginUsername, String loginPassword) //tjekker om en e
          */
          return true;
        }
->>>>>>> Stashed changes
     }
   }
   else
@@ -552,33 +551,6 @@ boolean profilTjek(String loginUsername, String loginPassword) //tjekker om en e
   }  
   HighscoreDatabase.close();
   return false; //if username and password was no match or didn't connect to database.
-}
-
-void scoreSortering()
-{
-  ArrayList<Float> personalRecord = new ArrayList<Float>();
-  HighscoreDatabase = new SQLite(this, "Highscoreboard.sqlite");
-  if (HighscoreDatabase.connect())
-  {
-    HighscoreDatabase.query("SELECT Highscore FROM HighscoreData;");    
-    while(HighscoreDatabase.next()) //loops through all the names in the highscoredata table, and adds them to an array.
-    {
-      personalRecord.add(HighscoreDatabase.getFloat("Highscore"));
-    }
-    println(personalRecord);
-    float[] personalRecordArray = new float[personalRecord.size()];
-    for (int i = 0; i < personalRecord.size(); i++)
-    {
-      personalRecordArray[i] = personalRecord.get(i);
-    }
-    personalRecordArray = sort(personalRecordArray);
-    println(personalRecordArray);
-  }
-  else
-  {
-    println("Error DB");
-  }  
-  HighscoreDatabase.close();
 }
 
 void restart() // restarts the game, by setting everything to its start value.
@@ -605,7 +577,8 @@ void restart() // restarts the game, by setting everything to its start value.
   }
   skralds.add(new Skrald("madaffald", banan, 40, 40, new PVector(400, 650)));
   skralds.add(new Skrald("restaffald", pizzabakke, 80, 80, new PVector(650, 150)));
-  skralds.add(new Skrald("plastaffald", toothbrush, 100, 16, new PVector(1150, 450), 90)); 
+  skralds.add(new Skrald("plastaffald", toothbrush, 100, 16, new PVector(1150, 450), 90));
+  
 }
 
 
