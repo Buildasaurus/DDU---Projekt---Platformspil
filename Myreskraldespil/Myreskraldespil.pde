@@ -14,7 +14,7 @@ ArrayList<Skraldespand> skraldespands = new ArrayList<Skraldespand>();
 ArrayList<Instruktion> instruktions = new ArrayList<Instruktion>();
 
 boolean start = true;
-boolean Game = false, completedLevel = false, Liste = false, duFuckingLort = false, profilSide = false, Highscore = false; // game situation booleans
+boolean Game = false, completedLevel = false, Liste = false, duFuckingLort = false, profilSide = false, Highscore = false; //game situation booleans
 boolean explode = false;
 boolean firstSkip = true;
 boolean Score = true;
@@ -23,7 +23,6 @@ boolean erNyName = false;
 boolean creatingNewUser = false;
 GTextField password;
 GTextField username;
-
 
 float startKnapx = 140;
 float startKnapy = 100;
@@ -40,7 +39,7 @@ PImage front, platforms, Genbrugsknap, sorteringsliste, skipknap, timer;
 PImage banan, pizzabakke, toothbrush;
 PImage madaffaldsspand, plastaffaldsspand, papaffaldsspand, restaffaldsspand;
 PImage tabeskaerm, genstartknap, highscoreScreen;
-PImage bevaegelsesIns, opsamlingsIns, smidningsIns, maalIns, listeIns, klarBanenIns; 
+PImage bevaegelsesIns, opsamlingsIns, smidningsIns, maalIns, listeIns, klarBanenIns;
 //fordi den brugte font er meget begrænset i hvilke karakterer den har, så blev det lavet til billeder frem for en reel font.
 PImage myreimage, openDoor, closedDoor;
 PImage fullStarSkraldespand, emptyStarSkraldespand, dansingMyre1, dansingMyre2, shine;
@@ -432,11 +431,10 @@ void showHighscore()
   
   text("your username: " +  username.getText(), width/2, topTextPlacement);
   ArrayList<String> scores = hentScore();
-  for(int i = 0; i < scores.size() - 1; i++)
+  for(int i = 0; i < scores.size(); i++)
   {
     text(scores.get(i), width/2, topTextPlacement + (i+1)*50);
   }
-  
 }
 
 
