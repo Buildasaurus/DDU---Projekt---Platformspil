@@ -384,6 +384,7 @@ void profilside()
         println(password.getText());
         Highscore = true;
         profilSide = false;
+        scoreSortering();
         password.setVisible(false);
         username.setVisible(false);
       }
@@ -543,6 +544,33 @@ boolean profilTjek(String loginUsername, String loginPassword) //tjekker om en e
   return false; //if username and password was no match or didn't connect to database.
 }
 
+void scoreSortering()
+{
+  ArrayList<Float> personalRecord = new ArrayList<Float>();
+  HighscoreDatabase = new SQLite(this, "Highscoreboard.sqlite");
+  if (HighscoreDatabase.connect())
+  {
+    HighscoreDatabase.query("SELECT Highscore FROM HighscoreData;");    
+    while(HighscoreDatabase.next()) //loops through all the names in the highscoredata table, and adds them to an array.
+    {
+      personalRecord.add(HighscoreDatabase.getFloat("Highscore"));
+    }
+    println(personalRecord);
+    float[] personalRecordArray = new float[personalRecord.size()];
+    for (int i = 0; i < personalRecord.size(); i++)
+    {
+      personalRecordArray[i] = personalRecord.get(i);
+    }
+    personalRecordArray = sort(personalRecordArray);
+    println(personalRecordArray);
+  }
+  else
+  {
+    println("Error DB");
+  }  
+  HighscoreDatabase.close();
+}
+
 void restart() // restarts the game, by setting everything to its start value.
 {
   Game = true;
@@ -567,8 +595,7 @@ void restart() // restarts the game, by setting everything to its start value.
   }
   skralds.add(new Skrald("madaffald", banan, 40, 40, new PVector(400, 650)));
   skralds.add(new Skrald("restaffald", pizzabakke, 80, 80, new PVector(650, 150)));
-  skralds.add(new Skrald("plastaffald", toothbrush, 100, 16, new PVector(1150, 450), 90));
-  
+  skralds.add(new Skrald("plastaffald", toothbrush, 100, 16, new PVector(1150, 450), 90)); 
 }
 
 
