@@ -1,6 +1,7 @@
 import de.bezier.data.sql.*;
 import g4p_controls.*;
 import processing.sound.*;
+import java.util.*;
 Myre myre = new Myre();
 Eksplosion eksplosion;
 Door door;
@@ -9,6 +10,7 @@ SoundFile gameSound;
 SQLite HighscoreDatabase;
 Button showHighscoreButton;
 Button createUserButton;
+Button signInButton;
 ArrayList<Skrald> skralds = new ArrayList<Skrald>();
 ArrayList<Skraldespand> skraldespands = new ArrayList<Skraldespand>();
 ArrayList<Instruktion> instruktions = new ArrayList<Instruktion>();
@@ -127,6 +129,7 @@ void setup()
   
   showHighscoreButton = new Button(new PVector(width/2-100, height/2+200-30), new PVector(100, 30), color(40,50,10));
   createUserButton = new Button(new PVector(width/2, height/2+200), new PVector(200, 50), color(40,50,10));
+  signInButton = new Button(new PVector(width/2-200, height/2+200), new PVector(200, 50), color(100,50,100));
 
 }
 
@@ -372,6 +375,7 @@ void profilside()
   rect(0,0,width,height);
   noTint();
   createUserButton.display();
+  signInButton.display();
   if (mousePressed && createUserButton.overRect()) //if you click create username 
   {
     creatingNewUser = true;
@@ -413,6 +417,7 @@ void profilside()
         println(password.getPassword());
         Highscore = true;
         profilSide = false;
+        scoreSortering();
         password.setVisible(false);
         username.setVisible(false);
       }
@@ -422,7 +427,6 @@ void profilside()
       }
     }
   }
-
 }
 
 
@@ -439,19 +443,27 @@ void showHighscore()
   if (HighscoreDatabase.connect() )
   {
     //Make Select query
-    for (int i = 0; i < 5; i++)
+    int j = 0;
+    for (int i = 0; i < 5;)
     {
-      String queryHigh = "SELECT Name FROM HighscoreData WHERE Highscore="+personalRecordArray[i]+";";
+      String queryHigh = "SELECT Name FROM HighscoreData WHERE Highscore=" + personalRecordArray[i] + ";";
       HighscoreDatabase.query(queryHigh);
         text("Name: " + HighscoreDatabase.getString("Name") + " \t, Highscore: " + personalRecordArray[i], width/2, topTextPlacement + (i+1)*50);
+      println(queryHigh);
+      while(HighscoreDatabase.next()) //loops through all the names in the highscoredata table, and adds them to an array.
+      {
+        text("Name: " + HighscoreDatabase.getString("Name") + " \t, Highscore: " + personalRecordArray[j], width/2, topTextPlacement + (i+1)*50);
+        i = i+1;
+      }
+     j += 1;
     }
   }
   else
   {
     println("Error DB");
-  HighscoreDatabase.close();
-  Highscore = false;
+    HighscoreDatabase.close();
   }
+  Highscore = false;
 }
 
 
@@ -571,11 +583,12 @@ void scoreSortering()
       personalRecord.add(HighscoreDatabase.getFloat("Highscore"));
     }
     println(personalRecord);
-     personalRecordArray = new float[personalRecord.size()];
+    personalRecordArray = new float[personalRecord.size()];
     for (int i = 0; i < personalRecord.size(); i++)
     {
       personalRecordArray[i] = personalRecord.get(i);
     }
+    personalRecordArray = removeDups(personalRecordArray);
     personalRecordArray = sort(personalRecordArray);
     println(personalRecordArray);
   }
@@ -584,6 +597,12 @@ void scoreSortering()
     println("Error DB");
   }  
   HighscoreDatabase.close();
+}
+
+float[] removeDups(float[] values) {
+  Collection<String> noDups = new HashSet( Arrays.asList(str(values)) );
+  Arrays.sort(values = float( noDups.toArray(new String[noDups.size()]) ));
+  return values;
 }
 
 void restart() // restarts the game, by setting everything to its start value.
