@@ -589,6 +589,7 @@ void restart() // restarts the game, by setting everything to its start value.
 {
   Game = true;
   gameSound.stop();
+  creatingNewUser = false;
   Liste = false;
   duFuckingLort = false;
   startKnapx = 140;
