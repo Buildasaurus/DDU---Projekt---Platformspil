@@ -522,7 +522,6 @@ boolean profilTjek(String loginUsername, String loginPassword) //tjekker om en e
     {
       println(HighscoreDatabase.getInt("Highscore") + "test" + levelScore);
       if (HighscoreDatabase.getString("Name").equals(loginUsername) && HighscoreDatabase.getString("Password").equals(loginPassword)) //if input matches existing data.
-<<<<<<< Updated upstream
       {
         //check if score should be beaten, before login in. TO BE DONE
         println(HighscoreDatabase.getInt("Highscore") + "profiltestst" + levelScore);
@@ -533,17 +532,6 @@ boolean profilTjek(String loginUsername, String loginPassword) //tjekker om en e
         }
         return true;
       }
-=======
-       {
-         HighscoreDatabase.close();
-         //check if score should be beaten, before login in. TO BE DONE
-         /*
-         HighscoreDatabase.query("SELECT HighscoreData Highscore WHERE Name =" + username);
-         if(levelScore < Highscore
-         */
-         return true;
-       }
->>>>>>> Stashed changes
     }
   }
   else
