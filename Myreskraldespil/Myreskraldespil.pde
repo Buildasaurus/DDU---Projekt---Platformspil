@@ -12,6 +12,7 @@ Button createUserButton;
 ArrayList<Skrald> skralds = new ArrayList<Skrald>();
 ArrayList<Skraldespand> skraldespands = new ArrayList<Skraldespand>();
 ArrayList<Instruktion> instruktions = new ArrayList<Instruktion>();
+float[] personalRecordArray;
 
 boolean start = true;
 boolean Game = false, completedLevel = false, Liste = false, duFuckingLort = false, profilSide = false, Highscore = false; //game situation booleans
@@ -431,12 +432,26 @@ void showHighscore()
   fill(255);
   
   text("your username: " +  username.getText(), width/2, topTextPlacement);
-  ArrayList<String> scores = hentScore();
-  for(int i = 0; i < scores.size(); i++)
+  //ArrayList<String> scores = hentScore();
+  HighscoreDatabase = new SQLite(this, "Highscoreboard.sqlite");
+   //If connection is succesfull
+  if (HighscoreDatabase.connect() )
   {
-    text(scores.get(i), width/2, topTextPlacement + (i+1)*50);
+    //Make Select query
+    for (int i = 0; i < 5; i++)
+    {
+      String queryHigh = "SELECT Name FROM HighscoreData WHERE Highscore="+personalRecordArray[i]+";";
+      HighscoreDatabase.query(queryHigh);
+      println(queryHigh);
+        text("Name: " + HighscoreDatabase.getString("Name") + " \t, Highscore: " + personalRecordArray[i], width/2, topTextPlacement + (i+1)*50);
+    }
   }
+  else
+  {
+    println("Error DB");
+  HighscoreDatabase.close();
   Highscore = false;
+  }
 }
 
 
@@ -463,6 +478,7 @@ ArrayList<String> hentScore() //opens the database, runs
   HighscoreDatabase.close();
   return scores;
 }
+
 
 
 boolean nyBruger(String nyName, String nyPassword, float levelScore) //returnerer om den nye bruger succesfuldt blev oprettet
@@ -556,7 +572,7 @@ void scoreSortering()
       personalRecord.add(HighscoreDatabase.getFloat("Highscore"));
     }
     println(personalRecord);
-    float[] personalRecordArray = new float[personalRecord.size()];
+     personalRecordArray = new float[personalRecord.size()];
     for (int i = 0; i < personalRecord.size(); i++)
     {
       personalRecordArray[i] = personalRecord.get(i);
