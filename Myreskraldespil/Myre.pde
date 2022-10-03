@@ -185,14 +185,14 @@ class Myre
             image(myrereWithoutSkrald[1], 0, 0, w+3, h+3); //plussing with 3, because the myre doesn't perfectly fit the square that it is calculated in
             popMatrix();
           }
-          else // if not currently walking left //<>//
-          { //<>//
-            lastpicture = 2; //<>//
-            pushMatrix(); //<>//
-            translate( location.x + w, location.y); //<>// //<>//
-            scale( -1, 1 ); //<>// //<>//
-            image(myrereWithoutSkrald[2], 0, 0, w+3, h+3); //plussing with 3, because the myre doesn't perfectly fit the square that it is calculated in //<>// //<>//
-            popMatrix(); //<>// //<>//
+          else // if not currently walking left
+          {
+            lastpicture = 2;
+            pushMatrix();
+            translate( location.x + w, location.y); //<>//
+            scale( -1, 1 ); //<>//
+            image(myrereWithoutSkrald[2], 0, 0, w+3, h+3); //plussing with 3, because the myre doesn't perfectly fit the square that it is calculated in //<>//
+            popMatrix(); //<>//
           }
         }
         else //if last thing was walking left without skrald

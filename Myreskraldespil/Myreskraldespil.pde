@@ -435,6 +435,7 @@ void showHighscore()
   {
     text(scores.get(i), width/2, topTextPlacement + (i+1)*50);
   }
+  Highscore = false;
 }
 
 
@@ -498,15 +499,15 @@ void beatscore(String username, float newHighscore) //when you beat your own sco
 {
   //godt gået   <-////nice kommentar
   HighscoreDatabase = new SQLite(this, "Highscoreboard.sqlite");
-  if (HighscoreDatabase.connect() )
+  if (HighscoreDatabase.connect())
   {
     //Skifter til ny highscore, ved det input som funktionen har fået.
-    HighscoreDatabase.execute("UPDATE HighscoreData Highscore = '" + newHighscore + " WHERE Name =" + username + ";");
+    HighscoreDatabase.execute("UPDATE HighscoreData SET Highscore = " + newHighscore + " WHERE Name = '" + username + "';");
   }
   else
   {
     println("Error DB");
-  }  
+  }
   HighscoreDatabase.close();
 }
 
@@ -517,20 +518,21 @@ boolean profilTjek(String loginUsername, String loginPassword) //tjekker om en e
   HighscoreDatabase = new SQLite(this, "Highscoreboard.sqlite");
   if (HighscoreDatabase.connect() )
   {
-    HighscoreDatabase.query("SELECT Name, Password FROM HighscoreData;");
+    HighscoreDatabase.query("SELECT Name, Password, Highscore FROM HighscoreData;");
     while(HighscoreDatabase.next()) //loops through all the names in the highscoredata table, and adds them to an array.
     {
+      println(HighscoreDatabase.getInt("Highscore") + "test" + levelScore);
       if (HighscoreDatabase.getString("Name").equals(loginUsername) && HighscoreDatabase.getString("Password").equals(loginPassword)) //if input matches existing data.
-       {         
-
-         HighscoreDatabase.close();
-         //check if score should be beaten, before login in. TO BE DONE
-         /*
-         HighscoreDatabase.query("SELECT HighscoreData Highscore WHERE Name =" + username);
-         if(levelScore < Highscore
-         */
-         return true;
-       }
+      {
+        //check if score should be beaten, before login in. TO BE DONE
+        println(HighscoreDatabase.getInt("Highscore") + "profiltestst" + levelScore);
+        if(levelScore < HighscoreDatabase.getInt("Highscore")) // if your new score is better than your older one.
+        {
+          HighscoreDatabase.close();
+          beatscore(username.getText(), levelScore);
+        }
+        return true;
+      }
     }
   }
   else
