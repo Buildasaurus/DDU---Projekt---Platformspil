@@ -367,8 +367,10 @@ void winningScreen() // displays the winning image.
 
 void profilside()
 {
-  background(255);
-  fill(0);
+  lastImage();
+  fill(0,200);
+  rect(0,0,width,height);
+  noTint();
   createUserButton.display();
   if (mousePressed && createUserButton.overRect()) //if you click create username 
   {
@@ -441,7 +443,6 @@ void showHighscore()
     {
       String queryHigh = "SELECT Name FROM HighscoreData WHERE Highscore="+personalRecordArray[i]+";";
       HighscoreDatabase.query(queryHigh);
-      println(queryHigh);
         text("Name: " + HighscoreDatabase.getString("Name") + " \t, Highscore: " + personalRecordArray[i], width/2, topTextPlacement + (i+1)*50);
     }
   }
