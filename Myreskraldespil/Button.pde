@@ -1,4 +1,4 @@
-class Button
+  class Button
 {
   PVector location;      // Position of square button
   PVector size;  // Position of circle button
@@ -29,7 +29,7 @@ class Button
   }
   
   boolean overRect()  {
-    if (mouseX >= location.x && mouseX <= location.x+width && mouseY >= location.y && mouseY <= location.y+height) 
+    if (mouseX >= location.x && mouseX <= location.x+size.x && mouseY >= location.y && mouseY <= location.y+size.y) 
     {
       return true;
     } 

@@ -8,9 +8,9 @@ Door door;
 SoundFile deathSound;
 SoundFile gameSound;
 SQLite HighscoreDatabase;
-Button showHighscoreButton;
+Button profilButton;
 Button createUserButton;
-Button signInButton;
+Button logInButton;
 ArrayList<Skrald> skralds = new ArrayList<Skrald>();
 ArrayList<Skraldespand> skraldespands = new ArrayList<Skraldespand>();
 ArrayList<Instruktion> instruktions = new ArrayList<Instruktion>();
@@ -41,7 +41,7 @@ PImage startskaerm, startlogo, startknap;
 PImage front, platforms, Genbrugsknap, sorteringsliste, skipknap, timer;
 PImage banan, pizzabakke, toothbrush;
 PImage madaffaldsspand, plastaffaldsspand, papaffaldsspand, restaffaldsspand;
-PImage tabeskaerm, genstartknap, highscoreScreen;
+PImage tabeskaerm, genstartknap, highscoreScreen, scoreBoard;
 PImage bevaegelsesIns, opsamlingsIns, smidningsIns, maalIns, listeIns, klarBanenIns;
 //fordi den brugte font er meget begrænset i hvilke karakterer den har, så blev det lavet til billeder frem for en reel font.
 PImage myreimage, openDoor, closedDoor;
@@ -61,6 +61,7 @@ void setup()
   front = loadImage("Forgrund.png");
   startskaerm = loadImage("Myrestartskaerm.png");
   highscoreScreen = loadImage("High score skærm.png");
+  scoreBoard = loadImage("Scoreboard.png");
   
   startlogo = loadImage("Startlogo.png");
   startknap = loadImage("Startknap.png");
@@ -127,9 +128,9 @@ void setup()
   
   door = new Door(new PVector(900, 110), openDoor, closedDoor);
   
-  showHighscoreButton = new Button(new PVector(width/2-100, height/2+200-30), new PVector(100, 30), color(40,50,10));
+  profilButton = new Button(new PVector(width/2-50, height/2+200-15), new PVector(100, 30), color(40,50,10));
   createUserButton = new Button(new PVector(width/2, height/2+200), new PVector(200, 50), color(40,50,10));
-  signInButton = new Button(new PVector(width/2-200, height/2+200), new PVector(200, 50), color(100,50,100));
+  logInButton = new Button(new PVector(width/2-100, height/2+200), new PVector(200, 50), color(100,50,100));
 
 }
 
@@ -340,26 +341,15 @@ void winningScreen() // displays the winning image.
     image(dansingMyre2,width/4, height/2,210,240);
     image(dansingMyre1,3*width/4,height/2,210,240);
   }
-  fill(255);
-  rect(width/2,height/2+300,300,100);
-  if (mouseX<(width+150)/2 && mouseX>(width-150)/2 && mouseY<(height+50)/2+100 && mouseY>(height-50)/2+100 && mousePressed)
-  {
-    hentScore();
-    profilSide = true;
-  }
-  if (mouseX<(width+150)/2 && mouseX>(width-150)/2 && mouseY<(height+50)/2+100 && mouseY>(height-50)/2+100 && mousePressed)
-  {
-    profilSide = true;
-    completedLevel = false;
-  }
    rectMode(CORNER);  
-  showHighscoreButton.display();
+  profilButton.display();
   rectMode(CENTER);
-  if(mousePressed && showHighscoreButton.hovered)
+  if(mousePressed && profilButton.hovered)
   {
     username = new GTextField(this, width/2-100, height/2, 200, 50);
     username.setPromptText("Username");
     password = new GPassword(this, width/2-100, height/2+100, 200, 50);
+    hentScore();
     completedLevel = false;
     profilSide = true;
   }
@@ -370,10 +360,12 @@ void winningScreen() // displays the winning image.
 
 void profilside()
 {
-  background(255);
-  fill(0);
+  lastImage();
+  fill(0,200);
+  rect(0,0,width,height);
+  //image();
   createUserButton.display();
-  signInButton.display();
+  logInButton.display();
   if (mousePressed && createUserButton.overRect()) //if you click create username 
   {
     creatingNewUser = true;
