@@ -443,19 +443,18 @@ void showHighscore()
   if (HighscoreDatabase.connect() )
   {
     //Make Select query
-    int j = 0;
-    for (int i = 0; i < 5;)
+    int ypos = 0;
+    for (int i = 0; i < 5; i++)
     {
       String queryHigh = "SELECT Name FROM HighscoreData WHERE Highscore=" + personalRecordArray[i] + ";";
       HighscoreDatabase.query(queryHigh);
-        text("Name: " + HighscoreDatabase.getString("Name") + " \t, Highscore: " + personalRecordArray[i], width/2, topTextPlacement + (i+1)*50);
       println(queryHigh);
+      int loop = 0;
       while(HighscoreDatabase.next()) //loops through all the names in the highscoredata table, and adds them to an array.
       {
-        text("Name: " + HighscoreDatabase.getString("Name") + " \t, Highscore: " + personalRecordArray[j], width/2, topTextPlacement + (i+1)*50);
-        i = i+1;
+        text("Name: " + HighscoreDatabase.getString("Name") + " \t, Highscore: " + personalRecordArray[i], width/2, topTextPlacement + (ypos+1)*50);
+        ypos++; //<>//
       }
-     j += 1;
     }
   }
   else
