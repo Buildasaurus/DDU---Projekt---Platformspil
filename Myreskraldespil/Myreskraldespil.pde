@@ -46,8 +46,8 @@ PImage myreimage, openDoor, closedDoor;
 PImage fullStarSkraldespand, emptyStarSkraldespand, dansingMyre1, dansingMyre2, shine;
 PImage[] myrereWithSkrald = new PImage[3];
 PImage[] myrereWithoutSkrald = new PImage[3];
+PImage logInKnap, signUpKnap, videreTilLoginsiden;
 PFont font;
-String kodeord = "";
 void setup()
 { 
   size(1280,720); // 16:9 ratio
@@ -367,10 +367,8 @@ void winningScreen() // displays the winning image.
 
 void profilside()
 {
-  lastImage();
-  fill(0,200);
-  rect(0,0,width,height);
-  noTint();
+  background(255);
+  fill(0);
   createUserButton.display();
   if (mousePressed && createUserButton.overRect()) //if you click create username 
   {
@@ -441,8 +439,9 @@ void showHighscore()
     //Make Select query
     for (int i = 0; i < 5; i++)
     {
-      String queryHigh = "SELECT Name FROM HighscoreData WHERE Highscore="+personalRecordArray[i]+";";
+      String queryHigh = "SELECT Name FROM HighscoreData WHERE Highscore=" + personalRecordArray[i] + ";";
       HighscoreDatabase.query(queryHigh);
+      println(queryHigh);
         text("Name: " + HighscoreDatabase.getString("Name") + " \t, Highscore: " + personalRecordArray[i], width/2, topTextPlacement + (i+1)*50);
     }
   }
