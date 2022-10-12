@@ -48,7 +48,7 @@ PImage myreimage, openDoor, closedDoor;
 PImage fullStarSkraldespand, emptyStarSkraldespand, dansingMyre1, dansingMyre2, shine;
 PImage[] myrereWithSkrald = new PImage[3];
 PImage[] myrereWithoutSkrald = new PImage[3];
-PImage logInKnap, signUpKnap, videreTilLoginsiden;
+PImage logInKnap, signUpKnap, videreTilLoginsiden, backDrop;
 PFont font;
 void setup()
 { 
@@ -109,6 +109,7 @@ void setup()
   logInKnap = loadImage("Log in knap.png");
   signUpKnap = loadImage("Sign up knap.png");
   videreTilLoginsiden = loadImage("Videre til login.png");
+  backDrop = loadImage("Scoreboard.png");
 
   font = createFont("Dubai-Bold-48.vlw", 24);
   textFont(font);
@@ -367,6 +368,9 @@ void profilside()
   lastImage();
   fill(0,200);
   rect(0,0,width,height);
+  imageMode(CENTER);
+  image(backDrop, width/2,height/2,600,600);
+  imageMode(CORNER);
   createUserButton.display();
   logInButton.display();
   if (mousePressed && createUserButton.overRect()) //if you click create username 
@@ -375,7 +379,7 @@ void profilside()
   }
   if(!creatingNewUser)
   {
-    if (keyPressed && key == ENTER && username.getText() != "" && password.getPassword() != "") //when you enter a valid username and password
+    if ((keyPressed && key == ENTER && username.getText() != "" && password.getPassword() != "")||(mousePressed && logInButton.overRect()&& username.getText() != "" && password.getPassword() != "")) //when you enter a valid username and password
     {
       text(username.getText() + "password: " + password.getPassword(), 200, 200);
       if(profilTjek(username.getText(), password.getPassword()))
@@ -442,7 +446,7 @@ void showHighscore()
     
     //calculate position
     int placement = 0;
-    while(HighscoreDatabase.getFloat("Highscore") >= personalRecordArray[placement])
+    while(HighscoreDatabase.getFloat("Highscore") >= personalRecordArray[placement]) //<>//
     {
       placement++;
     }
@@ -458,7 +462,6 @@ void showHighscore()
   if (HighscoreDatabase.connect() ) //display the highscores
   {
     //Make Select query
-    int ypos = 0;
     int time = 0;
     for (int i = 0; i < 5;)
     {
