@@ -375,6 +375,7 @@ void profilside()
   imageMode(CORNER);
   signUpButton.display();
   logInButton.display();
+  boolean fejlSandt = false;
   if (mousePressed && signUpButton.overRect()) //if you click create username 
   {
     creatingNewUser = true;
@@ -418,7 +419,7 @@ void profilside()
     {
       creatingNewUser = false;
     }
-    if ((keyPressed && key == ENTER && username.getText() != "" && password.getPassword() != "")) //when you enter a valid username and password
+    if ((keyPressed && key == ENTER && username.getText() != "" && password.getPassword() != "")||(mousePressed && signUpButton.overRect()&& username.getText() != "" && password.getPassword() != "")) //when you enter a valid username and password
     {
       if(nyBruger(username.getText(), password.getPassword(), levelScore)) //if it succesfully creates new bruger
       {
@@ -431,16 +432,21 @@ void profilside()
       }
       else
       {
-        text("brugernavn optaget", 0, 0);
+        fejlSandt = true;
       }
     }
   }
+  if (fejlSandt)
+      {
+        fill(255,0,0);
+        text("brugernavn optaget", width/2, height/2+100);
+      }
 }
 
 
 void showHighscore()
 {
-  float topTextPlacement = height/10;
+  float topTextPlacement = height/10; //<>//
   image(highscoreScreen, 0, 0, width, height);
   fill(255);
   
