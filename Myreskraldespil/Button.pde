@@ -2,28 +2,29 @@
 {
   PVector location;      // Position of square button
   PVector size;  // Position of circle button
-  color buttonColor;
   color rectHighlight, circleHighlight;
   boolean hovered;
+  PImage sprite;
   
-  Button(PVector _location, PVector _size, color _buttonColor)
+  Button(PImage _sprite, PVector _location, PVector _size)
   {
     location = _location;
     size = _size;
-    buttonColor = _buttonColor;
+    sprite = _sprite;
   }
   
   void display() {
     if ( overRect()) 
     {
-      fill(buttonColor);
-      rect(location.x, location.y, size.x, size.y);
+      tint(75);
+      image(sprite, location.x, location.y, size.x, size.y);
       hovered = true;
+      noTint();
     }
     else
     {
-      fill(buttonColor + 50);
-      rect(location.x, location.y, size.x, size.y);
+      noTint();
+      image(sprite,location.x, location.y, size.x, size.y);
       hovered = false;
     }
   }

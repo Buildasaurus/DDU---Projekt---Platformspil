@@ -105,6 +105,10 @@ void setup()
   dansingMyre1 = loadImage("Dansemyre 1.png");
   dansingMyre2 = loadImage("Dansemyre 2.png");
   shine = loadImage("Skinnende baggrund.png");
+  
+  logInKnap = loadImage("Log in knap.png");
+  signUpKnap = loadImage("Sign up knap.png");
+  videreTilLoginsiden = loadImage("Videre til login.png");
 
   font = createFont("Dubai-Bold-48.vlw", 24);
   textFont(font);
@@ -128,9 +132,9 @@ void setup()
   
   door = new Door(new PVector(900, 110), openDoor, closedDoor);
   
-  profilButton = new Button(new PVector(width/2-50, height/2+200-15), new PVector(100, 30), color(40,50,10));
-  createUserButton = new Button(new PVector(width/2, height/2+200), new PVector(200, 50), color(40,50,10));
-  logInButton = new Button(new PVector(width/2-100, height/2+200), new PVector(200, 50), color(100,50,100));
+  profilButton = new Button(videreTilLoginsiden, new PVector((width-156)/2, height/2+200-20), new PVector(156, 40));
+  createUserButton = new Button(signUpKnap, new PVector(width/2, height/2+100), new PVector(200, 50));
+  logInButton = new Button(logInKnap, new PVector(width/2-200, height/2+100), new PVector(200, 50));
 
 }
 
@@ -341,14 +345,14 @@ void winningScreen() // displays the winning image.
     image(dansingMyre2,width/4, height/2,210,240);
     image(dansingMyre1,3*width/4,height/2,210,240);
   }
-   rectMode(CORNER);  
+   imageMode(CORNER);  
   profilButton.display();
-  rectMode(CENTER);
+  imageMode(CENTER);
   if(mousePressed && profilButton.hovered)
   {
-    username = new GTextField(this, width/2-100, height/2, 200, 50);
+    username = new GTextField(this, width/2-100, height/2-100, 200, 50);
     username.setPromptText("Username");
-    password = new GPassword(this, width/2-100, height/2+100, 200, 50);
+    password = new GPassword(this, width/2-100, height/2, 200, 50);
     hentScore();
     completedLevel = false;
     profilSide = true;
@@ -363,7 +367,6 @@ void profilside()
   lastImage();
   fill(0,200);
   rect(0,0,width,height);
-  //image();
   createUserButton.display();
   logInButton.display();
   if (mousePressed && createUserButton.overRect()) //if you click create username 
