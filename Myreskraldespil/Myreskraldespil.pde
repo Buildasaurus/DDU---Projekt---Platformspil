@@ -141,6 +141,7 @@ void setup()
 
 void draw()
 {
+  findInfo();
   if (start == true)
    {
      startscreen(); 
@@ -434,7 +435,7 @@ void showHighscore()
   fill(255);
   
   //display nuværende score
-  text("Din nuværende tid: " + levelScore, width/2, topTextPlacement);
+  text("Din nuværende tid: " + levelScore, width/2 + 12, topTextPlacement);
   topTextPlacement += 50;
   
   //display your score, and rank
@@ -450,7 +451,7 @@ void showHighscore()
     {
       placement++;
     }
-    text("Din highscore er: " + HighscoreDatabase.getFloat("Highscore") + "  placering: " + placement, width/2, topTextPlacement);
+    text("Din rekord er: " + HighscoreDatabase.getFloat("Highscore") + "  placering: " + placement, width/2 + 12, topTextPlacement);
   }
   topTextPlacement += 20;
 
@@ -459,6 +460,7 @@ void showHighscore()
   personalRecordArray = removeDups(personalRecordArray); // remove duplicates before displaying, to display correctly.
   HighscoreDatabase = new SQLite(this, "Highscoreboard.sqlite");
    //If connection is succesfull
+  textAlign(LEFT);
   if (HighscoreDatabase.connect() ) //display the highscores
   {
     //Make Select query
@@ -468,19 +470,21 @@ void showHighscore()
       time++;
       String queryHigh = "SELECT Name FROM HighscoreData WHERE Highscore=" + personalRecordArray[i] + ";";
       HighscoreDatabase.query(queryHigh);
-      println(queryHigh);
+      println(queryHigh); //<>//
       while(HighscoreDatabase.next()) //loops through all the names in the highscoredata table, and adds them to an array.
-      {
-        text("Navn: " + HighscoreDatabase.getString("Name") + " \t, Highscore: " + personalRecordArray[time], width/2, topTextPlacement + (i+1)*50);
-        i++; //<>//
+      { //<>//
+        text(i+1 + ": " + HighscoreDatabase.getString("Name"), 474, topTextPlacement + (i+1)*50);
+        text("Rekord: " + personalRecordArray[time], 684, topTextPlacement + (i+1)*50);
+        i++;
       }
-    } //<>//
+    }
   }
   else
   {
     println("Error DB");
     HighscoreDatabase.close();
   }
+  textAlign(CENTER);
   Highscore = false;
 }
 
@@ -717,4 +721,13 @@ void displayTimer() //displays the timer at the top
   fill(255);
   text((frameCount-startFrame)/60, width/2, boxHeight/2); 
   imageMode(CORNER);
+}
+
+
+void findInfo()
+{
+  color col = get(mouseX, mouseY);
+  System.out.println("color is " + col);
+  fill(300, 300, 300);
+  System.out.println("mouse x: " + mouseX + " mouse y: " + mouseY);
 }
