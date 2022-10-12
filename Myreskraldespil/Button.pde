@@ -1,7 +1,7 @@
   class Button
 {
   PVector location;      // Position of square button
-  PVector size;  // Position of circle button
+  PVector size;  //
   color buttonColor;
   color rectHighlight, circleHighlight;
   boolean hovered;

@@ -426,26 +426,49 @@ void showHighscore()
   image(highscoreScreen, 0, 0, width, height);
   fill(255);
   
-  text("your username: " +  username.getText(), width/2, topTextPlacement);
-  //ArrayList<String> scores = hentScore();
+  //display nuværende score
+  text("Din nuværende tid: " + levelScore, width/2, topTextPlacement);
+  topTextPlacement += 50;
+  
+  //display your score, and rank
+  HighscoreDatabase = new SQLite(this, "Highscoreboard.sqlite");
+  //If connection is succesfull
+  if (HighscoreDatabase.connect() ) //display the highscores
+  {
+    HighscoreDatabase.query("SELECT Highscore FROM HighscoreData WHERE Name = '" + username.getText() + "';"); //hent din highscore
+    
+    //calculate position
+    int placement = 0;
+    while(HighscoreDatabase.getFloat("Highscore") >= personalRecordArray[placement])
+    {
+      placement++;
+    }
+    text("Din highscore er: " + HighscoreDatabase.getFloat("Highscore") + "  placering: " + placement, width/2, topTextPlacement);
+  }
+  topTextPlacement += 20;
+
+  
+  //display highscores.
+  personalRecordArray = removeDups(personalRecordArray); // remove duplicates before displaying, to display correctly.
   HighscoreDatabase = new SQLite(this, "Highscoreboard.sqlite");
    //If connection is succesfull
-  if (HighscoreDatabase.connect() )
+  if (HighscoreDatabase.connect() ) //display the highscores
   {
     //Make Select query
     int ypos = 0;
-    for (int i = 0; i < 5; i++)
+    int time = 0;
+    for (int i = 0; i < 5;)
     {
+      time++;
       String queryHigh = "SELECT Name FROM HighscoreData WHERE Highscore=" + personalRecordArray[i] + ";";
       HighscoreDatabase.query(queryHigh);
       println(queryHigh);
-      int loop = 0;
       while(HighscoreDatabase.next()) //loops through all the names in the highscoredata table, and adds them to an array.
       {
-        text("Name: " + HighscoreDatabase.getString("Name") + " \t, Highscore: " + personalRecordArray[i], width/2, topTextPlacement + (ypos+1)*50);
-        ypos++; //<>//
+        text("Navn: " + HighscoreDatabase.getString("Name") + " \t, Highscore: " + personalRecordArray[time], width/2, topTextPlacement + (i+1)*50);
+        i++; //<>//
       }
-    }
+    } //<>//
   }
   else
   {
@@ -577,7 +600,6 @@ void scoreSortering()
     {
       personalRecordArray[i] = personalRecord.get(i);
     }
-    personalRecordArray = removeDups(personalRecordArray);
     personalRecordArray = sort(personalRecordArray);
     println(personalRecordArray);
   }
@@ -669,6 +691,10 @@ void keyPressed() //input function to control the movements of myren.
   if (keyCode == 82 && !profilSide)
   {
     restart();
+  }
+  if (keyCode == 77 && !profilSide)
+  {
+      gameSound.stop();
   }
 }
 
