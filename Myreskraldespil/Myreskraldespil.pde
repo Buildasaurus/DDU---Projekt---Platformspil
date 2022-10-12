@@ -136,7 +136,7 @@ void setup()
   profilButton = new Button(videreTilLoginsiden, new PVector((width-156)/2, height/2+200-20), new PVector(156, 40));
   createUserButton = new Button(signUpKnap, new PVector(width/2, height/2+100), new PVector(200, 50));
   logInButton = new Button(logInKnap, new PVector(width/2-200, height/2+100), new PVector(200, 50));
-
+  
 }
 
 void draw()
@@ -358,6 +358,7 @@ void winningScreen() // displays the winning image.
     hentScore();
     completedLevel = false;
     profilSide = true;
+    password.setMaxWordLength(20);
   }
   imageMode(CORNER);
   rectMode(CORNER);
@@ -465,9 +466,9 @@ void showHighscore()
   {
     //Make Select query
     int time = 0;
-    for (int i = 0; i < 5;)
+    for (int i = 0; i < 5;) //<>//
     {
-      time++;
+      time++; //<>//
       String queryHigh = "SELECT Name FROM HighscoreData WHERE Highscore=" + personalRecordArray[i] + ";";
       HighscoreDatabase.query(queryHigh);
       println(queryHigh); //<>//
