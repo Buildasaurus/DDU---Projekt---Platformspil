@@ -9,7 +9,7 @@ SoundFile deathSound;
 SoundFile gameSound;
 SQLite HighscoreDatabase;
 Button profilButton;
-Button createUserButton;
+Button signUpButton;
 Button logInButton;
 ArrayList<Skrald> skralds = new ArrayList<Skrald>();
 ArrayList<Skraldespand> skraldespands = new ArrayList<Skraldespand>();
@@ -134,7 +134,7 @@ void setup()
   door = new Door(new PVector(900, 110), openDoor, closedDoor);
   
   profilButton = new Button(videreTilLoginsiden, new PVector((width-156)/2, height/2+200-20), new PVector(156, 40));
-  createUserButton = new Button(signUpKnap, new PVector(width/2, height/2+100), new PVector(200, 50));
+  signUpButton = new Button(signUpKnap, new PVector(width/2, height/2+100), new PVector(200, 50));
   logInButton = new Button(logInKnap, new PVector(width/2-200, height/2+100), new PVector(200, 50));
 
 }
@@ -371,14 +371,17 @@ void profilside()
   imageMode(CENTER);
   image(backDrop, width/2,height/2,600,600);
   imageMode(CORNER);
-  createUserButton.display();
+  signUpButton.display();
   logInButton.display();
-  if (mousePressed && createUserButton.overRect()) //if you click create username 
+  if (mousePressed && signUpButton.overRect()) //if you click create username 
   {
     creatingNewUser = true;
   }
   if(!creatingNewUser)
   {
+    textAlign(CENTER);
+    fill(255);
+    text("LOG IN", width/2, height/2-150);
     if ((keyPressed && key == ENTER && username.getText() != "" && password.getPassword() != "")||(mousePressed && logInButton.overRect()&& username.getText() != "" && password.getPassword() != "")) //when you enter a valid username and password
     {
       text(username.getText() + "password: " + password.getPassword(), 200, 200);
@@ -407,7 +410,13 @@ void profilside()
   }
   else
   {
-    if (keyPressed && key == ENTER && username.getText() != "" && password.getPassword() != "") //when you enter a valid username and password
+    fill(255);
+    text("SIGN UP", width/2, height/2-150);
+    if (mousePressed && logInButton.overRect())
+    {
+      creatingNewUser = false;
+    }
+    if ((keyPressed && key == ENTER && username.getText() != "" && password.getPassword() != "")) //when you enter a valid username and password
     {
       if(nyBruger(username.getText(), password.getPassword(), levelScore)) //if it succesfully creates new bruger
       {
@@ -437,7 +446,7 @@ void showHighscore()
   text("Din nuværende tid: " + levelScore, width/2, topTextPlacement);
   topTextPlacement += 50;
   
-  //display your score, and rank
+  //display your score, and rank //<>//
   HighscoreDatabase = new SQLite(this, "Highscoreboard.sqlite");
   //If connection is succesfull
   if (HighscoreDatabase.connect() ) //display the highscores
@@ -446,7 +455,7 @@ void showHighscore()
     
     //calculate position
     int placement = 0;
-    while(HighscoreDatabase.getFloat("Highscore") >= personalRecordArray[placement]) //<>//
+    while(HighscoreDatabase.getFloat("Highscore") >= personalRecordArray[placement])
     {
       placement++;
     }
