@@ -2,7 +2,6 @@
 {
   PVector location;      // Position of square button
   PVector size;  // Position of circle button
-  color rectHighlight, circleHighlight;
   boolean hovered;
   PImage sprite;
   
