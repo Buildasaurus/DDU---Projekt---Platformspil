@@ -141,7 +141,7 @@ void setup()
 
 void draw()
 {
-  findInfo();
+  //findInfo();
   if (start == true)
    {
      startscreen(); 
@@ -411,7 +411,7 @@ void profilside()
       text("Indtast et unikt brugernavn og en kode", width/2, height/2 - 100);
     }
   }
-  else
+  else // if signing up
   {
     fill(255);
     text("SIGN UP", width/2, height/2-150);
@@ -437,10 +437,10 @@ void profilside()
     }
   }
   if (fejlSandt)
-      {
-        fill(255,0,0);
-        text("brugernavn optaget", width/2, height/2+100);
-      }
+  {
+    fill(255,0,0);
+    text("brugernavn optaget", width/2, height/2+100);
+  }
 }
 
 
@@ -463,7 +463,7 @@ void showHighscore()
     
     //calculate position
     int placement = 0;
-    while(HighscoreDatabase.getFloat("Highscore") >= personalRecordArray[placement]) //<>//
+    while(placement < personalRecordArray.length && HighscoreDatabase.getFloat("Highscore") >= personalRecordArray[placement]) //<>//
     {
       placement++;
     }
@@ -550,7 +550,8 @@ boolean nyBruger(String nyName, String nyPassword, float levelScore) //returnere
     
     //if username doesn't exist, code reaches this point.
     //inserts a username, password and score into the highscoreboard.
-    HighscoreDatabase.execute("INSERT INTO HighscoreData (Name, Password, Highscore) VALUES ('" + nyName + "', '" + nyPassword + "', '" + levelScore + "');");   
+    println("den burde inserte");
+    HighscoreDatabase.execute("INSERT INTO HighscoreData (Name, Password, Highscore) VALUES ('" + nyName + "', '" + nyPassword + "', " + levelScore + ");");   
   }
   else
   {
