@@ -24,6 +24,7 @@ boolean Score = true;
 boolean invalidInput;
 boolean erNyName = false;
 boolean creatingNewUser = false;
+boolean fejlSandt = false;
 GPassword password;
 GTextField username;
 
@@ -375,10 +376,10 @@ void profilside()
   imageMode(CORNER);
   signUpButton.display();
   logInButton.display();
-  boolean fejlSandt = false;
   if (mousePressed && signUpButton.overRect()) //if you click create username 
   {
     creatingNewUser = true;
+    fejlSandt = false;
   }
   if(!creatingNewUser)
   {
@@ -387,7 +388,7 @@ void profilside()
     text("LOG IN", width/2, height/2-150);
     if ((keyPressed && key == ENTER && username.getText() != "" && password.getPassword() != "")||(mousePressed && logInButton.overRect()&& username.getText() != "" && password.getPassword() != "")) //when you enter a valid username and password
     {
-      text(username.getText() + "password: " + password.getPassword(), 200, 200);
+      fejlSandt = false;      
       if(profilTjek(username.getText(), password.getPassword()))
       {
         println(password.getPassword());
@@ -399,7 +400,7 @@ void profilside()
       }
       else
       {
-        text("forkert password brugernavn kombination", 100, 100);
+        fejlSandt = true;
       }
     }
     else if(keyPressed && key == ENTER)
@@ -409,6 +410,11 @@ void profilside()
     if(invalidInput)
     {
       text("Indtast et unikt brugernavn og en kode", width/2, height/2 - 100);
+    }
+    if (fejlSandt)
+    {
+      fill(255,0,0);
+      text("Forket brugernavn eller kode", width/2, height/2+75); 
     }
   }
   else // if signing up
@@ -435,12 +441,13 @@ void profilside()
         fejlSandt = true;
       }
     }
+    if (fejlSandt)
+      {
+        fill(255,0,0);
+        text("brugernavn optaget", width/2, height/2+75);
+      }
   }
-  if (fejlSandt)
-  {
-    fill(255,0,0);
-    text("brugernavn optaget", width/2, height/2+100);
-  }
+
 }
 
 
