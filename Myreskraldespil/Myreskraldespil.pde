@@ -134,7 +134,7 @@ void setup()
   
   door = new Door(new PVector(900, 110), openDoor, closedDoor);
   
-  profilButton = new Button(videreTilLoginsiden, new PVector((width-156)/2, height/2+200-20), new PVector(156, 40));
+  profilButton = new Button(videreTilLoginsiden, new PVector(width/2-156, height/2+200-40), new PVector(312, 80));
   signUpButton = new Button(signUpKnap, new PVector(width/2, height/2+100), new PVector(200, 50));
   logInButton = new Button(logInKnap, new PVector(width/2-200, height/2+100), new PVector(200, 50));
   
