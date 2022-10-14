@@ -446,7 +446,7 @@ void profilside()
         fill(255,0,0);
         text("brugernavn optaget", width/2, height/2+75);
       }
-  }
+  } //<>//
 
 }
 
@@ -454,7 +454,7 @@ void profilside()
 void showHighscore()
 {
   float topTextPlacement = height/10; //<>//
-  image(highscoreScreen, 0, 0, width, height);
+  image(highscoreScreen, 0, 0, width, height); //<>//
   fill(255);
   
   //display nuværende score
@@ -463,7 +463,7 @@ void showHighscore()
   
   //display your score, and rank //<>//
   HighscoreDatabase = new SQLite(this, "Highscoreboard.sqlite");
-  //If connection is succesfull
+  //If connection is succesfull //<>//
   if (HighscoreDatabase.connect() ) //display the highscores
   {
     HighscoreDatabase.query("SELECT Highscore FROM HighscoreData WHERE Name = '" + username.getText() + "';"); //hent din highscore
@@ -472,9 +472,9 @@ void showHighscore()
     int placement = 0;
     while(placement < personalRecordArray.length && HighscoreDatabase.getFloat("Highscore") >= personalRecordArray[placement]) //<>//
     {
-      placement++;
+      placement++; //<>//
     }
-    text("Din rekord er: " + HighscoreDatabase.getFloat("Highscore") + "  placering: " + placement, width/2 + 12, topTextPlacement);
+    text("Din rekord er: " + HighscoreDatabase.getFloat("Highscore") + "  placering: " + placement, width/2 + 12, topTextPlacement); //<>//
   }
   topTextPlacement += 20;
 
@@ -485,9 +485,9 @@ void showHighscore()
    //If connection is succesfull
   textAlign(LEFT);
   if (HighscoreDatabase.connect() ) //display the highscores
-  {
+  { //<>//
     //Make Select query
-    int time = 0;
+    int time = 0; //<>//
     for (int i = 0; i < 5;)
     {
       String queryHigh = "SELECT Name FROM HighscoreData WHERE Highscore=" + personalRecordArray[i] + ";";
@@ -662,6 +662,7 @@ void restart() //restarts the game, by setting everything to its start value.
     println("kan ikke lukke");
   }
   Game = true;
+  fejlSandt = false;
   gameSound.stop();
   creatingNewUser = false;
   Liste = false;
